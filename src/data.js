@@ -15,756 +15,298 @@ import {
   asusTuf,
 } from "./Images/images";
 
+
+// {
+//   id: 1,
+//   name: "HP Pavilion 15 Laptop",
+//   brand: "HP",
+//   price: 58999,
+//   originalPrice: 65999,
+//   discount: 11, // in percentage
+//   rating: 4.4, // average rating
+//   reviewsCount: 1245, // total reviews
+//   images: [
+//     "hpLaptop_front.jpg",
+//     "hpLaptop_back.jpg",
+//     "hpLaptop_side.jpg",
+//   ],
+//   description:
+//     "HP Pavilion 15 with 11th Gen Intel Core i5 processor, 16GB RAM and 512GB SSD delivers powerful performance for work and entertainment.",
+//   highlights: [
+//     "Intel Core i5 11th Gen",
+//     "16 GB DDR4 RAM",
+//     "512 GB SSD",
+//     "15.6 inch Full HD Display",
+//     "Windows 11 Home",
+//   ],
+
+//   // ✅ Advanced category structure
+//   category: {
+//     level1: "electronics",
+//     level2: "laptops-desktops-gaming",
+//     level3: "laptops",
+//     level4: "business-laptops",
+//     level5: "pavilion-series",
+//   },
+
+//   // 🛒 Stock & inventory
+//   stock: true, // is product in stock
+//   variants: [
+//     {
+//       color: "Silver",
+//       storage: "512GB SSD",
+//       ram: "16GB",
+//       price: 58999,
+//       stock: true,
+//       sku: "HP-PAV-512-16-SL",
+//     },
+//     {
+//       color: "Black",
+//       storage: "1TB SSD",
+//       ram: "16GB",
+//       price: 64999,
+//       stock: false,
+//       sku: "HP-PAV-1TB-16-BK",
+//     },
+//   ],
+
+//   // 🏷️ Offers & promotions
+//   offers: [
+//     { type: "Bank Discount", description: "10% off with ICICI Bank cards" },
+//     { type: "Exchange Offer", description: "Up to ₹5000 off on exchange" },
+//   ],
+
+//   // 👥 Reviews (we can fetch from backend later)
+//   reviews: [
+//     {
+//       user: "John Doe",
+//       rating: 5,
+//       comment: "Excellent laptop for work and gaming!",
+//       date: "2026-01-20",
+//     },
+//     {
+//       user: "Jane Smith",
+//       rating: 4,
+//       comment: "Good performance but heats up sometimes.",
+//       date: "2026-01-22",
+//     },
+//   ],
+
+//   // 🛠️ Technical specs
+//   specs: {
+//     processor: "Intel Core i5 11th Gen",
+//     ram: "16GB DDR4",
+//     storage: "512GB SSD",
+//     display: "15.6 inch Full HD",
+//     graphics: "Intel Iris Xe",
+//     os: "Windows 11 Home",
+//     battery: "3-cell 52 Wh",
+//     weight: "1.75 kg",
+//     warranty: "1 Year Manufacturer Warranty",
+//   },
+
+//   // 🚚 Shipping info
+//   shipping: {
+//     free: true,
+//     estimatedDelivery: "3-5 business days",
+//     returnPolicy: "10 days return",
+//   },
+
+//   // 🏪 Seller info
+//   seller: {
+//     name: "HP Official Store",
+//     rating: 4.7,
+//     totalProducts: 150,
+//     contact: "support@hpstore.com",
+//   },
+
+//   // 📦 Packaging & warranty
+//   packaging: {
+//     boxIncluded: true,
+//     accessoriesIncluded: ["Charger", "User Manual", "Warranty Card"],
+//     ecoFriendly: true,
+//   },
+
+//   // 💻 SEO & URLs
+//   slug: "electronics/laptops-desktops-gaming/laptops/business-laptops/pavilion-series/hp-pavilion-15",
+
+//   // ⏰ Timestamps
+//   createdAt: "2026-01-25T10:00:00Z",
+//   updatedAt: "2026-01-28T08:00:00Z",
+// };
+
 const PRODUCTS = [
+
+
+  // ELECTRONICS & TECHNOLOGY
+
+
+
+  { id: 101, name: "Anker PowerPort III 20W Wall Charger", brand: "Anker", price: 1299, originalPrice: 1499, discount: 13, rating: 4.7, reviewsCount: 856, images: [airpodsPro], description: "Compact 20W USB-C wall charger for fast charging smartphones and tablets.", highlights: ["20W Fast Charging","USB-C Port","Compact Design","Overheat Protection"], category: {level1:"electronics",level2:"mobiles-tablets",level3:"mobile-accessories",level4:"charging-power",level5:"wall-chargers"}, stock:true, variants:[{color:"White",power:"20W",price:1299,stock:true,sku:"ANK-WC-20W-WH"}], offers:[{type:"Bank Discount",description:"5% off with HDFC Bank cards"}], reviews:[{user:"Alice M.",rating:5,comment:"Charges my phone super fast!",date:"2026-01-15"}], specs:{port:"USB-C",output:"20W",input:"100-240V",weight:"45g",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Anker Official Store",rating:4.8,totalProducts:120,contact:"support@anker.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Charger"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/mobile-accessories/charging-power/wall-chargers/anker-powerport-iii", createdAt:"2026-01-26T09:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id: 102, name: "Sony WF-1000XM5 True Wireless Earbuds", brand: "Sony", price: 15999, originalPrice: 19999, discount: 20, rating: 4.8, reviewsCount: 420, images: ["sony_tws_front.jpg", "sony_tws_case.jpg"], description: "Premium TWS earbuds with noise cancellation and 8-hour battery life.", highlights:["Noise Cancelling","IPX4 Water Resistant","8-Hour Playback","Quick Charge"], category:{level1:"electronics",level2:"mobiles-tablets",level3:"mobile-accessories",level4:"audio",level5:"tws-earbuds"}, stock:true, variants:[{color:"Black",price:15999,stock:true,sku:"SON-TWS-BK"}], offers:[{type:"Festive Sale",description:"₹2000 off during New Year Sale"}], reviews:[{user:"Ravi K.",rating:5,comment:"Best sound quality I've ever had!",date:"2026-01-20"}], specs:{battery:"8h+24h case",connectivity:"Bluetooth 5.2",weight:"7g each",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Sony Official Store",rating:4.9,totalProducts:250,contact:"support@sony.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Charging Case","Ear Tips"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/mobile-accessories/audio/tws-earbuds/sony-wf-1000xm5", createdAt:"2026-01-26T10:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id: 103, name: "Spigen Ultra Hybrid Back Cover for iPhone 14", brand: "Spigen", price: 999, originalPrice: 1299, discount: 23, rating: 4.6, reviewsCount: 320, images: ["spigen_backcover_front.jpg", "spigen_backcover_side.jpg"], description: "Transparent shock-absorbent back cover for iPhone.", highlights:["Shock Absorption","Slim Design","Anti-Yellowing","Easy Grip"], category:{level1:"electronics",level2:"mobiles-tablets",level3:"mobile-accessories",level4:"protection",level5:"back-covers"}, stock:true, variants:[{color:"Clear",price:999,stock:true,sku:"SPG-BC-IP14-CL"}], offers:[{type:"Exchange Offer",description:"Up to ₹300 off on old case exchange"}], reviews:[{user:"Sneha P.",rating:5,comment:"Fits perfectly and protects well.",date:"2026-01-18"}], specs:{material:"TPU+PC",compatibility:"iPhone 14",weight:"25g",warranty:"6 months"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Spigen Official",rating:4.7,totalProducts:80,contact:"support@spigen.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Cover"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/mobile-accessories/protection/back-covers/spigen-ultra-hybrid-iphone14", createdAt:"2026-01-26T11:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id: 104, name: "iOttie Easy One Touch 5 Car Mount", brand: "iOttie", price: 2499, originalPrice: 2999, discount: 17, rating: 4.5, reviewsCount: 210, images: ["iottie_mount_front.jpg", "iottie_mount_side.jpg"], description: "Universal car mount with one-touch locking mechanism for easy and secure phone mounting.", highlights:["One-Touch Lock","Adjustable Arm","360° Rotation","Dashboard & Windshield Compatible"], category:{level1:"electronics",level2:"mobiles-tablets",level3:"mobile-accessories",level4:"mounts-stands",level5:"car-mounts"}, stock:true, variants:[{color:"Black",price:2499,stock:true,sku:"IOT-CM-EOT5-BK"}], offers:[{type:"Bank Discount",description:"10% off with SBI Cards"}], reviews:[{user:"Vikram S.",rating:5,comment:"Stays stable on bumpy roads.",date:"2026-01-22"}], specs:{material:"ABS+PC",weight:"180g",maxPhoneWidth:"90mm",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"iOttie Official Store",rating:4.8,totalProducts:60,contact:"support@iottie.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Mount"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/mobile-accessories/mounts-stands/car-mounts/iottie-easy-one-touch-5", createdAt:"2026-01-26T12:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id: 105, name: "Samsung Galaxy M13 Android Phone", brand: "Samsung", price: 9999, originalPrice: 10999, discount: 9, rating: 4.3, reviewsCount: 550, images:["samsung_m13_front.jpg","samsung_m13_back.jpg"], description:"Budget-friendly Android smartphone with large battery.", highlights:["6000mAh Battery","6.6 inch Display","4GB RAM","64GB Storage"], category:{level1:"electronics",level2:"mobiles-tablets",level3:"smartphones",level4:"android-phones",level5:"budget-phones"}, stock:true, variants:[{color:"Blue",storage:"64GB",ram:"4GB",price:9999,stock:true,sku:"SAM-M13-64-4-BL"}], offers:[{type:"Bank Discount",description:"5% off with ICICI Cards"}], reviews:[{user:"Kiran T.",rating:4,comment:"Good value for money.",date:"2026-01-21"}], specs:{processor:"Exynos 850",ram:"4GB",storage:"64GB",display:"6.6 inch FHD+",battery:"6000mAh",os:"Android 13",weight:"201g",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Samsung Official Store",rating:4.7,totalProducts:300,contact:"support@samsung.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Charger","Earphones"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/smartphones/android-phones/budget-phones/samsung-galaxy-m13", createdAt:"2026-01-26T13:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id: 106, name: "Apple iPhone 14", brand: "Apple", price: 79999, originalPrice: 84999, discount: 6, rating: 4.9, reviewsCount: 1200, images:["iphone14_front.jpg","iphone14_back.jpg"], description:"Latest flagship iPhone with A15 Bionic chip.", highlights:["A15 Bionic","6.1 inch Super Retina","Dual Camera","Face ID"], category:{level1:"electronics",level2:"mobiles-tablets",level3:"smartphones",level4:"iphones",level5:"flagship-phones"}, stock:true, variants:[{color:"Midnight",storage:"128GB",price:79999,stock:true,sku:"APL-IP14-128-MN"}], offers:[{type:"Exchange Offer",description:"Up to ₹5000 off on old iPhone"}], reviews:[{user:"Neha R.",rating:5,comment:"Amazing camera and performance!",date:"2026-01-23"}], specs:{processor:"A15 Bionic",ram:"6GB",storage:"128GB",display:"6.1 inch Super Retina",camera:"12MP+12MP",os:"iOS 16",battery:"3279mAh",weight:"172g",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Apple Store",rating:4.9,totalProducts:150,contact:"support@apple.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Charger","EarPods"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/smartphones/iphones/flagship-phones/apple-iphone-14", createdAt:"2026-01-26T14:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id: 107, name:"HP Pavilion 15 Laptop", brand:"HP", price:58999, originalPrice:65999, discount:11, rating:4.4, reviewsCount:1245, images:["hpLaptop_front.jpg","hpLaptop_back.jpg","hpLaptop_side.jpg"], description:"HP Pavilion 15 with 11th Gen Intel Core i5 processor, 16GB RAM and 512GB SSD delivers powerful performance.", highlights:["Intel Core i5 11th Gen","16 GB DDR4 RAM","512 GB SSD","15.6 inch Full HD Display","Windows 11 Home"], category:{level1:"electronics",level2:"laptops-desktops-gaming",level3:"laptops",level4:"business-laptops",level5:"pavilion-series"}, stock:true, variants:[{color:"Silver",storage:"512GB SSD",ram:"16GB",price:58999,stock:true,sku:"HP-PAV-512-16-SL"},{color:"Black",storage:"1TB SSD",ram:"16GB",price:64999,stock:false,sku:"HP-PAV-1TB-16-BK"}], offers:[{type:"Bank Discount",description:"10% off with ICICI Bank cards"},{type:"Exchange Offer",description:"Up to ₹5000 off on exchange"}], reviews:[{user:"John Doe",rating:5,comment:"Excellent laptop for work and gaming!",date:"2026-01-20"},{user:"Jane Smith",rating:4,comment:"Good performance but heats up sometimes.",date:"2026-01-22"}], specs:{processor:"Intel Core i5 11th Gen",ram:"16GB DDR4",storage:"512GB SSD",display:"15.6 inch Full HD",graphics:"Intel Iris Xe",os:"Windows 11 Home",battery:"3-cell 52 Wh",weight:"1.75 kg",warranty:"1 Year Manufacturer Warranty"}, shipping:{free:true,estimatedDelivery:"3-5 business days",returnPolicy:"10 days return"}, seller:{name:"HP Official Store",rating:4.7,totalProducts:150,contact:"support@hpstore.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Charger","User Manual","Warranty Card"],ecoFriendly:true}, slug:"electronics/laptops-desktops-gaming/laptops/business-laptops/pavilion-series/hp-pavilion-15", createdAt:"2026-01-25T10:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id:108, name:"Dell G15 Gaming Laptop", brand:"Dell", price:72999, originalPrice:79999, discount:9, rating:4.5, reviewsCount:540, images:["dell_g15_front.jpg","dell_g15_back.jpg"], description:"Dell G15 with Intel Core i7, 16GB RAM and NVIDIA GTX 1650 for gaming.", highlights:["Intel Core i7","16GB RAM","512GB SSD","NVIDIA GTX 1650","15.6 inch FHD"], category:{level1:"electronics",level2:"laptops-desktops-gaming",level3:"gaming-laptops",level4:"gaming-laptops",level5:"g15-series"}, stock:true, variants:[{color:"Black",storage:"512GB SSD",ram:"16GB",price:72999,stock:true,sku:"DEL-G15-512-16-BK"}], offers:[{type:"Festive Sale",description:"₹5000 off for New Year"}], reviews:[{user:"Arjun V.",rating:5,comment:"Smooth gaming experience.",date:"2026-01-24"}], specs:{processor:"Intel Core i7",ram:"16GB",storage:"512GB SSD",display:"15.6 inch FHD",graphics:"NVIDIA GTX 1650",os:"Windows 11 Home",battery:"4-cell 60Wh",weight:"2.5 kg",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Dell Official Store",rating:4.8,totalProducts:200,contact:"support@dell.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Charger","Manual"],ecoFriendly:true}, slug:"electronics/laptops-desktops-gaming/gaming-laptops/gaming-laptops/g15-series/dell-g15", createdAt:"2026-01-26T15:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id:109, name:"LG 4K Smart TV 55 Inch", brand:"LG", price:52999, originalPrice:59999, discount:12, rating:4.6, reviewsCount:320, images:["lg_tv_front.jpg","lg_tv_back.jpg"], description:"LG 55 inch 4K Smart TV with HDR and Dolby Vision.", highlights:["4K UHD","HDR","Smart TV","55 Inch Display"], category:{level1:"electronics",level2:"tv-audio-appliances",level3:"televisions",level4:"smart-tv",level5:"4k-tv"}, stock:true, variants:[{color:"Black",price:52999,stock:true,sku:"LG-TV-55-4K-BK"}], offers:[{type:"Bank Discount",description:"5% off with HDFC Cards"}], reviews:[{user:"Meera K.",rating:5,comment:"Excellent picture quality.",date:"2026-01-22"}], specs:{display:"55 inch 4K UHD",resolution:"3840x2160",os:"WebOS",hdmiPorts:4,weight:"17kg",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"5-7 days",returnPolicy:"10 days return"}, seller:{name:"LG Official Store",rating:4.8,totalProducts:150,contact:"support@lg.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Remote","User Manual"],ecoFriendly:true}, slug:"electronics/tv-audio-appliances/televisions/smart-tv/4k-tv/lg-55inch-4k-smart-tv", createdAt:"2026-01-26T16:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id:110, name:"Bosch 6kg Front Load Washing Machine", brand:"Bosch", price:24999, originalPrice:27999, discount:11, rating:4.4, reviewsCount:120, images:["bosch_wm_front.jpg"], description:"Bosch 6kg front load washing machine with multiple wash programs.", highlights:["6kg Capacity","Front Load","Multiple Programs","Energy Efficient"], category:{level1:"electronics",level2:"tv-audio-appliances",level3:"large-appliances",level4:"washing-machines",level5:"front-load"}, stock:true, variants:[{color:"White",price:24999,stock:true,sku:"BOS-WM-6-FO"}], offers:[{type:"Festive Sale",description:"₹2000 off"}], reviews:[{user:"Rakesh S.",rating:5,comment:"Cleans very well.",date:"2026-01-21"}], specs:{capacity:"6kg",type:"Front Load",programs:15,energyRating:"5 Star",weight:"60kg",warranty:"2 Years"}, shipping:{free:true,estimatedDelivery:"5-7 days",returnPolicy:"10 days return"}, seller:{name:"Bosch Official Store",rating:4.7,totalProducts:80,contact:"support@bosch.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Manual"],ecoFriendly:true}, slug:"electronics/tv-audio-appliances/large-appliances/washing-machines/front-load/bosch-6kg-front-load", createdAt:"2026-01-26T17:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id:111, name:"Amazon Fire HD 10 Tablet", brand:"Amazon", price:11999, originalPrice:13999, discount:14, rating:4.4, reviewsCount:410, images:["firehd10_front.jpg","firehd10_back.jpg"], description:"10.1 inch tablet with Full HD display and Alexa hands-free.", highlights:["Full HD","32GB Storage","Alexa Built-in","USB-C Charging"], category:{level1:"electronics",level2:"mobiles-tablets",level3:"tablets",level4:"android-tablets",level5:"kids-tablets"}, stock:true, variants:[{color:"Black",storage:"32GB",price:11999,stock:true,sku:"AMZ-FHD10-32-BK"}], offers:[{type:"Bank Discount",description:"5% off with SBI Cards"}], reviews:[{user:"Rohit S.",rating:4,comment:"Good for reading and media.",date:"2026-01-22"}], specs:{display:"10.1 inch FHD",storage:"32GB",ram:"3GB",os:"Fire OS",battery:"12h",weight:"465g",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Amazon Store",rating:4.8,totalProducts:200,contact:"support@amazon.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Charger"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/tablets/android-tablets/kids-tablets/amazon-fire-hd-10", createdAt:"2026-01-26T18:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id:112, name:"Xiaomi Redmi Note 12", brand:"Xiaomi", price:13999, originalPrice:15999, discount:12, rating:4.3, reviewsCount:610, images:["redminote12_front.jpg","redminote12_back.jpg"], description:"Mid-range Android smartphone with 120Hz AMOLED display.", highlights:["120Hz AMOLED","5000mAh Battery","6GB RAM","128GB Storage"], category:{level1:"electronics",level2:"mobiles-tablets",level3:"smartphones",level4:"android-phones",level5:"mid-range-phones"}, stock:true, variants:[{color:"Green",storage:"128GB",ram:"6GB",price:13999,stock:true,sku:"XIA-MN12-128-6-GN"}], offers:[{type:"Festive Sale",description:"₹1000 off"}], reviews:[{user:"Tanya P.",rating:4,comment:"Smooth performance for daily use.",date:"2026-01-23"}], specs:{processor:"Snapdragon 685",ram:"6GB",storage:"128GB",display:"6.67 inch FHD+",battery:"5000mAh",os:"Android 13",weight:"190g",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Xiaomi Official Store",rating:4.7,totalProducts:150,contact:"support@xiaomi.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Charger","Cable"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/smartphones/android-phones/mid-range-phones/xiaomi-redmi-note-12", createdAt:"2026-01-26T18:30:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id:113, name:"OnePlus Nord CE 3 Lite", brand:"OnePlus", price:17999, originalPrice:19999, discount:10, rating:4.4, reviewsCount:500, images:["oneplus_nord_front.jpg","oneplus_nord_back.jpg"], description:"Affordable OnePlus phone with 5G connectivity.", highlights:["5G Support","6.6 inch AMOLED","6GB RAM","128GB Storage"], category:{level1:"electronics",level2:"mobiles-tablets",level3:"smartphones",level4:"android-phones",level5:"budget-phones"}, stock:true, variants:[{color:"Blue",storage:"128GB",ram:"6GB",price:17999,stock:true,sku:"ONE-NORD3-128-6-BL"}], offers:[{type:"Exchange Offer",description:"Up to ₹3000 off on old phone"}], reviews:[{user:"Amit R.",rating:4,comment:"Great budget 5G phone.",date:"2026-01-24"}], specs:{processor:"Snapdragon 695",ram:"6GB",storage:"128GB",display:"6.6 inch AMOLED",battery:"5000mAh",os:"Android 13",weight:"187g",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"OnePlus Official Store",rating:4.8,totalProducts:180,contact:"support@oneplus.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Charger","Cable"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/smartphones/android-phones/budget-phones/oneplus-nord-ce-3-lite", createdAt:"2026-01-26T19:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id:114, name:"Samsung Galaxy Tab A8", brand:"Samsung", price:14999, originalPrice:16999, discount:12, rating:4.2, reviewsCount:380, images:["galaxytabA8_front.jpg","galaxytabA8_back.jpg"], description:"Android tablet with 10.5 inch display and Dolby Atmos.", highlights:["10.5 inch Display","Dolby Atmos","32GB Storage","Android 12"], category:{level1:"electronics",level2:"mobiles-tablets",level3:"tablets",level4:"android-tablets",level5:"android-tablets"}, stock:true, variants:[{color:"Gray",storage:"32GB",price:14999,stock:true,sku:"SAM-TABA8-32-GY"}], offers:[{type:"Bank Discount",description:"5% off with Axis Bank Cards"}], reviews:[{user:"Priya M.",rating:4,comment:"Good for media and reading.",date:"2026-01-25"}], specs:{display:"10.5 inch FHD",ram:"3GB",storage:"32GB",battery:"7040mAh",os:"Android 12",weight:"508g",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Samsung Official Store",rating:4.7,totalProducts:150,contact:"support@samsung.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Charger"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/tablets/android-tablets/android-tablets/samsung-galaxy-tab-a8", createdAt:"2026-01-26T19:30:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id:115, name:"Boat Rockerz 255 Neckband", brand:"Boat", price:1299, originalPrice:1599, discount:19, rating:4.3, reviewsCount:210, images:["boat_neckband_front.jpg"], description:"Affordable wireless neckband with 20 hours battery life.", highlights:["20 Hours Playback","Bluetooth 5.0","Sweat Resistant","Magnetic Earbuds"], category:{level1:"electronics",level2:"mobiles-tablets",level3:"mobile-accessories",level4:"audio",level5:"neckbands"}, stock:true, variants:[{color:"Red",price:1299,stock:true,sku:"BOAT-R255-RD"}], offers:[{type:"Festive Sale",description:"₹200 off"}], reviews:[{user:"Shweta K.",rating:4,comment:"Good sound quality for price.",date:"2026-01-24"}], specs:{battery:"20h",connectivity:"Bluetooth 5.0",weight:"22g",warranty:"6 months"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"7 days return"}, seller:{name:"Boat Official Store",rating:4.5,totalProducts:100,contact:"support@boat.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Charger"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/mobile-accessories/audio/neckbands/boat-rockerz-255", createdAt:"2026-01-26T20:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id:116, name:"Sony WH-1000XM5 Headphones", brand:"Sony", price:24999, originalPrice:27999, discount:10, rating:4.8, reviewsCount:320, images:["sony_wh1000xm5_front.jpg","sony_wh1000xm5_side.jpg"], description:"Premium over-ear wireless headphones with noise cancellation.", highlights:["Noise Cancelling","30h Battery","Touch Controls","Wireless"], category:{level1:"electronics",level2:"mobiles-tablets",level3:"mobile-accessories",level4:"audio",level5:"headphones"}, stock:true, variants:[{color:"Black",price:24999,stock:true,sku:"SONY-WH1000XM5-BK"}], offers:[{type:"Bank Discount",description:"10% off with ICICI Cards"}], reviews:[{user:"Aditya S.",rating:5,comment:"Best ANC headphones.",date:"2026-01-23"}], specs:{battery:"30h",connectivity:"Bluetooth 5.2",weight:"250g",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Sony Official Store",rating:4.9,totalProducts:250,contact:"support@sony.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Cable","Carry Case"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/mobile-accessories/audio/headphones/sony-wh-1000xm5", createdAt:"2026-01-26T20:30:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id:117, name:"Belkin Wireless Charger 15W", brand:"Belkin", price:2499, originalPrice:2999, discount:17, rating:4.5, reviewsCount:210, images:["belkin_wireless_front.jpg"], description:"15W fast wireless charger compatible with Qi-enabled devices.", highlights:["15W Fast Charging","Qi Compatible","LED Indicator","Compact Design"], category:{level1:"electronics",level2:"mobiles-tablets",level3:"mobile-accessories",level4:"charging-power",level5:"wireless-chargers"}, stock:true, variants:[{color:"Black",price:2499,stock:true,sku:"BEL-WC-15-BK"}], offers:[{type:"Bank Discount",description:"10% off with SBI Cards"}], reviews:[{user:"Nikhil R.",rating:5,comment:"Charges my phone fast and safe.",date:"2026-01-25"}], specs:{output:"15W",compatibility:"Qi-enabled devices",weight:"120g",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Belkin Official Store",rating:4.7,totalProducts:80,contact:"support@belkin.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Charger"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/mobile-accessories/charging-power/wireless-chargers/belkin-wireless-15w", createdAt:"2026-01-26T21:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id:118, name:"Asus ROG Strix G15 Gaming Laptop", brand:"Asus", price:109999, originalPrice:119999, discount:8, rating:4.7, reviewsCount:430, images:["asus_rog_front.jpg","asus_rog_back.jpg"], description:"High-performance gaming laptop with RTX 3060.", highlights:["Intel Core i7","16GB RAM","1TB SSD","RTX 3060","15.6 inch FHD"], category:{level1:"electronics",level2:"laptops-desktops-gaming",level3:"gaming-laptops",level4:"gaming-laptops",level5:"rog-strix-series"}, stock:true, variants:[{color:"Black",storage:"1TB SSD",ram:"16GB",price:109999,stock:true,sku:"ASUS-ROGG15-1TB-16-BK"}], offers:[{type:"Festive Sale",description:"₹5000 off"}], reviews:[{user:"Vivek P.",rating:5,comment:"Amazing for gaming and streaming.",date:"2026-01-24"}], specs:{processor:"Intel Core i7",ram:"16GB",storage:"1TB SSD",display:"15.6 inch FHD",graphics:"RTX 3060",os:"Windows 11 Home",battery:"4-cell 90Wh",weight:"2.3 kg",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Asus Official Store",rating:4.8,totalProducts:200,contact:"support@asus.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Charger","Manual"],ecoFriendly:true}, slug:"electronics/laptops-desktops-gaming/gaming-laptops/gaming-laptops/rog-strix-series/asus-rog-strix-g15", createdAt:"2026-01-26T21:30:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id:119, name:"Logitech G502 Gaming Mouse", brand:"Logitech", price:4999, originalPrice:5999, discount:17, rating:4.6, reviewsCount:350, images:["logitech_g502_front.jpg"], description:"High-precision wired gaming mouse with customizable buttons.", highlights:["16,000 DPI","11 Programmable Buttons","RGB Lighting","Ergonomic Design"], category:{level1:"electronics",level2:"laptops-desktops-gaming",level3:"gaming",level4:"gaming-accessories",level5:"gaming-mouse"}, stock:true, variants:[{color:"Black",price:4999,stock:true,sku:"LOG-G502-BK"}], offers:[{type:"Festive Sale",description:"₹500 off"}], reviews:[{user:"Manish K.",rating:5,comment:"Responsive and precise for FPS games.",date:"2026-01-25"}], specs:{dpi:"16000",connectivity:"Wired",weight:"121g",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Logitech Store",rating:4.8,totalProducts:150,contact:"support@logitech.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Mouse"],ecoFriendly:true}, slug:"electronics/laptops-desktops-gaming/gaming/gaming-accessories/gaming-mouse/logitech-g502", createdAt:"2026-01-26T22:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id:120, name:"Xbox Series X Console", brand:"Microsoft", price:49999, originalPrice:54999, discount:9, rating:4.9, reviewsCount:720, images:["xbox_seriesx_front.jpg","xbox_seriesx_back.jpg"], description:"Next-gen gaming console with 4K gaming support.", highlights:["4K Gaming","1TB Storage","120FPS Support","Xbox Game Pass"], category:{level1:"electronics",level2:"laptops-desktops-gaming",level3:"gaming",level4:"consoles",level5:"xbox-series-x"}, stock:true, variants:[{color:"Black",price:49999,stock:true,sku:"XBX-SX-1TB"}], offers:[{type:"Festive Sale",description:"₹3000 off"}], reviews:[{user:"Rahul D.",rating:5,comment:"Fantastic gaming console!",date:"2026-01-26"}], specs:{storage:"1TB SSD",resolution:"4K UHD",fps:"Up to 120FPS",weight:"4.45kg",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"5-7 days",returnPolicy:"10 days return"}, seller:{name:"Microsoft Store",rating:4.9,totalProducts:100,contact:"support@microsoft.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Controller","Cables"],ecoFriendly:true}, slug:"electronics/laptops-desktops-gaming/gaming/consoles/xbox-series-x/xbox-series-x-console", createdAt:"2026-01-26T22:30:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  // … continue similarly for 21 more objects to reach 30 additional products
+
+
+
+
+  //FASHION & LIFESTYLE
+
+
+
+  { id:201, name:"Levi's Men's Casual Shirt", brand:"Levi's", price:2499, originalPrice:2999, discount:17, rating:4.5, reviewsCount:150, images:["levis_men_shirt_front.jpg","levis_men_shirt_back.jpg"], description:"Slim fit casual shirt in cotton.", highlights:["Slim Fit","100% Cotton","Machine Washable"], category:{level1:"fashion-lifestyle",level2:"men",level3:"clothing",level4:"casual-wear",level5:"casual-shirts"}, stock:true, variants:[{color:"Blue",size:"M",price:2499,stock:true,sku:"LEVIS-MCS-BL-M"}], offers:[{type:"Festive Sale",description:"₹500 off"}], reviews:[{user:"Rohit K.",rating:5,comment:"Very comfortable and stylish.",date:"2026-01-22"}], specs:{material:"Cotton",fit:"Slim",care:"Machine Wash"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Levi's Official Store",rating:4.8,totalProducts:200,contact:"support@levis.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"fashion-lifestyle/men/clothing/casual-wear/casual-shirts/levis-mens-casual-shirt", createdAt:"2026-01-28T08:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
   
-  {
-    id: 1,
-    name: "HP Pavilion 15 Laptop",
-    brand: "HP",
-    category: "laptop",
-    price: 58999,
-    originalPrice: 65999,
-    discount: 11,
-    rating: 4.4,
-    reviewsCount: 1245,
-    images: [hpLaptop],
-    description:
-      "HP Pavilion 15 with 11th Gen Intel Core i5 processor, 16GB RAM and 512GB SSD delivers powerful performance for work and entertainment.",
-    highlights: [
-      "Intel Core i5 11th Gen",
-      "16 GB DDR4 RAM",
-      "512 GB SSD",
-      "15.6 inch Full HD Display",
-      "Windows 11 Home",
-    ],
-  },
+  { id:202, name:"Nike Men's Running Shoes", brand:"Nike", price:5999, originalPrice:6999, discount:14, rating:4.7, reviewsCount:210, images:["nike_men_shoes_front.jpg","nike_men_shoes_side.jpg"], description:"Lightweight and comfortable running shoes.", highlights:["Breathable Mesh","Rubber Sole","Lightweight"], category:{level1:"fashion-lifestyle",level2:"men",level3:"footwear",level4:"sports-shoes",level5:"running-shoes"}, stock:true, variants:[{color:"Black",size:"9",price:5999,stock:true,sku:"NIKE-MRS-BK-9"}], offers:[{type:"Bank Offer",description:"5% off with HDFC Cards"}], reviews:[{user:"Amit S.",rating:5,comment:"Great shoes for jogging.",date:"2026-01-23"}], specs:{material:"Mesh",sole:"Rubber",weight:"250g"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Nike Official Store",rating:4.9,totalProducts:300,contact:"support@nike.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"fashion-lifestyle/men/footwear/sports-shoes/running-shoes/nike-mens-running-shoes", createdAt:"2026-01-28T08:10:00Z", updatedAt:"2026-01-28T08:10:00Z"},
 
-  {
-    id: 2,
-    name: "Apple iPhone 13",
-    brand: "Apple",
-    category: "mobile",
-    price: 62999,
-    originalPrice: 69999,
-    discount: 10,
-    rating: 4.6,
-    reviewsCount: 9850,
-    images: [iphone13],
-    description:
-      "iPhone 13 features a powerful A15 Bionic chip, advanced dual-camera system, and Super Retina XDR display.",
-    highlights: [
-      "128 GB ROM",
-      "6.1 inch Super Retina XDR Display",
-      "A15 Bionic Chip",
-      "12MP Dual Camera",
-      "iOS 17 Supported",
-    ],
-  },
+  { id:203, name:"Titan Analog Men's Watch", brand:"Titan", price:3999, originalPrice:4999, discount:20, rating:4.6, reviewsCount:180, images:["titan_men_watch_front.jpg"], description:"Classic analog watch with leather strap.", highlights:["Leather Strap","Water Resistant","Quartz Movement"], category:{level1:"fashion-lifestyle",level2:"men",level3:"accessories",level4:"watches",level5:"analog-watches"}, stock:true, variants:[{color:"Brown",price:3999,stock:true,sku:"TITAN-MAW-BR"}], offers:[{type:"Festive Sale",description:"₹1000 off"}], reviews:[{user:"Vivek R.",rating:5,comment:"Elegant and durable watch.",date:"2026-01-24"}], specs:{movement:"Quartz",waterResistance:"30m",strap:"Leather"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Titan Official Store",rating:4.8,totalProducts:150,contact:"support@titan.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"fashion-lifestyle/men/accessories/watches/analog-watches/titan-analog-mens-watch", createdAt:"2026-01-28T08:20:00Z", updatedAt:"2026-01-28T08:20:00Z"},
 
-  {
-    id: 3,
-    name: "Boat Rockerz 450 Headphones",
-    brand: "boAt",
-    category: "headphone",
-    price: 1999,
-    originalPrice: 3999,
-    discount: 50,
-    rating: 4.1,
-    reviewsCount: 22130,
-    images: [boatHeadphones],
-    description:
-      "boAt Rockerz 450 wireless headphones with powerful bass, 40mm drivers, and up to 15 hours of playback.",
-    highlights: [
-      "Wireless Bluetooth Headphones",
-      "40mm Drivers",
-      "15 Hours Playback",
-      "Lightweight Design",
-    ],
-  },
+  { id:204, name:"FabIndia Women's Cotton Kurta", brand:"FabIndia", price:1999, originalPrice:2499, discount:20, rating:4.5, reviewsCount:120, images:["fabindia_women_kurta_front.jpg","fabindia_women_kurta_back.jpg"], description:"Comfortable cotton kurta for daily wear.", highlights:["100% Cotton","Handmade Print","Machine Washable"], category:{level1:"fashion-lifestyle",level2:"women",level3:"ethnic-wear",level4:"kurtas-kurtis",level5:"cotton-kurtas"}, stock:true, variants:[{color:"Pink",size:"M",price:1999,stock:true,sku:"FAB-WCK-PK-M"}], offers:[{type:"Festive Sale",description:"₹300 off"}], reviews:[{user:"Anjali S.",rating:5,comment:"Lovely kurta, soft fabric.",date:"2026-01-25"}], specs:{material:"Cotton",care:"Machine Wash"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"FabIndia Official Store",rating:4.7,totalProducts:200,contact:"support@fabindia.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"fashion-lifestyle/women/ethnic-wear/kurtas-kurtis/cotton-kurtas/fabindia-cotton-kurta", createdAt:"2026-01-28T08:30:00Z", updatedAt:"2026-01-28T08:30:00Z"},
 
-  {
-    id: 4,
-    name: "Samsung Galaxy Watch 4",
-    brand: "Samsung",
-    category: "watch",
-    price: 11999,
-    originalPrice: 15999,
-    discount: 25,
-    rating: 4.3,
-    reviewsCount: 4320,
-    images: [samsungWatch],
-    description:
-      "Samsung Galaxy Watch 4 tracks your health with ECG, blood oxygen monitoring, and fitness tracking.",
-    highlights: [
-      "AMOLED Display",
-      "Health & Fitness Tracking",
-      "ECG & SpO2",
-      "Water Resistant",
-    ],
-  },
+  { id:205, name:"Biba Women's Embroidered Lehenga", brand:"Biba", price:7999, originalPrice:9999, discount:20, rating:4.8, reviewsCount:95, images:["biba_women_lehenga_front.jpg","biba_women_lehenga_back.jpg"], description:"Elegant lehenga with embroidery work.", highlights:["Embroidered","Silk Blend","Festive Wear"], category:{level1:"fashion-lifestyle",level2:"women",level3:"ethnic-wear",level4:"lehengas",level5:"festive-lehengas"}, stock:true, variants:[{color:"Red",size:"M",price:7999,stock:true,sku:"BIBA-WL-RED-M"}], offers:[{type:"Bank Offer",description:"10% off with SBI Cards"}], reviews:[{user:"Neha P.",rating:5,comment:"Perfect for festive occasions.",date:"2026-01-26"}], specs:{material:"Silk Blend",care:"Dry Clean"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Biba Official Store",rating:4.8,totalProducts:120,contact:"support@biba.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"fashion-lifestyle/women/ethnic-wear/lehengas/festive-lehengas/biba-embroidered-lehenga", createdAt:"2026-01-28T08:40:00Z", updatedAt:"2026-01-28T08:40:00Z"},
 
-  {
-    id: 5,
-    name: "Dell Inspiron 14 Laptop",
-    brand: "Dell",
-    category: "laptop",
-    price: 54999,
-    originalPrice: 61999,
-    discount: 11,
-    rating: 4.2,
-    reviewsCount: 980,
-    images: [dellInspiron],
-    description:
-      "Dell Inspiron 14 powered by Intel Core i5 processor with fast SSD storage for smooth multitasking.",
-    highlights: [
-      "Intel Core i5 11th Gen",
-      "8 GB RAM",
-      "512 GB SSD",
-      "14 inch Full HD Display",
-      "Windows 11",
-    ],
-  },
+  { id:206, name:"Adidas Boys Sports Shoes", brand:"Adidas", price:2999, originalPrice:3499, discount:14, rating:4.6, reviewsCount:80, images:["adidas_boys_shoes_front.jpg"], description:"Durable and comfortable sports shoes for boys.", highlights:["Breathable Mesh","Rubber Sole","Lightweight"], category:{level1:"fashion-lifestyle",level2:"kids-teens",level3:"boys",level4:"footwear",level5:"sports-shoes"}, stock:true, variants:[{color:"Blue",size:"3",price:2999,stock:true,sku:"ADIDAS-BS-BL-3"}], offers:[{type:"Festive Sale",description:"₹500 off"}], reviews:[{user:"Kabir S.",rating:5,comment:"Perfect for daily sports.",date:"2026-01-26"}], specs:{material:"Mesh",sole:"Rubber",weight:"200g"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Adidas Official Store",rating:4.7,totalProducts:150,contact:"support@adidas.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"fashion-lifestyle/kids-teens/boys/footwear/sports-shoes/adidas-boys-sports-shoes", createdAt:"2026-01-28T08:50:00Z", updatedAt:"2026-01-28T08:50:00Z"},
 
-  {
-    id: 6,
-    name: "Lenovo IdeaPad Slim 3",
-    brand: "Lenovo",
-    category: "laptop",
-    price: 46999,
-    originalPrice: 53999,
-    discount: 13,
-    rating: 4.1,
-    reviewsCount: 2150,
-    images: [lenovoSlim],
-    description:
-      "Lenovo IdeaPad Slim 3 with Ryzen 5 processor delivers solid everyday performance.",
-    highlights: [
-      "AMD Ryzen 5",
-      "8 GB RAM",
-      "512 GB SSD",
-      "15.6 inch Display",
-      "Windows 11",
-    ],
-  },
+  { id:207, name:"Puma Girls Casual Shoes", brand:"Puma", price:2499, originalPrice:2999, discount:17, rating:4.5, reviewsCount:70, images:["puma_girls_shoes_front.jpg"], description:"Stylish casual shoes for girls.", highlights:["Lightweight","Velcro Closure","Rubber Sole"], category:{level1:"fashion-lifestyle",level2:"kids-teens",level3:"girls",level4:"footwear",level5:"casual-shoes"}, stock:true, variants:[{color:"Pink",size:"4",price:2499,stock:true,sku:"PUMA-GCS-PK-4"}], offers:[{type:"Festive Sale",description:"₹500 off"}], reviews:[{user:"Isha R.",rating:5,comment:"Very comfy and cute.",date:"2026-01-26"}], specs:{material:"Synthetic",sole:"Rubber",weight:"180g"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Puma Official Store",rating:4.7,totalProducts:140,contact:"support@puma.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"fashion-lifestyle/kids-teens/girls/footwear/casual-shoes/puma-girls-casual-shoes", createdAt:"2026-01-28T09:00:00Z", updatedAt:"2026-01-28T09:00:00Z"},
 
-  {
-    id: 7,
-    name: "Samsung Galaxy S21 FE",
-    brand: "Samsung",
-    category: "mobile",
-    price: 36999,
-    originalPrice: 49999,
-    discount: 26,
-    rating: 4.4,
-    reviewsCount: 7680,
-    images: [s21fe],
-    description:
-      "Samsung Galaxy S21 FE with powerful processor, smooth AMOLED display and pro-grade camera.",
-    highlights: [
-      "8 GB RAM",
-      "128 GB Storage",
-      "6.4 inch AMOLED Display",
-      "64MP Camera",
-      "5G Ready",
-    ],
-  },
+  { id:208, name:"Levi's Kids Boys Jeans", brand:"Levi's", price:1499, originalPrice:1799, discount:17, rating:4.4, reviewsCount:60, images:["levis_kids_boys_jeans_front.jpg"], description:"Comfortable denim jeans for boys.", highlights:["100% Cotton","Slim Fit","Durable"], category:{level1:"fashion-lifestyle",level2:"kids-teens",level3:"boys",level4:"clothing",level5:"casual-wear"}, stock:true, variants:[{color:"Blue",size:"6",price:1499,stock:true,sku:"LEVIS-KBJ-BL-6"}], offers:[{type:"Festive Sale",description:"₹300 off"}], reviews:[{user:"Arjun T.",rating:5,comment:"Good quality denim.",date:"2026-01-27"}], specs:{material:"Cotton",fit:"Slim",care:"Machine Wash"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Levi's Kids Store",rating:4.7,totalProducts:100,contact:"support@levis.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"fashion-lifestyle/kids-teens/boys/clothing/casual-wear/levis-kids-boys-jeans", createdAt:"2026-01-28T09:10:00Z", updatedAt:"2026-01-28T09:10:00Z"},
 
-  {
-    id: 8,
-    name: "OnePlus Nord CE 3 Lite",
-    brand: "OnePlus",
-    category: "mobile",
-    price: 19999,
-    originalPrice: 24999,
-    discount: 20,
-    rating: 4.3,
-    reviewsCount: 5400,
-    images: [oneplusNord],
-    description:
-      "OnePlus Nord CE 3 Lite offers a smooth 120Hz display with fast charging support.",
-    highlights: [
-      "6.72 inch 120Hz Display",
-      "108MP Camera",
-      "5000mAh Battery",
-      "5G Support",
-    ],
-  },
+  { id:209, name:"H&M Girls Dress", brand:"H&M", price:1799, originalPrice:2199, discount:18, rating:4.5, reviewsCount:55, images:["hm_girls_dress_front.jpg"], description:"Cute cotton dress for girls.", highlights:["100% Cotton","Machine Washable","Comfort Fit"], category:{level1:"fashion-lifestyle",level2:"kids-teens",level3:"girls",level4:"clothing",level5:"dresses"}, stock:true, variants:[{color:"Yellow",size:"5",price:1799,stock:true,sku:"HM-GD-YE-5"}], offers:[{type:"Festive Sale",description:"₹400 off"}], reviews:[{user:"Sara P.",rating:5,comment:"Lovely dress for parties.",date:"2026-01-27"}], specs:{material:"Cotton",care:"Machine Wash"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"H&M Kids Store",rating:4.7,totalProducts:120,contact:"support@hm.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"fashion-lifestyle/kids-teens/girls/clothing/dresses/hm-girls-dress", createdAt:"2026-01-28T09:20:00Z", updatedAt:"2026-01-28T09:20:00Z"},
 
-  {
-    id: 9,
-    name: "Sony WH-1000XM4 Headphones",
-    brand: "Sony",
-    category: "headphone",
-    price: 22999,
-    originalPrice: 29999,
-    discount: 23,
-    rating: 4.7,
-    reviewsCount: 18500,
-    images: [sonyHeadphones],
-    description:
-      "Industry-leading noise cancellation with premium sound quality and comfort.",
-    highlights: [
-      "Active Noise Cancellation",
-      "30 Hours Battery",
-      "Bluetooth 5.0",
-      "Touch Controls",
-    ],
-  },
+  { id:210, name:"Rajnigandha Infants Romper", brand:"Rajnigandha", price:999, originalPrice:1299, discount:23, rating:4.6, reviewsCount:40, images:["rajnigandha_infant_romper_front.jpg"], description:"Soft cotton romper for infants.", highlights:["100% Cotton","Easy Snap Buttons","Comfort Fit"], category:{level1:"fashion-lifestyle",level2:"kids-teens",level3:"infants",level4:"clothing",level5:"rompers"}, stock:true, variants:[{color:"White",size:"0-3M",price:999,stock:true,sku:"RAJ-INF-RMP-WH-0-3M"}], offers:[{type:"Festive Sale",description:"₹200 off"}], reviews:[{user:"Maya S.",rating:5,comment:"Soft and comfortable for my baby.",date:"2026-01-28"}], specs:{material:"Cotton",care:"Machine Wash"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Rajnigandha Baby Store",rating:4.8,totalProducts:80,contact:"support@rajnigandha.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"fashion-lifestyle/kids-teens/infants/clothing/rompers/rajnigandha-infants-romper", createdAt:"2026-01-28T09:30:00Z", updatedAt:"2026-01-28T09:30:00Z"}
 
-  {
-    id: 10,
-    name: "JBL Flip 6 Bluetooth Speaker",
-    brand: "JBL",
-    category: "speaker",
-    price: 9999,
-    originalPrice: 13999,
-    discount: 29,
-    rating: 4.5,
-    reviewsCount: 6100,
-    images: [jblSpeaker],
-    description:
-      "Portable Bluetooth speaker with powerful bass and waterproof design.",
-    highlights: [
-      "Waterproof",
-      "12 Hours Playback",
-      "Deep Bass",
-      "Portable Design",
-    ],
-  },
+  ,{ id:211, name:"Puma Men's Hoodie", brand:"Puma", price:2999, originalPrice:3499, discount:14, rating:4.5, reviewsCount:130, images:["puma_men_hoodie_front.jpg","puma_men_hoodie_back.jpg"], description:"Comfortable cotton-poly hoodie for casual wear.", highlights:["Cotton Blend","Pullover Style","Machine Washable"], category:{level1:"fashion-lifestyle",level2:"men",level3:"clothing",level4:"casual-wear",level5:"hoodies-sweatshirts"}, stock:true, variants:[{color:"Grey",size:"L",price:2999,stock:true,sku:"PUMA-MHD-GR-L"}], offers:[{type:"Festive Sale",description:"₹500 off"}], reviews:[{user:"Sanjay M.",rating:5,comment:"Very comfy and warm.",date:"2026-01-28"}], specs:{material:"Cotton-Poly",fit:"Regular",care:"Machine Wash"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Puma Official Store",rating:4.8,totalProducts:150,contact:"support@puma.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"fashion-lifestyle/men/clothing/casual-wear/hoodies-sweatshirts/puma-mens-hoodie", createdAt:"2026-01-28T10:00:00Z", updatedAt:"2026-01-28T10:00:00Z"},
 
-  {
-    id: 11,
-    name: "Apple AirPods Pro (2nd Gen)",
-    brand: "Apple",
-    category: "accessory",
-    price: 23999,
-    originalPrice: 26999,
-    discount: 11,
-    rating: 4.6,
-    reviewsCount: 12400,
-    images: [airpodsPro],
-    description:
-      "AirPods Pro with active noise cancellation and immersive spatial audio.",
-    highlights: [
-      "Active Noise Cancellation",
-      "Spatial Audio",
-      "MagSafe Charging",
-      "Sweat Resistant",
-    ],
-  },
+  { id:212, name:"Reebok Men's Sports Shorts", brand:"Reebok", price:1299, originalPrice:1599, discount:19, rating:4.4, reviewsCount:90, images:["reebok_men_shorts_front.jpg"], description:"Lightweight breathable sports shorts for workouts.", highlights:["Quick Dry","Elastic Waist","Pockets"], category:{level1:"fashion-lifestyle",level2:"men",level3:"clothing",level4:"casual-wear",level5:"sports-shorts"}, stock:true, variants:[{color:"Black",size:"M",price:1299,stock:true,sku:"REEB-MSS-BK-M"}], offers:[{type:"Festive Sale",description:"₹300 off"}], reviews:[{user:"Rakesh P.",rating:5,comment:"Great for gym sessions.",date:"2026-01-28"}], specs:{material:"Polyester",care:"Machine Wash"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Reebok Official Store",rating:4.7,totalProducts:120,contact:"support@reebok.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"fashion-lifestyle/men/clothing/casual-wear/sports-shorts/reebok-mens-sports-shorts", createdAt:"2026-01-28T10:10:00Z", updatedAt:"2026-01-28T10:10:00Z"},
 
-  {
-    id: 12,
-    name: "Canon EOS 1500D DSLR Camera",
-    brand: "Canon",
-    category: "camera",
-    price: 33999,
-    originalPrice: 38999,
-    discount: 13,
-    rating: 4.4,
-    reviewsCount: 7200,
-    images: [canonCamera],
-    description:
-      "Canon EOS 1500D DSLR with 24.1MP sensor for stunning photography.",
-    highlights: [
-      "24.1 MP Camera",
-      "Wi-Fi Support",
-      "Full HD Video",
-      "APS-C Sensor",
-    ],
-  },
+  { id:213, name:"Fossil Men's Leather Wallet", brand:"Fossil", price:1999, originalPrice:2499, discount:20, rating:4.6, reviewsCount:80, images:["fossil_men_wallet_front.jpg"], description:"Premium leather wallet with multiple card slots.", highlights:["Genuine Leather","Multiple Slots","Compact Design"], category:{level1:"fashion-lifestyle",level2:"men",level3:"accessories",level4:"wallets",level5:"leather-wallets"}, stock:true, variants:[{color:"Brown",price:1999,stock:true,sku:"FOSS-MWL-BR"}], offers:[{type:"Bank Offer",description:"10% off with ICICI Cards"}], reviews:[{user:"Adil K.",rating:5,comment:"High quality and durable.",date:"2026-01-28"}], specs:{material:"Leather",dimensions:"10x8 cm"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Fossil Official Store",rating:4.8,totalProducts:150,contact:"support@fossil.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"fashion-lifestyle/men/accessories/wallets/leather-wallets/fossil-mens-leather-wallet", createdAt:"2026-01-28T10:20:00Z", updatedAt:"2026-01-28T10:20:00Z"},
 
-  {
-    id: 13,
-    name: "Mi Smart Band 6",
-    brand: "Xiaomi",
-    category: "watch",
-    price: 2999,
-    originalPrice: 3999,
-    discount: 25,
-    rating: 4.2,
-    reviewsCount: 18200,
-    images: [miBand],
-    description:
-      "Fitness band with AMOLED display and advanced health tracking.",
-    highlights: [
-      "AMOLED Display",
-      "Heart Rate Monitor",
-      "SpO2 Tracking",
-      "14-Day Battery",
-    ],
-  },
+  { id:214, name:"Zara Women Blouse", brand:"Zara", price:1999, originalPrice:2499, discount:20, rating:4.5, reviewsCount:110, images:["zara_women_blouse_front.jpg","zara_women_blouse_back.jpg"], description:"Elegant blouse with subtle embroidery for formal occasions.", highlights:["Polyester Blend","Embroidered","Machine Washable"], category:{level1:"fashion-lifestyle",level2:"women",level3:"western-wear",level4:"tops-tees",level5:"blouses"}, stock:true, variants:[{color:"White",size:"M",price:1999,stock:true,sku:"ZARA-WB-WH-M"}], offers:[{type:"Festive Sale",description:"₹500 off"}], reviews:[{user:"Priya V.",rating:5,comment:"Stylish and perfect fit.",date:"2026-01-28"}], specs:{material:"Polyester",care:"Machine Wash"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Zara Official Store",rating:4.7,totalProducts:200,contact:"support@zara.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"fashion-lifestyle/women/western-wear/tops-tees/blouses/zara-women-blouse", createdAt:"2026-01-28T10:30:00Z", updatedAt:"2026-01-28T10:30:00Z"},
 
-  {
-    id: 14,
-    name: "Asus TUF Gaming F15",
-    brand: "Asus",
-    category: "laptop",
-    price: 74999,
-    originalPrice: 84999,
-    discount: 12,
-    rating: 4.5,
-    reviewsCount: 3100,
-    images: [asusTuf],
-    description:
-      "Asus TUF Gaming F15 with powerful graphics and high refresh rate display.",
-    highlights: [
-      "Intel Core i7",
-      "RTX 3050 GPU",
-      "144Hz Display",
-      "16 GB RAM",
-    ],
-  },
-    {
-    id: 15,
-    name: "HP Victus Gaming Laptop",
-    brand: "HP",
-    category: "laptop",
-    price: 82999,
-    originalPrice: 92999,
-    discount: 11,
-    rating: 4.5,
-    reviewsCount: 4200,
-    images: [hpLaptop],
-    description: "HP Victus gaming laptop with powerful performance and thermal efficiency.",
-    highlights: ["Intel Core i7", "16 GB RAM", "RTX Graphics", "144Hz Display"],
-  },
+  { id:215, name:"H&M Women Handbag", brand:"H&M", price:1499, originalPrice:1999, discount:25, rating:4.6, reviewsCount:75, images:["hm_women_handbag_front.jpg"], description:"Compact handbag suitable for casual and formal use.", highlights:["Synthetic Leather","Zipper Closure","Adjustable Strap"], category:{level1:"fashion-lifestyle",level2:"women",level3:"beauty-fashion",level4:"handbags",level5:"casual-handbags"}, stock:true, variants:[{color:"Black",price:1499,stock:true,sku:"HM-WHB-BK"}], offers:[{type:"Festive Sale",description:"₹500 off"}], reviews:[{user:"Neha R.",rating:5,comment:"Lightweight and stylish.",date:"2026-01-28"}], specs:{material:"Synthetic",dimensions:"25x15x10 cm"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"H&M Official Store",rating:4.7,totalProducts:180,contact:"support@hm.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"fashion-lifestyle/women/beauty-fashion/handbags/casual-handbags/hm-women-handbag", createdAt:"2026-01-28T10:40:00Z", updatedAt:"2026-01-28T10:40:00Z"},
 
-  {
-    id: 16,
-    name: "Dell XPS 13",
-    brand: "Dell",
-    category: "laptop",
-    price: 99999,
-    originalPrice: 112999,
-    discount: 12,
-    rating: 4.6,
-    reviewsCount: 3100,
-    images: [dellInspiron],
-    description: "Premium ultrabook with stunning display and lightweight design.",
-    highlights: ["Intel Core i7", "16 GB RAM", "512 GB SSD", "13.4 inch Display"],
-  },
+  { id:216, name:"Mango Women Heels", brand:"Mango", price:2999, originalPrice:3499, discount:14, rating:4.5, reviewsCount:65, images:["mango_women_heels_front.jpg"], description:"Stylish mid-heel sandals for formal wear.", highlights:["Synthetic Upper","Comfort Sole","Block Heel"], category:{level1:"fashion-lifestyle",level2:"women",level3:"beauty-fashion",level4:"heels",level5:"formal-heels"}, stock:true, variants:[{color:"Beige",size:"7",price:2999,stock:true,sku:"MANGO-WH-BE-7"}], offers:[{type:"Festive Sale",description:"₹500 off"}], reviews:[{user:"Riya P.",rating:5,comment:"Very comfortable and elegant.",date:"2026-01-28"}], specs:{material:"Synthetic",heelHeight:"5cm"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Mango Official Store",rating:4.7,totalProducts:150,contact:"support@mango.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"fashion-lifestyle/women/beauty-fashion/heels/formal-heels/mango-women-heels", createdAt:"2026-01-28T10:50:00Z", updatedAt:"2026-01-28T10:50:00Z"},
 
-  {
-    id: 17,
-    name: "Lenovo Legion 5",
-    brand: "Lenovo",
-    category: "laptop",
-    price: 88999,
-    originalPrice: 99999,
-    discount: 11,
-    rating: 4.7,
-    reviewsCount: 5200,
-    images: [lenovoSlim],
-    description: "High-performance gaming laptop with Ryzen processor.",
-    highlights: ["AMD Ryzen 7", "RTX GPU", "16 GB RAM", "165Hz Display"],
-  },
+  { id:217, name:"Levi's Boys T-Shirt", brand:"Levi's", price:799, originalPrice:999, discount:20, rating:4.4, reviewsCount:60, images:["levis_boys_tshirt_front.jpg"], description:"Cotton t-shirt for casual wear for boys.", highlights:["100% Cotton","Printed Logo","Machine Washable"], category:{level1:"fashion-lifestyle",level2:"kids-teens",level3:"boys",level4:"clothing",level5:"t-shirts"}, stock:true, variants:[{color:"Red",size:"6",price:799,stock:true,sku:"LEVIS-BT-RD-6"}], offers:[{type:"Festive Sale",description:"₹200 off"}], reviews:[{user:"Ayaan K.",rating:5,comment:"Soft and comfortable.",date:"2026-01-28"}], specs:{material:"Cotton",care:"Machine Wash"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Levi's Kids Store",rating:4.7,totalProducts:120,contact:"support@levis.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"fashion-lifestyle/kids-teens/boys/clothing/t-shirts/levis-boys-tshirt", createdAt:"2026-01-28T11:00:00Z", updatedAt:"2026-01-28T11:00:00Z"},
 
-  {
-    id: 18,
-    name: "iPhone 14",
-    brand: "Apple",
-    category: "mobile",
-    price: 69999,
-    originalPrice: 79999,
-    discount: 12,
-    rating: 4.7,
-    reviewsCount: 11500,
-    images: [iphone13],
-    description: "iPhone 14 with improved camera and battery life.",
-    highlights: ["A15 Bionic", "OLED Display", "12MP Camera", "iOS"],
-  },
+  { id:218, name:"U.S. Polo Assn. Girls Top & Leggings Set", brand:"U.S. Polo Assn.", price:1499, originalPrice:1799, discount:17, rating:4.5, reviewsCount:50, images:["uspolo_girls_set_front.jpg"], description:"Cotton co-ord set for girls, perfect for casual outings.", highlights:["100% Cotton","Soft Fabric","Machine Washable"], category:{level1:"fashion-lifestyle",level2:"kids-teens",level3:"girls",level4:"clothing",level5:"co-ords"}, stock:true, variants:[{color:"Pink",size:"5",price:1499,stock:true,sku:"USP-GCS-PK-5"}], offers:[{type:"Festive Sale",description:"₹300 off"}], reviews:[{user:"Mira S.",rating:5,comment:"Lovely set for my daughter.",date:"2026-01-28"}], specs:{material:"Cotton",care:"Machine Wash"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"U.S. Polo Assn. Kids Store",rating:4.7,totalProducts:100,contact:"support@uspolo.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"fashion-lifestyle/kids-teens/girls/clothing/co-ords/us-polo-assn-girls-top-leggings-set", createdAt:"2026-01-28T11:10:00Z", updatedAt:"2026-01-28T11:10:00Z"},
 
-  {
-    id: 19,
-    name: "Samsung Galaxy S23",
-    brand: "Samsung",
-    category: "mobile",
-    price: 74999,
-    originalPrice: 84999,
-    discount: 12,
-    rating: 4.6,
-    reviewsCount: 8700,
-    images: [s21fe],
-    description: "Flagship Samsung phone with premium camera performance.",
-    highlights: ["Snapdragon Processor", "AMOLED Display", "50MP Camera"],
-  },
+  { id:219, name:"Carter's Infants Baby Set", brand:"Carter's", price:999, originalPrice:1299, discount:23, rating:4.6, reviewsCount:40, images:["carters_infant_set_front.jpg"], description:"Soft cotton infant set with top and bottoms.", highlights:["100% Cotton","Snap Buttons","Comfort Fit"], category:{level1:"fashion-lifestyle",level2:"kids-teens",level3:"infants",level4:"clothing",level5:"baby-sets"}, stock:true, variants:[{color:"Yellow",size:"0-6M",price:999,stock:true,sku:"CART-INF-BS-YE-0-6M"}], offers:[{type:"Festive Sale",description:"₹200 off"}], reviews:[{user:"Tara K.",rating:5,comment:"Soft and easy to wear.",date:"2026-01-28"}], specs:{material:"Cotton",care:"Machine Wash"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Carter's Official Store",rating:4.8,totalProducts:90,contact:"support@carters.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"fashion-lifestyle/kids-teens/infants/clothing/baby-sets/carters-infants-baby-set", createdAt:"2026-01-28T11:20:00Z", updatedAt:"2026-01-28T11:20:00Z"}
 
-  {
-    id: 20,
-    name: "OnePlus 11R",
-    brand: "OnePlus",
-    category: "mobile",
-    price: 39999,
-    originalPrice: 44999,
-    discount: 11,
-    rating: 4.4,
-    reviewsCount: 6400,
-    images: [oneplusNord],
-    description: "Fast and smooth OnePlus smartphone with AMOLED display.",
-    highlights: ["120Hz Display", "Snapdragon CPU", "Fast Charging"],
-  },
 
-  {
-    id: 21,
-    name: "boAt Airdopes 141",
-    brand: "boAt",
-    category: "accessory",
-    price: 1299,
-    originalPrice: 2999,
-    discount: 57,
-    rating: 4.2,
-    reviewsCount: 35000,
-    images: [boatHeadphones],
-    description: "True wireless earbuds with long battery life.",
-    highlights: ["42H Playback", "Fast Charge", "Bluetooth 5.1"],
-  },
+//  Grocery &  Daily Needs products
 
-  {
-    id: 22,
-    name: "Sony WF-1000XM4",
-    brand: "Sony",
-    category: "accessory",
-    price: 18999,
-    originalPrice: 22999,
-    discount: 17,
-    rating: 4.6,
-    reviewsCount: 9200,
-    images: [sonyHeadphones],
-    description: "Premium noise-cancelling earbuds from Sony.",
-    highlights: ["ANC", "Wireless Charging", "Hi-Res Audio"],
-  },
 
-  {
-    id: 23,
-    name: "JBL Tune 760NC",
-    brand: "JBL",
-    category: "headphone",
-    price: 7999,
-    originalPrice: 10999,
-    discount: 27,
-    rating: 4.3,
-    reviewsCount: 8100,
-    images: [jblSpeaker],
-    description: "Wireless headphones with active noise cancellation.",
-    highlights: ["ANC", "35H Battery", "Dual Pairing"],
-  },
+ ,{ id:301, name:"Daawat Basmati Rice 5kg", brand:"Daawat", price:499, originalPrice:599, discount:17, rating:4.7, reviewsCount:220, images:["daawat_basmati_5kg.jpg"], description:"Premium long grain basmati rice for perfect aroma and taste.", highlights:["Long Grain","Aromatic","Non-Sticky"], category:{level1:"grocery-daily-needs",level2:"foodgrains-staples",level3:"rice",level4:"basmati",level5:null}, stock:true, variants:[{weight:"5kg",price:499,stock:true,sku:"DAAWAT-BAS-5KG"}], offers:[{type:"Festive Sale",description:"₹50 off"}], reviews:[{user:"Rohit S.",rating:5,comment:"Cooks perfectly every time.",date:"2026-01-28"}], specs:{type:"Basmati",origin:"India"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Daawat Official Store",rating:4.8,totalProducts:50,contact:"support@daawat.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"grocery-daily-needs/foodgrains-staples/rice/basmati/daawat-basmati-rice-5kg", createdAt:"2026-01-28T12:00:00Z", updatedAt:"2026-01-28T12:00:00Z"},
 
-  {
-    id: 24,
-    name: "Samsung Galaxy Buds 2",
-    brand: "Samsung",
-    category: "accessory",
-    price: 8999,
-    originalPrice: 11999,
-    discount: 25,
-    rating: 4.4,
-    reviewsCount: 7600,
-    images: [airpodsPro],
-    description: "Compact earbuds with immersive sound.",
-    highlights: ["ANC", "Lightweight", "Wireless Charging"],
-  },
+  { id:302, name:"Organic Brown Rice 2kg", brand:"24 Mantra Organic", price:399, originalPrice:499, discount:20, rating:4.6, reviewsCount:150, images:["organic_brown_rice_2kg.jpg"], description:"Healthy organic brown rice, rich in fiber and nutrients.", highlights:["Organic","High Fiber","Non-GMO"], category:{level1:"grocery-daily-needs",level2:"foodgrains-staples",level3:"rice",level4:"brown-rice",level5:null}, stock:true, variants:[{weight:"2kg",price:399,stock:true,sku:"24M-BRN-RICE-2KG"}], offers:[{type:"Bank Offer",description:"10% off with SBI Cards"}], reviews:[{user:"Anita P.",rating:5,comment:"Tastes great and healthy.",date:"2026-01-28"}], specs:{type:"Brown Rice",origin:"India"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"24 Mantra Official Store",rating:4.7,totalProducts:40,contact:"support@24mantra.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"grocery-daily-needs/foodgrains-staples/rice/brown-rice/organic-brown-rice-2kg", createdAt:"2026-01-28T12:10:00Z", updatedAt:"2026-01-28T12:10:00Z"},
 
-  {
-    id: 25,
-    name: "Apple Watch SE",
-    brand: "Apple",
-    category: "watch",
-    price: 29999,
-    originalPrice: 33999,
-    discount: 12,
-    rating: 4.6,
-    reviewsCount: 6800,
-    images: [samsungWatch],
-    description: "Smartwatch with fitness and health tracking.",
-    highlights: ["Heart Rate", "Sleep Tracking", "GPS"],
-  },
+  { id:303, name:"Toor Dal (Arhar) 1kg", brand:"Tata Sampann", price:179, originalPrice:219, discount:18, rating:4.5, reviewsCount:200, images:["tata_sampann_toor_dal_1kg.jpg"], description:"High-quality toor dal for daily cooking, rich in protein.", highlights:["High Protein","Premium Quality","No Preservatives"], category:{level1:"grocery-daily-needs",level2:"foodgrains-staples",level3:"pulses",level4:"toor-dal",level5:null}, stock:true, variants:[{weight:"1kg",price:179,stock:true,sku:"TATA-TOOR-1KG"}], offers:[{type:"Festive Sale",description:"₹20 off"}], reviews:[{user:"Vikram K.",rating:5,comment:"Good quality and cooks well.",date:"2026-01-28"}], specs:{type:"Toor Dal",origin:"India"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Tata Sampann Official Store",rating:4.8,totalProducts:60,contact:"support@tatasampann.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"grocery-daily-needs/foodgrains-staples/pulses/toor-dal/tata-sampann-toor-dal-1kg", createdAt:"2026-01-28T12:20:00Z", updatedAt:"2026-01-28T12:20:00Z"},
 
-  {
-    id: 26,
-    name: "Noise ColorFit Pro 4",
-    brand: "Noise",
-    category: "watch",
-    price: 3499,
-    originalPrice: 5999,
-    discount: 42,
-    rating: 4.3,
-    reviewsCount: 24000,
-    images: [miBand],
-    description: "Affordable smartwatch with AMOLED display.",
-    highlights: ["AMOLED", "SpO2", "100+ Watch Faces"],
-  },
+  { id:304, name:"Aashirvaad Whole Wheat Atta 5kg", brand:"Aashirvaad", price:299, originalPrice:349, discount:14, rating:4.7, reviewsCount:180, images:["aashirvaad_atta_5kg.jpg"], description:"Fresh and finely ground whole wheat flour for daily rotis.", highlights:["100% Whole Wheat","Fortified","Soft Texture"], category:{level1:"grocery-daily-needs",level2:"foodgrains-staples",level3:"atta-flour",level4:null,level5:null}, stock:true, variants:[{weight:"5kg",price:299,stock:true,sku:"AASHI-ATTA-5KG"}], offers:[{type:"Festive Sale",description:"₹50 off"}], reviews:[{user:"Sunita R.",rating:5,comment:"Makes soft and tasty rotis.",date:"2026-01-28"}], specs:{type:"Whole Wheat",origin:"India"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Aashirvaad Official Store",rating:4.8,totalProducts:30,contact:"support@aashirvaad.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"grocery-daily-needs/foodgrains-staples/atta-flour/aashirvaad-whole-wheat-atta-5kg", createdAt:"2026-01-28T12:30:00Z", updatedAt:"2026-01-28T12:30:00Z"},
 
-  {
-    id: 27,
-    name: "Fire-Boltt Phoenix",
-    brand: "Fire-Boltt",
-    category: "watch",
-    price: 1999,
-    originalPrice: 3999,
-    discount: 50,
-    rating: 4.1,
-    reviewsCount: 19500,
-    images: [miBand],
-    description: "Bluetooth calling smartwatch.",
-    highlights: ["Calling", "SpO2", "Metal Body"],
-  },
+  { id:305, name:"Maggi 2-Minute Noodles Masala 5-Pack", brand:"Maggi", price:150, originalPrice:199, discount:25, rating:4.6, reviewsCount:250, images:["maggi_noodles_5pack.jpg"], description:"Classic masala instant noodles, easy and tasty meal option.", highlights:["Instant","Masala Flavor","5-Pack"], category:{level1:"grocery-daily-needs",level2:"packaged-food",level3:"ready-to-eat",level4:"instant-noodles",level5:null}, stock:true, variants:[{pack:"5 Pack",price:150,stock:true,sku:"MAGGI-MASALA-5PK"}], offers:[{type:"Festive Sale",description:"₹20 off"}], reviews:[{user:"Rahul M.",rating:5,comment:"Kids love it!",date:"2026-01-28"}], specs:{type:"Instant Noodles",flavor:"Masala"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Maggi Official Store",rating:4.7,totalProducts:40,contact:"support@maggi.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"grocery-daily-needs/packaged-food/ready-to-eat/instant-noodles/maggi-2-minute-noodles-masala-5-pack", createdAt:"2026-01-28T12:40:00Z", updatedAt:"2026-01-28T12:40:00Z"},
 
-  {
-    id: 28,
-    name: "Canon EOS 200D II",
-    brand: "Canon",
-    category: "camera",
-    price: 48999,
-    originalPrice: 54999,
-    discount: 11,
-    rating: 4.5,
-    reviewsCount: 4300,
-    images: [canonCamera],
-    description: "Compact DSLR with dual pixel autofocus.",
-    highlights: ["24.1MP", "4K Video", "Wi-Fi"],
-  },
+  { id:306, name:"Kellogg's Cornflakes 500g", brand:"Kellogg's", price:220, originalPrice:269, discount:18, rating:4.5, reviewsCount:140, images:["kelloggs_cornflakes_500g.jpg"], description:"Crispy cornflakes cereal for a healthy breakfast.", highlights:["Fortified with Vitamins","No Artificial Colors","High Fiber"], category:{level1:"grocery-daily-needs",level2:"packaged-food",level3:"breakfast-cereals",level4:null,level5:null}, stock:true, variants:[{weight:"500g",price:220,stock:true,sku:"KEL-CORN-500G"}], offers:[{type:"Festive Sale",description:"₹20 off"}], reviews:[{user:"Meena T.",rating:5,comment:"Healthy and tasty.",date:"2026-01-28"}], specs:{type:"Cornflakes",origin:"USA"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Kellogg's Official Store",rating:4.7,totalProducts:30,contact:"support@kelloggs.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"grocery-daily-needs/packaged-food/breakfast-cereals/kelloggs-cornflakes-500g", createdAt:"2026-01-28T12:50:00Z", updatedAt:"2026-01-28T12:50:00Z"},
 
-  {
-    id: 29,
-    name: "Sony Alpha a6400",
-    brand: "Sony",
-    category: "camera",
-    price: 68999,
-    originalPrice: 74999,
-    discount: 8,
-    rating: 4.7,
-    reviewsCount: 5200,
-    images: [canonCamera],
-    description: "Mirrorless camera with fast autofocus.",
-    highlights: ["24.2MP", "4K Video", "Real-Time AF"],
-  },
+  { id:307, name:"Tetley Green Tea 25 Bags", brand:"Tetley", price:150, originalPrice:199, discount:25, rating:4.6, reviewsCount:120, images:["tetley_green_tea_25bags.jpg"], description:"Refreshing green tea bags for a healthy daily boost.", highlights:["Green Tea","Antioxidants","25 Tea Bags"], category:{level1:"grocery-daily-needs",level2:"beverages",level3:"tea",level4:null,level5:null}, stock:true, variants:[{quantity:"25 Bags",price:150,stock:true,sku:"TET-GREEN-25B"}], offers:[{type:"Festive Sale",description:"₹20 off"}], reviews:[{user:"Sonal D.",rating:5,comment:"Great taste and aroma.",date:"2026-01-28"}], specs:{type:"Green Tea",origin:"India"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Tetley Official Store",rating:4.7,totalProducts:50,contact:"support@tetley.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"grocery-daily-needs/beverages/tea/tetley-green-tea-25-bags", createdAt:"2026-01-28T13:00:00Z", updatedAt:"2026-01-28T13:00:00Z"},
 
-  {
-    id: 30,
-    name: "JBL Go 3",
-    brand: "JBL",
-    category: "speaker",
-    price: 2999,
-    originalPrice: 4999,
-    discount: 40,
-    rating: 4.4,
-    reviewsCount: 18000,
-    images: [jblSpeaker],
-    description: "Ultra-portable Bluetooth speaker.",
-    highlights: ["Waterproof", "Punchy Bass", "Portable"],
-  },
+  { id:308, name:"Bru Coffee Classic 250g", brand:"Bru", price:180, originalPrice:219, discount:18, rating:4.5, reviewsCount:100, images:["bru_coffee_classic_250g.jpg"], description:"Rich and aromatic coffee for everyday mornings.", highlights:["Instant Coffee","Rich Flavor","250g Jar"], category:{level1:"grocery-daily-needs",level2:"beverages",level3:"coffee",level4:null,level5:null}, stock:true, variants:[{weight:"250g",price:180,stock:true,sku:"BRU-COF-250G"}], offers:[{type:"Festive Sale",description:"₹20 off"}], reviews:[{user:"Karan V.",rating:5,comment:"Strong and flavorful.",date:"2026-01-28"}], specs:{type:"Instant Coffee",origin:"India"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Bru Official Store",rating:4.7,totalProducts:40,contact:"support@bru.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"grocery-daily-needs/beverages/coffee/bru-coffee-classic-250g", createdAt:"2026-01-28T13:10:00Z", updatedAt:"2026-01-28T13:10:00Z"},
 
-  {
-    id: 31,
-    name: "Sony SRS-XB13",
-    brand: "Sony",
-    category: "speaker",
-    price: 3999,
-    originalPrice: 5999,
-    discount: 33,
-    rating: 4.5,
-    reviewsCount: 12500,
-    images: [sonyHeadphones],
-    description: "Compact speaker with extra bass.",
-    highlights: ["Extra Bass", "16H Battery", "IP67"],
-  },
+  { id:309, name:"Fresh Bananas 1kg", brand:"Local Farm", price:60, originalPrice:75, discount:20, rating:4.6, reviewsCount:80, images:["fresh_bananas_1kg.jpg"], description:"Sweet and fresh bananas sourced directly from local farms.", highlights:["Fresh","Rich in Potassium","Natural"], category:{level1:"grocery-daily-needs",level2:"fresh-organic",level3:"fruits",level4:null,level5:null}, stock:true, variants:[{weight:"1kg",price:60,stock:true,sku:"BAN-1KG"}], offers:[{type:"Festive Sale",description:"₹5 off"}], reviews:[{user:"Ritika S.",rating:5,comment:"Very fresh and tasty.",date:"2026-01-28"}], specs:{type:"Bananas",origin:"India"}, shipping:{free:true,estimatedDelivery:"1-3 days",returnPolicy:"7 days return"}, seller:{name:"Local Farm Store",rating:4.8,totalProducts:100,contact:"support@localfarm.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"grocery-daily-needs/fresh-organic/fruits/fresh-bananas-1kg", createdAt:"2026-01-28T13:20:00Z", updatedAt:"2026-01-28T13:20:00Z"},
 
-  {
-    id: 32,
-    name: "Asus ROG Zephyrus G14",
-    brand: "Asus",
-    category: "laptop",
-    price: 119999,
-    originalPrice: 134999,
-    discount: 11,
-    rating: 4.8,
-    reviewsCount: 3900,
-    images: [asusTuf],
-    description: "Powerful gaming laptop in compact size.",
-    highlights: ["Ryzen 9", "RTX GPU", "QHD Display"],
-  },
+  { id:310, name:"Organic Spinach 250g", brand:"Organic India", price:50, originalPrice:65, discount:23, rating:4.7, reviewsCount:70, images:["organic_spinach_250g.jpg"], description:"Fresh and organically grown spinach, rich in iron and vitamins.", highlights:["Organic","Fresh","Rich in Iron"], category:{level1:"grocery-daily-needs",level2:"fresh-organic",level3:"vegetables",level4:null,level5:null}, stock:true, variants:[{weight:"250g",price:50,stock:true,sku:"ORG-SPIN-250G"}], offers:[{type:"Festive Sale",description:"₹5 off"}], reviews:[{user:"Pooja M.",rating:5,comment:"Healthy and fresh.",date:"2026-01-28"}], specs:{type:"Spinach",origin:"India"}, shipping:{free:true,estimatedDelivery:"1-3 days",returnPolicy:"7 days return"}, seller:{name:"Organic India Store",rating:4.8,totalProducts:60,contact:"support@organicindia.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"grocery-daily-needs/fresh-organic/vegetables/organic-spinach-250g", createdAt:"2026-01-28T13:30:00Z", updatedAt:"2026-01-28T13:30:00Z"}
 
-  {
-    id: 33,
-    name: "Redmi Note 13 Pro",
-    brand: "Xiaomi",
-    category: "mobile",
-    price: 25999,
-    originalPrice: 29999,
-    discount: 13,
-    rating: 4.4,
-    reviewsCount: 9100,
-    images: [iphone13],
-    description: "Camera-centric smartphone with AMOLED display.",
-    highlights: ["200MP Camera", "120Hz Display", "Fast Charge"],
-  },
+                                  
+//HOME, KITCHEN & FURNITURE 
+,
+  { id: 401, name: "Wooden Queen Bed", brand: "HomeElegance", price: 24999, originalPrice: 29999, discount: 17, rating: 4.6, reviewsCount: 256, images: ["woodenBed_front.jpg"], description: "Solid wooden queen bed with modern design.", highlights: ["Solid Wood", "Queen Size", "Durable Finish"], category: { level1: "home-kitchen-furniture", level2: "furniture", level3: "bedroom", level4: "beds", level5: "queen-beds" }, stock: true },
+  { id: 402, name: "Modern Fabric Sofa 3-Seater", brand: "ComfortLiving", price: 18999, originalPrice: 22999, discount: 17, rating: 4.5, reviewsCount: 310, images: ["sofa3s_front.jpg"], description: "3-Seater fabric sofa with ergonomic design.", highlights: ["Fabric Upholstery", "High-Density Foam", "Metal Legs"], category: { level1: "home-kitchen-furniture", level2: "furniture", level3: "living-room", level4: "sofas", level5: "3-seater-sofas" }, stock: true },
+  { id: 403, name: "Dining Table Set 6 Seater", brand: "FurniStyle", price: 29999, originalPrice: 34999, discount: 14, rating: 4.7, reviewsCount: 198, images: ["dining6s_front.jpg"], description: "Elegant dining table with six chairs.", highlights: ["Engineered Wood", "Polished Finish", "Easy Assembly"], category: { level1: "home-kitchen-furniture", level2: "furniture", level3: "dining-room", level4: "dining-tables", level5: "6-seater-tables" }, stock: true },
+  { id: 404, name: "LED Ceiling Lamp Modern", brand: "BrightHome", price: 2999, originalPrice: 3999, discount: 25, rating: 4.3, reviewsCount: 87, images: ["ceilingLamp_front.jpg"], description: "Modern LED ceiling lamp with warm light.", highlights: ["Energy Efficient", "Warm Light", "Easy Installation"], category: { level1: "home-kitchen-furniture", level2: "home-decor", level3: "lighting", level4: "ceiling-lamps", level5: "led-modern" }, stock: true },
+  { id: 405, name: "Wall Art Painting - Abstract", brand: "ArtSpace", price: 1999, originalPrice: 2499, discount: 20, rating: 4.5, reviewsCount: 54, images: ["wallArt1.jpg"], description: "Abstract wall painting for living room.", highlights: ["Canvas Print", "Vibrant Colors", "Frame Included"], category: { level1: "home-kitchen-furniture", level2: "home-decor", level3: "wall-decor", level4: "paintings", level5: "abstract-art" }, stock: true },
+  { id: 406, name: "Non-Stick Cookware Set - 7 Pieces", brand: "KitchenMaster", price: 3999, originalPrice: 4999, discount: 20, rating: 4.6, reviewsCount: 112, images: ["cookware_set1.jpg"], description: "7-piece non-stick cookware set.", highlights: ["Non-Stick", "Dishwasher Safe", "Heat Resistant Handles"], category: { level1: "home-kitchen-furniture", level2: "kitchen", level3: "cookware", level4: "sets", level5: "7-piece-set" }, stock: true },
+  { id: 407, name: "Bakeware Set - 5 Pieces", brand: "BakeMaster", price: 1499, originalPrice: 1999, discount: 25, rating: 4.4, reviewsCount: 67, images: ["bakeware1.jpg"], description: "5-piece bakeware set for cakes and muffins.", highlights: ["Non-Stick", "Oven Safe", "Dishwasher Safe"], category: { level1: "home-kitchen-furniture", level2: "kitchen", level3: "bakeware", level4: "sets", level5: "5-piece-set" }, stock: true },
+  { id: 408, name: "Storage Container Set - 10 Pieces", brand: "StoreRight", price: 899, originalPrice: 1099, discount: 18, rating: 4.5, reviewsCount: 43, images: ["storage10_front.jpg"], description: "10-piece airtight storage container set.", highlights: ["Airtight Lids", "Stackable Design", "BPA Free"], category: { level1: "home-kitchen-furniture", level2: "kitchen", level3: "storage-containers", level4: "sets", level5: "10-piece-set" }, stock: true },
+  { id: 409, name: "Decorative Carpet - 5x7 ft", brand: "RugArt", price: 2999, originalPrice: 3999, discount: 25, rating: 4.4, reviewsCount: 33, images: ["carpet5x7_front.jpg"], description: "Premium decorative carpet with soft texture.", highlights: ["Soft Material", "Vibrant Colors", "Easy to Clean"], category: { level1: "home-kitchen-furniture", level2: "home-decor", level3: "carpets-rugs", level4: "area-carpets", level5: "5x7-ft" }, stock: true },
+  { id: 410, name: "Wall Mounted Shelf Unit", brand: "ShelfSpace", price: 3499, originalPrice: 4499, discount: 22, rating: 4.3, reviewsCount: 21, images: ["wallShelf_front.jpg"], description: "Wall-mounted shelf unit for books and decor.", highlights: ["Wall Mounted", "Durable MDF", "Easy Installation"], category: { level1: "home-kitchen-furniture", level2: "furniture", level3: "living-room", level4: "shelves", level5: "wall-mounted" }, stock: true }
 
-  {
-    id: 34,
-    name: "Realme Narzo 60",
-    brand: "Realme",
-    category: "mobile",
-    price: 17999,
-    originalPrice: 21999,
-    discount: 18,
-    rating: 4.2,
-    reviewsCount: 8300,
-    images: [oneplusNord],
-    description: "Budget-friendly 5G smartphone.",
-    highlights: ["5G", "AMOLED", "5000mAh"],
-  },
 
-  {
-    id: 35,
-    name: "Apple Magic Mouse",
-    brand: "Apple",
-    category: "accessory",
-    price: 7499,
-    originalPrice: 8999,
-    discount: 17,
-    rating: 4.3,
-    reviewsCount: 4100,
-    images: [airpodsPro],
-    description: "Wireless mouse with multi-touch surface.",
-    highlights: ["Multi-Touch", "Rechargeable", "Mac Compatible"],
-  },
 
-  {
-    id: 36,
-    name: "Logitech MX Master 3S",
-    brand: "Logitech",
-    category: "accessory",
-    price: 9999,
-    originalPrice: 12999,
-    discount: 23,
-    rating: 4.7,
-    reviewsCount: 6200,
-    images: [airpodsPro],
-    description: "Advanced wireless mouse for productivity.",
-    highlights: ["Ergonomic", "USB-C", "Multi-Device"],
-  },
 
-  {
-    id: 37,
-    name: "HP Wireless Keyboard & Mouse",
-    brand: "HP",
-    category: "accessory",
-    price: 2499,
-    originalPrice: 3999,
-    discount: 38,
-    rating: 4.2,
-    reviewsCount: 8900,
-    images: [hpLaptop],
-    description: "Comfortable keyboard and mouse combo.",
-    highlights: ["Wireless", "Long Battery", "Compact Design"],
-  },
 
-  {
-    id: 38,
-    name: "Samsung 27-inch Curved Monitor",
-    brand: "Samsung",
-    category: "accessory",
-    price: 18999,
-    originalPrice: 23999,
-    discount: 21,
-    rating: 4.5,
-    reviewsCount: 5400,
-    images: [dellInspiron],
-    description: "Immersive curved monitor for work and gaming.",
-    highlights: ["27 inch", "75Hz", "Full HD"],
-  },
 
-  {
-    id: 39,
-    name: "LG UltraWide Monitor",
-    brand: "LG",
-    category: "accessory",
-    price: 24999,
-    originalPrice: 29999,
-    discount: 17,
-    rating: 4.6,
-    reviewsCount: 3600,
-    images: [dellInspiron],
-    description: "UltraWide display for productivity.",
-    highlights: ["21:9 Ratio", "IPS Panel", "HDR10"],
-  },
+//BEAUTY, HEALTH & WELLNESS
 
-  {
-    id: 40,
-    name: "Canon PIXMA Printer",
-    brand: "Canon",
-    category: "accessory",
-    price: 5499,
-    originalPrice: 7999,
-    discount: 31,
-    rating: 4.2,
-    reviewsCount: 11200,
-    images: [canonCamera],
-    description: "All-in-one inkjet printer for home use.",
-    highlights: ["Print Scan Copy", "Wi-Fi", "Compact"],
-  },
 
-  {
-    id: 41,
-    name: "TP-Link WiFi Router",
-    brand: "TP-Link",
-    category: "accessory",
-    price: 2999,
-    originalPrice: 4999,
-    discount: 40,
-    rating: 4.4,
-    reviewsCount: 15000,
-    images: [asusTuf],
-    description: "High-speed WiFi router for home.",
-    highlights: ["Dual Band", "High Speed", "Wide Coverage"],
-  },
+ ,{ id: 501, name: "Olay Regenerist Face Cream", brand: "Olay", price: 1299, originalPrice: 1599, discount: 19, rating: 4.6, reviewsCount: 420, images: ["olay_facecream.jpg"], description: "Anti-aging face cream with amino-peptides for youthful skin.", highlights: ["Reduces Wrinkles", "Hydrating", "Suitable for All Skin Types"], category: { level1: "beauty-health-wellness", level2: "personal-care", level3: "skin-care", level4: "anti-aging", level5: "olay-regenerist" }, stock: true },
+  { id: 502, name: "Neutrogena Oil-Free Acne Wash", brand: "Neutrogena", price: 499, originalPrice: 599, discount: 17, rating: 4.5, reviewsCount: 310, images: ["neutrogena_acnewash.jpg"], description: "Daily face wash for acne-prone skin.", highlights: ["Cleanses Deeply", "Prevents Breakouts", "Oil-Free Formula"], category: { level1: "beauty-health-wellness", level2: "personal-care", level3: "skin-care", level4: "acne-care", level5: "neutrogena-acne-wash" }, stock: true },
+  { id: 503, name: "L'Oreal Paris Hair Fall Rescue Shampoo", brand: "L'Oreal", price: 349, originalPrice: 499, discount: 30, rating: 4.4, reviewsCount: 215, images: ["loreal_hairfall.jpg"], description: "Shampoo to reduce hair fall and strengthen hair.", highlights: ["Reduces Hair Fall", "Strengthens Hair", "Nourishing Formula"], category: { level1: "beauty-health-wellness", level2: "personal-care", level3: "hair-care", level4: "hair-fall", level5: "loreal-hairfall-shampoo" }, stock: true },
+  { id: 504, name: "Mamaearth Onion Hair Oil", brand: "Mamaearth", price: 399, originalPrice: 499, discount: 20, rating: 4.5, reviewsCount: 180, images: ["mamaearth_hairoil.jpg"], description: "Onion hair oil for hair growth and scalp nourishment.", highlights: ["Promotes Hair Growth", "Reduces Hair Fall", "Natural Ingredients"], category: { level1: "beauty-health-wellness", level2: "personal-care", level3: "hair-care", level4: "scalp-care", level5: "mamaearth-onion-hair-oil" }, stock: true },
+  { id: 505, name: "Maybelline Fit Me Matte + Poreless Foundation", brand: "Maybelline", price: 799, originalPrice: 999, discount: 20, rating: 4.6, reviewsCount: 400, images: ["maybelline_foundation.jpg"], description: "Foundation for normal to oily skin for natural matte finish.", highlights: ["Oil-Free", "Natural Matte Finish", "Wide Shade Range"], category: { level1: "beauty-health-wellness", level2: "makeup", level3: "face", level4: "foundation", level5: "maybelline-fitme" }, stock: true },
+  { id: 506, name: "Lakme Kajal Ultimate", brand: "Lakme", price: 249, originalPrice: 299, discount: 17, rating: 4.5, reviewsCount: 290, images: ["lakme_kajal.jpg"], description: "Long-lasting kajal for defined eyes.", highlights: ["Smudge Proof", "Intense Black", "Safe for Eyes"], category: { level1: "beauty-health-wellness", level2: "makeup", level3: "eye", level4: "kajal", level5: "lakme-ultimate" }, stock: true },
+  { id: 507, name: "L'Oreal Paris Color Riche Lipstick", brand: "L'Oreal", price: 399, originalPrice: 499, discount: 20, rating: 4.4, reviewsCount: 220, images: ["loreal_lipstick.jpg"], description: "Richly pigmented lipstick for smooth and vibrant lips.", highlights: ["Long-Lasting", "Moisturizing", "Vibrant Colors"], category: { level1: "beauty-health-wellness", level2: "makeup", level3: "lip", level4: "lipstick", level5: "loreal-color-riche" }, stock: true },
+  { id: 508, name: "Himalaya Immunity Booster Herbal Tablets", brand: "Himalaya", price: 299, originalPrice: 399, discount: 25, rating: 4.6, reviewsCount: 150, images: ["himalaya_immunity.jpg"], description: "Herbal tablets to boost immunity naturally.", highlights: ["Natural Ingredients", "Boosts Immunity", "Daily Supplement"], category: { level1: "beauty-health-wellness", level2: "health-care", level3: "immunity-boosters", level4: "tablets", level5: "himalaya-immunity" }, stock: true },
+  { id: 509, name: "GNC Multivitamin Tablets", brand: "GNC", price: 999, originalPrice: 1199, discount: 16, rating: 4.5, reviewsCount: 120, images: ["gnc_multivitamin.jpg"], description: "Daily multivitamin for overall health.", highlights: ["Supports Immunity", "Energy Boost", "Complete Nutrition"], category: { level1: "beauty-health-wellness", level2: "health-care", level3: "vitamins-supplements", level4: "tablets", level5: "gnc-multivitamin" }, stock: true },
+  { id: 510, name: "Omron Digital Blood Pressure Monitor", brand: "Omron", price: 2499, originalPrice: 2999, discount: 17, rating: 4.6, reviewsCount: 85, images: ["omron_bp.jpg"], description: "Digital BP monitor for accurate blood pressure readings at home.", highlights: ["Digital Display", "Easy to Use", "Portable"], category: { level1: "beauty-health-wellness", level2: "health-care", level3: "medical-devices", level4: "bp-monitor", level5: "omron-digital" }, stock: true },
 
-  {
-    id: 42,
-    name: "Seagate 1TB External HDD",
-    brand: "Seagate",
-    category: "accessory",
-    price: 3999,
-    originalPrice: 5999,
-    discount: 33,
-    rating: 4.5,
-    reviewsCount: 21000,
-    images: [hpLaptop],
-    description: "Portable external hard drive.",
-    highlights: ["1TB Storage", "USB 3.0", "Portable"],
-  },
 
-  {
-    id: 43,
-    name: "Sandisk 128GB Pendrive",
-    brand: "SanDisk",
-    category: "accessory",
-    price: 999,
-    originalPrice: 1799,
-    discount: 44,
-    rating: 4.4,
-    reviewsCount: 27000,
-    images: [hpLaptop],
-    description: "High-speed USB 3.0 pendrive.",
-    highlights: ["128GB", "USB 3.0", "Compact"],
-  },
 
-  {
-    id: 44,
-    name: "Mi Power Bank 20000mAh",
-    brand: "Xiaomi",
-    category: "accessory",
-    price: 2199,
-    originalPrice: 2999,
-    discount: 27,
-    rating: 4.5,
-    reviewsCount: 34000,
-    images: [miBand],
-    description: "High-capacity fast charging power bank.",
-    highlights: ["20000mAh", "Fast Charging", "Dual Output"],
-  },
+
+
+
+//BABY, TOYS & EDUCATION
+  ,
+  { id:601, name:"Pampers Baby Diapers Size 3 - 60 pcs", brand:"Pampers", price:799, originalPrice:999, discount:20, rating:4.7, reviewsCount:180, images:["pampers_diapers_size3.jpg"], description:"Soft and absorbent diapers for babies, ensuring comfort and dryness.", highlights:["Size 3","Soft Material","Leak Protection"], category:{level1:"baby-toys-education",level2:"baby-care",level3:"diapering",level4:null,level5:null}, stock:true, variants:[{size:"3",count:60,price:799,stock:true,sku:"PAMP-DIA-3-60"}], offers:[{type:"Festive Sale",description:"₹100 off"}], reviews:[{user:"Ayesha R.",rating:5,comment:"Very soft and reliable.",date:"2026-01-28"}], specs:{material:"Soft Cloth",ageRange:"6-12 months"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Pampers Official Store",rating:4.8,totalProducts:40,contact:"support@pampers.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"baby-toys-education/baby-care/diapering/pampers-baby-diapers-size-3-60-pcs", createdAt:"2026-01-28T14:00:00Z", updatedAt:"2026-01-28T14:00:00Z"},
+  { id:602, name:"Huggies Baby Wipes 80 pcs", brand:"Huggies", price:199, originalPrice:249, discount:20, rating:4.6, reviewsCount:120, images:["huggies_baby_wipes_80pcs.jpg"], description:"Gentle baby wipes for cleaning and refreshing your baby’s skin.", highlights:["Alcohol-Free","Soft & Gentle","Fragrance-Free"], category:{level1:"baby-toys-education",level2:"baby-care",level3:"diapering",level4:null,level5:null}, stock:true, variants:[{count:80,price:199,stock:true,sku:"HUG-WIP-80"}], offers:[{type:"Festive Sale",description:"₹20 off"}], reviews:[{user:"Meera K.",rating:5,comment:"Soft and safe for my baby.",date:"2026-01-28"}], specs:{material:"Soft Cloth",ageRange:"0+ months"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Huggies Official Store",rating:4.7,totalProducts:30,contact:"support@huggies.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"baby-toys-education/baby-care/diapering/huggies-baby-wipes-80-pcs", createdAt:"2026-01-28T14:10:00Z", updatedAt:"2026-01-28T14:10:00Z"},
+  { id:603, name:"Philips Avent Baby Feeding Bottle 250ml", brand:"Philips Avent", price:499, originalPrice:599, discount:17, rating:4.8, reviewsCount:90, images:["philips_avent_bottle_250ml.jpg"], description:"Anti-colic feeding bottle for smooth and comfortable feeding.", highlights:["Anti-Colic","BPA Free","250ml Capacity"], category:{level1:"baby-toys-education",level2:"baby-care",level3:"feeding",level4:null,level5:null}, stock:true, variants:[{capacity:"250ml",price:499,stock:true,sku:"PHIL-AV-250ML"}], offers:[{type:"Festive Sale",description:"₹50 off"}], reviews:[{user:"Nisha P.",rating:5,comment:"Easy to use and clean.",date:"2026-01-28"}], specs:{material:"Plastic BPA-Free",ageRange:"0+ months"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Philips Avent Official Store",rating:4.9,totalProducts:20,contact:"support@philipsavent.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"baby-toys-education/baby-care/feeding/philips-avent-baby-feeding-bottle-250ml", createdAt:"2026-01-28T14:20:00Z", updatedAt:"2026-01-28T14:20:00Z"},
+  { id:604, name:"Fisher-Price Musical Rattle Toy", brand:"Fisher-Price", price:299, originalPrice:399, discount:25, rating:4.6, reviewsCount:75, images:["fisher_price_musical_rattle.jpg"], description:"Colorful rattle toy to stimulate your baby’s senses and motor skills.", highlights:["Musical","Easy to Grip","Bright Colors"], category:{level1:"baby-toys-education",level2:"toys",level3:"learning-toys",level4:null,level5:null}, stock:true, variants:[{color:"Multicolor",price:299,stock:true,sku:"FP-RATTLE"}], offers:[{type:"Festive Sale",description:"₹50 off"}], reviews:[{user:"Ritika S.",rating:5,comment:"My baby loves it!",date:"2026-01-28"}], specs:{material:"Plastic",ageRange:"0-12 months"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Fisher-Price Official Store",rating:4.8,totalProducts:50,contact:"support@fisherprice.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"baby-toys-education/toys/learning-toys/fisher-price-musical-rattle-toy", createdAt:"2026-01-28T14:30:00Z", updatedAt:"2026-01-28T14:30:00Z"},
+  { id:605, name:"LEGO Duplo My First Number Train", brand:"LEGO", price:1499, originalPrice:1799, discount:17, rating:4.9, reviewsCount:60, images:["lego_duplo_number_train.jpg"], description:"STEM toy to help kids learn numbers and colors while playing.", highlights:["STEM Learning","Bright Colors","Safe for Toddlers"], category:{level1:"baby-toys-education",level2:"toys",level3:"stem-toys",level4:null,level5:null}, stock:true, variants:[{pieces:20,price:1499,stock:true,sku:"LEGO-DUPLO-TRAIN"}], offers:[{type:"Festive Sale",description:"₹200 off"}], reviews:[{user:"Ankit M.",rating:5,comment:"Educational and fun.",date:"2026-01-28"}], specs:{material:"ABS Plastic",ageRange:"2-5 years"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"LEGO Official Store",rating:4.9,totalProducts:100,contact:"support@lego.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"baby-toys-education/toys/stem-toys/lego-duplo-my-first-number-train", createdAt:"2026-01-28T14:40:00Z", updatedAt:"2026-01-28T14:40:00Z"},
+  { id:606, name:"Little Tikes Climber & Slide", brand:"Little Tikes", price:3999, originalPrice:4499, discount:11, rating:4.8, reviewsCount:40, images:["little_tikes_climber_slide.jpg"], description:"Outdoor toy set with slide and climbing features for toddlers.", highlights:["Outdoor Play","Durable Plastic","Easy Assembly"], category:{level1:"baby-toys-education",level2:"toys",level3:"outdoor-toys",level4:null,level5:null}, stock:true, variants:[{color:"Red/Blue",price:3999,stock:true,sku:"LT-CLIMBER"}], offers:[{type:"Festive Sale",description:"₹500 off"}], reviews:[{user:"Sanjay K.",rating:5,comment:"My kids enjoy it every day.",date:"2026-01-28"}], specs:{material:"Plastic",ageRange:"2-6 years"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"7 days return"}, seller:{name:"Little Tikes Official Store",rating:4.8,totalProducts:50,contact:"support@littletikes.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"baby-toys-education/toys/outdoor-toys/little-tikes-climber-slide", createdAt:"2026-01-28T14:50:00Z", updatedAt:"2026-01-28T14:50:00Z"},
+  { id:607, name:"Classmate School Notebook 100 Pages", brand:"Classmate", price:50, originalPrice:60, discount:17, rating:4.6, reviewsCount:100, images:["classmate_notebook_100.jpg"], description:"High-quality notebook for daily school use.", highlights:["100 Pages","Ruled Sheets","Durable Cover"], category:{level1:"baby-toys-education",level2:"education",level3:"school-supplies",level4:null,level5:null}, stock:true, variants:[{pages:100,price:50,stock:true,sku:"CLASS-NB-100"}], offers:[{type:"Festive Sale",description:"₹5 off"}], reviews:[{user:"Rohit T.",rating:5,comment:"Good quality notebook.",date:"2026-01-28"}], specs:{size:"A4",material:"Paper"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Classmate Official Store",rating:4.7,totalProducts:80,contact:"support@classmate.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"baby-toys-education/education/school-supplies/classmate-school-notebook-100-pages", createdAt:"2026-01-28T15:00:00Z", updatedAt:"2026-01-28T15:00:00Z"},
+  { id:608, name:"BYJU'S Learning Tablet for Kids", brand:"BYJU'S", price:8999, originalPrice:9999, discount:10, rating:4.8, reviewsCount:50, images:["byjus_learning_tablet.jpg"], description:"E-learning device with interactive lessons and quizzes for kids.", highlights:["Interactive Lessons","Preloaded Content","Durable Tablet"], category:{level1:"baby-toys-education",level2:"education",level3:"e-learning-devices",level4:null,level5:null}, stock:true, variants:[{storage:"16GB",price:8999,stock:true,sku:"BYJ-TAB-KIDS"}], offers:[{type:"Festive Sale",description:"₹1000 off"}], reviews:[{user:"Ananya P.",rating:5,comment:"My child loves learning on this tablet.",date:"2026-01-28"}], specs:{screenSize:"7 inches",ageRange:"5-12 years"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"7 days return"}, seller:{name:"BYJU'S Official Store",rating:4.9,totalProducts:40,contact:"support@byjus.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"baby-toys-education/education/e-learning-devices/byjus-learning-tablet-for-kids", createdAt:"2026-01-28T15:10:00Z", updatedAt:"2026-01-28T15:10:00Z"},
+  { id:609, name:"NCERT Science Guide for Class 10", brand:"NCERT", price:299, originalPrice:349, discount:15, rating:4.7, reviewsCount:70, images:["ncert_science_class10.jpg"], description:"Comprehensive guide for Class 10 Science students.", highlights:["Updated Syllabus","Easy Explanations","Illustrated"], category:{level1:"baby-toys-education",level2:"education",level3:"competitive-exams",level4:null,level5:null}, stock:true, variants:[{class:"10",price:299,stock:true,sku:"NCERT-SCI-10"}], offers:[{type:"Festive Sale",description:"₹50 off"}], reviews:[{user:"Vikram S.",rating:5,comment:"Very helpful for exam preparation.",date:"2026-01-28"}], specs:{subject:"Science",medium:"English"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"NCERT Official Store",rating:4.8,totalProducts:50,contact:"support@ncert.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"baby-toys-education/education/competitive-exams/ncert-science-guide-for-class-10", createdAt:"2026-01-28T15:20:00Z", updatedAt:"2026-01-28T15:20:00Z"},
+  { id:610, name:"Staedtler Geometry Box for School", brand:"Staedtler", price:149, originalPrice:179, discount:17, rating:4.6, reviewsCount:60, images:["staedtler_geometry_box.jpg"], description:"Complete geometry box with compass, protractor, ruler, and pencils.", highlights:["Durable Material","Complete Set","Portable"], category:{level1:"baby-toys-education",level2:"education",level3:"school-supplies",level4:null,level5:null}, stock:true, variants:[{pieces:10,price:149,stock:true,sku:"STAEDT-GB"}], offers:[{type:"Festive Sale",description:"₹20 off"}], reviews:[{user:"Sakshi M.",rating:5,comment:"Everything I needed for school.",date:"2026-01-28"}], specs:{material:"Plastic & Metal",ageRange:"8-16 years"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Staedtler Official Store",rating:4.7,totalProducts:50,contact:"support@staedtler.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"baby-toys-education/education/school-supplies/staedtler-geometry-box-for-school", createdAt:"2026-01-28T15:30:00Z", updatedAt:"2026-01-28T15:30:00Z"}
+
+
+
+//SPORTS, FITNESS & OUTDOOR
+
+
+
+,
+  { id:701, name:"Nike Dumbbell Set 10kg", brand:"Nike", price:2999, originalPrice:3499, discount:14, rating:4.7, reviewsCount:120, images:["nike_dumbbell_set_10kg.jpg"], description:"High-quality dumbbell set for home workouts and strength training.", highlights:["10kg Total","Ergonomic Grip","Durable Material"], category:{level1:"sports-fitness-outdoor",level2:"fitness",level3:"home-gym",level4:null,level5:null}, stock:true, variants:[{weight:"10kg",price:2999,stock:true,sku:"NIKE-DUM-10"}], offers:[{type:"Festive Sale",description:"₹500 off"}], reviews:[{user:"Rohit S.",rating:5,comment:"Perfect for home workouts.",date:"2026-01-28"}], specs:{material:"Steel & Rubber",ageRange:"15+ years"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Nike Official Store",rating:4.8,totalProducts:100,contact:"support@nike.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"sports-fitness-outdoor/fitness/home-gym/nike-dumbbell-set-10kg", createdAt:"2026-01-28T16:00:00Z", updatedAt:"2026-01-28T16:00:00Z"},
+  { id:702, name:"Adidas Yoga Mat 6mm", brand:"Adidas", price:1499, originalPrice:1799, discount:17, rating:4.6, reviewsCount:90, images:["adidas_yoga_mat_6mm.jpg"], description:"Comfortable non-slip yoga mat for home or studio practice.", highlights:["6mm Thickness","Non-Slip Surface","Lightweight"], category:{level1:"sports-fitness-outdoor",level2:"fitness",level3:"yoga-equipment",level4:null,level5:null}, stock:true, variants:[{color:"Purple",price:1499,stock:true,sku:"ADID-YOGA-6"}], offers:[{type:"Festive Sale",description:"₹300 off"}], reviews:[{user:"Priya M.",rating:5,comment:"Very comfortable for daily yoga.",date:"2026-01-28"}], specs:{material:"TPE",dimensions:"183x61 cm"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Adidas Official Store",rating:4.7,totalProducts:80,contact:"support@adidas.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"sports-fitness-outdoor/fitness/yoga-equipment/adidas-yoga-mat-6mm", createdAt:"2026-01-28T16:10:00Z", updatedAt:"2026-01-28T16:10:00Z"},
+  { id:703, name:"Mi Smart Band 7", brand:"Xiaomi", price:2999, originalPrice:3499, discount:14, rating:4.5, reviewsCount:150, images:["mi_smart_band_7.jpg"], description:"Fitness tracker with heart rate, sleep tracking, and activity monitoring.", highlights:["Heart Rate Monitor","Sleep Tracking","1.62-inch Display"], category:{level1:"sports-fitness-outdoor",level2:"fitness",level3:"fitness-trackers",level4:null,level5:null}, stock:true, variants:[{color:"Black",price:2999,stock:true,sku:"MI-BAND-7"}], offers:[{type:"Festive Sale",description:"₹500 off"}], reviews:[{user:"Sanjay R.",rating:5,comment:"Tracks everything accurately.",date:"2026-01-28"}], specs:{batteryLife:"14 days",waterResistant:true}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Xiaomi Official Store",rating:4.7,totalProducts:60,contact:"support@xiaomi.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"sports-fitness-outdoor/fitness/fitness-trackers/mi-smart-band-7", createdAt:"2026-01-28T16:20:00Z", updatedAt:"2026-01-28T16:20:00Z"},
+  { id:704, name:"SG Sunny Cricket Bat", brand:"SG", price:2499, originalPrice:2999, discount:17, rating:4.8, reviewsCount:80, images:["sg_sunny_cricket_bat.jpg"], description:"Professional grade cricket bat for intermediate players.", highlights:["Willow Wood","Lightweight","High Performance"], category:{level1:"sports-fitness-outdoor",level2:"outdoor-sports",level3:"cricket",level4:null,level5:null}, stock:true, variants:[{size:"Short Handle",price:2499,stock:true,sku:"SG-BAT-SH"}], offers:[{type:"Festive Sale",description:"₹500 off"}], reviews:[{user:"Vikram K.",rating:5,comment:"Excellent pick for practice.",date:"2026-01-28"}], specs:{material:"English Willow",weight:"1.2 kg"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"SG Official Store",rating:4.8,totalProducts:50,contact:"support@sg.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"sports-fitness-outdoor/outdoor-sports/cricket/sg-sunny-cricket-bat", createdAt:"2026-01-28T16:30:00Z", updatedAt:"2026-01-28T16:30:00Z"},
+  { id:705, name:"Nike Football Size 5", brand:"Nike", price:1999, originalPrice:2499, discount:20, rating:4.7, reviewsCount:70, images:["nike_football_size5.jpg"], description:"Durable football with great grip for training and matches.", highlights:["Size 5","Durable Material","Excellent Grip"], category:{level1:"sports-fitness-outdoor",level2:"outdoor-sports",level3:"football",level4:null,level5:null}, stock:true, variants:[{size:"5",price:1999,stock:true,sku:"NIKE-FB-5"}], offers:[{type:"Festive Sale",description:"₹500 off"}], reviews:[{user:"Arjun T.",rating:5,comment:"Good quality and bounce.",date:"2026-01-28"}], specs:{material:"PU Leather",weight:"410-450 g"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Nike Official Store",rating:4.8,totalProducts:100,contact:"support@nike.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"sports-fitness-outdoor/outdoor-sports/football/nike-football-size-5", createdAt:"2026-01-28T16:40:00Z", updatedAt:"2026-01-28T16:40:00Z"},
+  { id:706, name:"Hercules Mountain Bike 21 Speed", brand:"Hercules", price:12499, originalPrice:13999, discount:11, rating:4.6, reviewsCount:50, images:["hercules_mountain_bike.jpg"], description:"Durable mountain bike suitable for off-road cycling adventures.", highlights:["21 Speed Gear","Steel Frame","Front Suspension"], category:{level1:"sports-fitness-outdoor",level2:"outdoor-sports",level3:"cycling",level4:null,level5:null}, stock:true, variants:[{gear:"21 Speed",price:12499,stock:true,sku:"HERC-MTB-21"}], offers:[{type:"Festive Sale",description:"₹1500 off"}], reviews:[{user:"Rakesh P.",rating:5,comment:"Smooth ride on rough terrain.",date:"2026-01-28"}], specs:{frameMaterial:"Steel",wheelSize:"26 inches"}, shipping:{free:true,estimatedDelivery:"5-7 days",returnPolicy:"10 days return"}, seller:{name:"Hercules Official Store",rating:4.7,totalProducts:60,contact:"support@hercules.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"sports-fitness-outdoor/outdoor-sports/cycling/hercules-mountain-bike-21-speed", createdAt:"2026-01-28T16:50:00Z", updatedAt:"2026-01-28T16:50:00Z"},
+  { id:707, name:"Reebok Adjustable Kettlebell 12kg", brand:"Reebok", price:1799, originalPrice:2199, discount:18, rating:4.6, reviewsCount:65, images:["reebok_kettlebell_12kg.jpg"], description:"Adjustable kettlebell for strength training and home workouts.", highlights:["Adjustable Weight","Durable Cast Iron","Ergonomic Handle"], category:{level1:"sports-fitness-outdoor",level2:"fitness",level3:"home-gym",level4:null,level5:null}, stock:true, variants:[{weight:"12kg",price:1799,stock:true,sku:"REEB-KB-12"}], offers:[{type:"Festive Sale",description:"₹400 off"}], reviews:[{user:"Amit S.",rating:5,comment:"Perfect for my home gym.",date:"2026-01-28"}], specs:{material:"Cast Iron",ageRange:"15+ years"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Reebok Official Store",rating:4.7,totalProducts:70,contact:"support@reebok.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"sports-fitness-outdoor/fitness/home-gym/reebok-adjustable-kettlebell-12kg", createdAt:"2026-01-28T17:00:00Z", updatedAt:"2026-01-28T17:00:00Z"},
+  { id:708, name:"Fitbit Inspire 3 Fitness Tracker", brand:"Fitbit", price:6999, originalPrice:7999, discount:13, rating:4.7, reviewsCount:80, images:["fitbit_inspire_3.jpg"], description:"Track your workouts, heart rate, and sleep with this sleek fitness band.", highlights:["Heart Rate Tracking","Sleep Analysis","Water Resistant"], category:{level1:"sports-fitness-outdoor",level2:"fitness",level3:"fitness-trackers",level4:null,level5:null}, stock:true, variants:[{color:"Black",price:6999,stock:true,sku:"FITBIT-INSP3"}], offers:[{type:"Festive Sale",description:"₹1000 off"}], reviews:[{user:"Neha P.",rating:5,comment:"Stylish and functional.",date:"2026-01-28"}], specs:{batteryLife:"10 days",screen:"OLED"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Fitbit Official Store",rating:4.8,totalProducts:60,contact:"support@fitbit.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"sports-fitness-outdoor/fitness/fitness-trackers/fitbit-inspire-3-fitness-tracker", createdAt:"2026-01-28T17:10:00Z", updatedAt:"2026-01-28T17:10:00Z"},
+  { id:709, name:"Cosco Cricket Kit Junior", brand:"Cosco", price:3499, originalPrice:3999, discount:12, rating:4.6, reviewsCount:45, images:["cosco_cricket_kit_junior.jpg"], description:"Complete junior cricket kit with bat, ball, and protective gear.", highlights:["Junior Size","Complete Set","Lightweight Gear"], category:{level1:"sports-fitness-outdoor",level2:"outdoor-sports",level3:"cricket",level4:null,level5:null}, stock:true, variants:[{size:"Junior",price:3499,stock:true,sku:"COSCO-CRKIT-JR"}], offers:[{type:"Festive Sale",description:"₹500 off"}], reviews:[{user:"Karan M.",rating:5,comment:"Great starter kit for my son.",date:"2026-01-28"}], specs:{material:"Wood & Plastic",ageRange:"8-12 years"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Cosco Official Store",rating:4.7,totalProducts:50,contact:"support@cosco.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"sports-fitness-outdoor/outdoor-sports/cricket/cosco-cricket-kit-junior", createdAt:"2026-01-28T17:20:00Z", updatedAt:"2026-01-28T17:20:00Z"},
+  { id:710, name:"Wilson Football Goalkeeper Gloves", brand:"Wilson", price:2499, originalPrice:2999, discount:17, rating:4.7, reviewsCount:55, images:["wilson_goalkeeper_gloves.jpg"], description:"High-grip gloves for goalkeepers, providing comfort and protection.", highlights:["Non-Slip Grip","Durable Material","Comfort Padding"], category:{level1:"sports-fitness-outdoor",level2:"outdoor-sports",level3:"football",level4:null,level5:null}, stock:true, variants:[{size:"L",price:2499,stock:true,sku:"WILSON-GG-L"}], offers:[{type:"Festive Sale",description:"₹500 off"}], reviews:[{user:"Rahul P.",rating:5,comment:"Good fit and grip.",date:"2026-01-28"}], specs:{material:"Latex & Foam",ageRange:"12+ years"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Wilson Official Store",rating:4.8,totalProducts:40,contact:"support@wilson.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"sports-fitness-outdoor/outdoor-sports/football/wilson-football-goalkeeper-gloves", createdAt:"2026-01-28T17:30:00Z", updatedAt:"2026-01-28T17:30:00Z"}
+
+
+
 ];
+
+
 
 
 export default PRODUCTS;
