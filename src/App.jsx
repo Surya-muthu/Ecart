@@ -183,35 +183,141 @@ function Navbar() {
     navigate("/login");
   };
 
+  const navbarStyles = {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    backgroundColor: "#0a218b",
+    color: "#fff",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
+    zIndex: 1000,
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "12px 30px",
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+  };
+
+  const navLeftRightStyles = {
+    display: "flex",
+    alignItems: "center",
+  };
+
+  const linkStyles = {
+    marginRight: "20px",
+    textDecoration: "none",
+    color: "#fff",
+    fontWeight: 500,
+    transition: "color 0.2s ease",
+  };
+
+  const linkHover = (e) => (e.target.style.color = "#ffd700"); // gold on hover
+  const linkLeave = (e) => (e.target.style.color = "#fff");
+
+  const btnBase = {
+    padding: "8px 16px",
+    borderRadius: "20px",
+    border: "none",
+    cursor: "pointer",
+    fontWeight: 600,
+    transition: "all 0.3s ease",
+    marginLeft: "10px",
+  };
+
+  const logoutBtn = {
+    ...btnBase,
+    background: "linear-gradient(90deg, #ff4d4f, #ff7875)",
+    color: "#fff",
+  };
+
+  const loginBtn = {
+    ...btnBase,
+    background: "linear-gradient(90deg, #1890ff, #40a9ff)",
+    color: "#fff",
+  };
+
+  const signupBtn = {
+    ...btnBase,
+    background: "linear-gradient(90deg, #52c41a, #73d13d)",
+    color: "#fff",
+  };
+
+  // Add space below navbar so content is not hidden
+  React.useEffect(() => {
+    document.body.style.paddingTop = "70px"; // navbar height + padding
+    return () => {
+      document.body.style.paddingTop = "0px";
+    };
+  }, []);
+
   return (
-    <nav className="navbar">
-      <div className="nav-left">
-        <Link to="/" className="logo">
+    <nav style={navbarStyles}>
+      <div style={navLeftRightStyles}>
+        <Link
+          to="/"
+          style={{ ...linkStyles, fontWeight: "700", fontSize: "20px" }}
+          onMouseEnter={linkHover}
+          onMouseLeave={linkLeave}
+        >
           FlipMart
         </Link>
 
         {user && (
           <>
-            <Link to="/products">Products</Link>
-            {cartCount > 0 && <Link to="/cart">Cart ({cartCount})</Link>}
+            <Link
+              to="/products"
+              style={linkStyles}
+              onMouseEnter={linkHover}
+              onMouseLeave={linkLeave}
+            >
+              Products
+            </Link>
+            {cartCount > 0 && (
+              <Link
+                to="/cart"
+                style={linkStyles}
+                onMouseEnter={linkHover}
+                onMouseLeave={linkLeave}
+              >
+                Cart ({cartCount})
+              </Link>
+            )}
           </>
         )}
       </div>
 
-      <div className="nav-right">
+      <div style={navLeftRightStyles}>
         {user ? (
           <>
-            <span className="username">Hello, {user.username}</span>
-            <button className="btn logout-btn" onClick={handleLogout}>
+            <span style={{ marginRight: "10px", fontWeight: 500 }}>
+              Hello, {user.username}
+            </span>
+            <button
+              style={logoutBtn}
+              onMouseEnter={(e) => (e.target.style.opacity = 0.85)}
+              onMouseLeave={(e) => (e.target.style.opacity = 1)}
+              onClick={handleLogout}
+            >
               Logout
             </button>
           </>
         ) : (
           <>
-            <Link to="/login" className="btn login-btn">
+            <Link
+              to="/login"
+              style={loginBtn}
+              onMouseEnter={(e) => (e.target.style.opacity = 0.85)}
+              onMouseLeave={(e) => (e.target.style.opacity = 1)}
+            >
               Login
             </Link>
-            <Link to="/register" className="btn signup-btn">
+            <Link
+              to="/register"
+              style={signupBtn}
+              onMouseEnter={(e) => (e.target.style.opacity = 0.85)}
+              onMouseLeave={(e) => (e.target.style.opacity = 1)}
+            >
               Sign Up
             </Link>
           </>
@@ -220,6 +326,7 @@ function Navbar() {
     </nav>
   );
 }
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -535,8 +642,8 @@ function Home() {
       </footer>
 
       {selectedProduct && (
-        <div className="modal-overlay" onClick={() => setSelectedProduct(null)}>
-          <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-overlay"  onClick={() => setSelectedProduct(null)}>
+          <div className="modal-box" style={{ top: "45px" }}  onClick={(e) => e.stopPropagation()}>
             <button
   style={{
     position: "absolute",
@@ -778,6 +885,8 @@ function Products() {
         >
           <div
             style={{
+              marginTop:"100px",
+           
               background: "#fff",
               borderRadius: "16px",
               maxWidth: "900px",
