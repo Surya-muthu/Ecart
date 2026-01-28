@@ -871,161 +871,6 @@ import axios from "axios";
 import PRODUCTS from "./data"
 // import FlipMartHome from './FlipMartHome';
 
-function FlipMartHome() {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    setProducts(PRODUCTS);
-  }, []);
-
-  // ✅ Category Sections Component
-  const CategorySections = ({ products }) => {
-    const categorySections = [
-      { title: "Mobiles & Accessories", filter: { level1: "electronics", level2: "mobiles-tablets" } },
-      { title: "Laptops & Gaming", filter: { level1: "electronics", level2: "laptops-desktops-gaming" } },
-      { title: "TVs & Appliances", filter: { level1: "electronics", level2: "tv-audio-appliances" } },
-      { title: "Fashion & Lifestyle", filter: { level1: "fashion-lifestyle" } },
-      { title: "Grocery & Daily Needs", filter: { level1: "grocery-daily-needs" } },
-      { title: "Home & Kitchen", filter: { level1: "home-kitchen-furniture" } },
-      { title: "Beauty & Health", filter: { level1: "beauty-health-wellness" } },
-      { title: "Sports, Fitness & Outdoor", filter: { level1: "sports-fitness-outdoor" } },
-    ];
-
-    return categorySections.map((cat, idx) => (
-      <section className="section" key={idx}>
-        <div className="section-header">
-          <h2>{cat.title}</h2>
-        </div>
-
-        <div className="products">
-          {products
-            .filter(p => {
-              if (!p.category) return false;
-              return Object.keys(cat.filter).every(level => p.category[level] === cat.filter[level]);
-            })
-            .map((p, i) => (
-              <div className="product" key={i}>
-                <img src={p.images[0]} alt={p.name} />
-                <h4>{p.name}</h4>
-                <div className="price">₹{p.price}</div>
-                <div className="sub">{p.brand}</div>
-              </div>
-            ))}
-        </div>
-      </section>
-    ));
-  };
-
-  return (
-    <>
-      {/* GOOGLE FONTS */}
-      <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-      />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-        rel="stylesheet"
-      />
-
-      {/* STYLES */}
-      <style>{`
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:Inter,sans-serif;background:#f1f3f6;color:#0d121b}
-        img{max-width:100%;display:block}
-        main{max-width:1280px;margin:auto;padding:20px;display:flex;flex-direction:column;gap:20px}
-
-        /* HERO */
-        .hero{height:300px;border-radius:8px;
-          background:
-            linear-gradient(to right, rgba(0,0,0,.6), transparent),
-            url("https://lh3.googleusercontent.com/aida-public/AB6AXuBIaxtUa_uLHLhnUF9ztYjDdNDdXfC8a8e7y0DrN3qsNmq98T1jOZhISldyVT1HT-15zAef2OmEMxKuOEnhj5aVgMbNG3NNpsoNcxnlRa2boB03308DAjmYVWo68ZKZK02ZIyOUjiePLlbKMsFsNfhfsyd5U7sRAMkXQuoU4-KA6IUsVqDEF90zStn8K9yWleWcf6Nlev-pIs8LqXTolJdu-XWObZaba1Lmf6OOdnMjeGlMO802n_Yh4tsmjyDwi1S70NbV8XZsgUs")
-            center/cover no-repeat;
-          display:flex;align-items:center;
-        }
-        .hero-text{color:#fff;padding:40px;max-width:500px}
-        .hero-text h1{font-size:36px;margin-bottom:10px}
-        .hero-text p{font-size:18px;margin-bottom:20px}
-        .hero-text button{background:#135bec;border:none;color:#fff;padding:12px 30px;font-weight:700;cursor:pointer}
-
-        /* SECTION */
-        .section{background:#fff;padding:20px;border-radius:4px}
-        .section-header h2{font-size:20px;margin-bottom:15px}
-
-        /* PRODUCTS */
-        .products{display:flex;gap:15px;overflow-x:auto}
-        .product{min-width:200px;border:1px solid #eee;padding:15px;text-align:center}
-        .product img{height:150px;object-fit:contain;margin-bottom:10px}
-        .product h4{font-size:14px;margin-bottom:5px}
-        .price{color:green;font-weight:700;font-size:14px}
-        .sub{font-size:12px;color:#777}
-
-        /* FOOTER */
-        footer{background:#111;color:#aaa;margin-top:40px}
-        .footer-bottom{border-top:1px solid #333;padding:20px;text-align:center;font-size:12px}
-
-        /* FAB */
-        .fab{position:fixed;bottom:20px;right:20px;width:56px;height:56px;border-radius:50%;background:#135bec;color:#fff;display:flex;align-items:center;justify-content:center}
-      `}</style>
-
-      <main>
-        {/* HERO */}
-        <section className="hero">
-          <div className="hero-text">
-            <h1>Grand Summer Sale</h1>
-            <p>Up to 80% Off on Top Global Brands</p>
-            <button>SHOP NOW</button>
-          </div>
-        </section>
-
-        {/* BEST DEALS */}
-        <section className="section">
-          <div className="section-header">
-            <h2>Best Deals of the Day</h2>
-          </div>
-
-          <div className="products">
-            {products
-              .filter(p => p.discount < 15)
-              .map((p, i) => (
-                <div className="product" key={i}>
-                  <img src={p.images[0]} alt={p.name} />
-                  <h4>{p.name}</h4>
-                  <div className="price">₹{p.price}</div>
-                  <div className="sub">{p.brand}</div>
-                </div>
-              ))}
-          </div>
-        </section>
-
-        {/* CATEGORY SECTIONS */}
-        <CategorySections products={products} />
-
-        {/* RECOMMENDED */}
-        <section className="section">
-          <div className="section-header">
-            <h2>Recommended</h2>
-          </div>
-
-          <div className="products">
-            {products.map((p, i) => (
-              <div className="product" key={i}>
-                <img src={p.images[0]} alt={p.name} />
-                <h4>{p.name}</h4>
-                <div className="price">₹{p.price}</div>
-                <div className="sub">{p.brand}</div>
-              </div>
-            ))}
-          </div>
-        </section>
-      </main>
-
-      <footer>
-        <div className="footer-bottom">© 2024 FlipMart.com</div>
-      </footer>
-    </>
-  );
-}
 
 
 /* =======================
@@ -1170,47 +1015,6 @@ const cartSlice = createSlice({
     },
   },
 });
-
-
-
-
-// const cartSlice = createSlice({
-//   name: "cart",
-//   initialState: { items: [], orderConfirmed: false },
-//   reducers: {
-//    addToCart(state, action) {
-//   // ✅ reset order confirmation when adding new item
-//   state.orderConfirmed = false;
-
-//   const existing = state.items.find(
-//     (i) => i.id === action.payload.id
-//   );
-
-//   if (existing) {
-//     existing.quantity += 1;
-//   } else {
-//     state.items.push({ ...action.payload, quantity: 1 });
-//   }
-// },
-//     removeFromCart(state, action) {
-//       state.items = state.items.filter((i) => i.id !== action.payload);
-//     },
-//     changeQuantity(state, action) {
-//       const item = state.items.find((i) => i.id === action.payload.id);
-//       if (item) {
-//         if (action.payload.type === "inc") item.quantity += 1;
-//         if (action.payload.type === "dec" && item.quantity > 1) item.quantity -= 1;
-//       }
-//     },
-//     clearCart(state) {
-//       state.items = [];
-//     },
-//     confirmOrder(state) {
-//       state.items = [];
-//       state.orderConfirmed = true;
-//     },
-//   },
-// });
 /* =======================
    STORE
 ======================= */
@@ -1432,6 +1236,164 @@ function Login() {
 ======================= */
 function Home() {
   return <div><FlipMartHome/></div>;
+}
+
+
+
+function FlipMartHome() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    setProducts(PRODUCTS);
+  }, []);
+
+  // ✅ Category Sections Component
+  const CategorySections = ({ products }) => {
+    const categorySections = [
+      { title: "Mobiles & Accessories", filter: { level1: "electronics", level2: "mobiles-tablets" } },
+      { title: "Laptops & Gaming", filter: { level1: "electronics", level2: "laptops-desktops-gaming" } },
+      { title: "TVs & Appliances", filter: { level1: "electronics", level2: "tv-audio-appliances" } },
+      { title: "Fashion & Lifestyle", filter: { level1: "fashion-lifestyle" } },
+      { title: "Grocery & Daily Needs", filter: { level1: "grocery-daily-needs" } },
+      { title: "Home & Kitchen", filter: { level1: "home-kitchen-furniture" } },
+      { title: "Beauty & Health", filter: { level1: "beauty-health-wellness" } },
+      { title: "Sports, Fitness & Outdoor", filter: { level1: "sports-fitness-outdoor" } },
+    ];
+
+    return categorySections.map((cat, idx) => (
+      <section className="section" key={idx}>
+        <div className="section-header">
+          <h2>{cat.title}</h2>
+        </div>
+
+        <div className="products">
+          {products
+            .filter(p => {
+              if (!p.category) return false;
+              return Object.keys(cat.filter).every(level => p.category[level] === cat.filter[level]);
+            })
+            .map((p, i) => (
+              <div className="product" key={i}>
+                <img src={p.images[0]} alt={p.name} />
+                <h4>{p.name}</h4>
+                <div className="price">₹{p.price}</div>
+                <div className="sub">{p.brand}</div>
+              </div>
+            ))}
+        </div>
+      </section>
+    ));
+  };
+
+  return (
+    <>
+      {/* GOOGLE FONTS */}
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+        rel="stylesheet"
+      />
+
+      {/* STYLES */}
+      <style>{`
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:Inter,sans-serif;background:#f1f3f6;color:#0d121b}
+        img{max-width:100%;display:block}
+        main{max-width:1280px;margin:auto;padding:20px;display:flex;flex-direction:column;gap:20px}
+
+        /* HERO */
+        .hero{height:300px;border-radius:8px;
+          background:
+            linear-gradient(to right, rgba(0,0,0,.6), transparent),
+            url("https://lh3.googleusercontent.com/aida-public/AB6AXuBIaxtUa_uLHLhnUF9ztYjDdNDdXfC8a8e7y0DrN3qsNmq98T1jOZhISldyVT1HT-15zAef2OmEMxKuOEnhj5aVgMbNG3NNpsoNcxnlRa2boB03308DAjmYVWo68ZKZK02ZIyOUjiePLlbKMsFsNfhfsyd5U7sRAMkXQuoU4-KA6IUsVqDEF90zStn8K9yWleWcf6Nlev-pIs8LqXTolJdu-XWObZaba1Lmf6OOdnMjeGlMO802n_Yh4tsmjyDwi1S70NbV8XZsgUs")
+            center/cover no-repeat;
+          display:flex;align-items:center;
+        }
+        .hero-text{color:#fff;padding:40px;max-width:500px}
+        .hero-text h1{font-size:36px;margin-bottom:10px}
+        .hero-text p{font-size:18px;margin-bottom:20px}
+        .hero-text button{background:#135bec;border:none;color:#fff;padding:12px 30px;font-weight:700;cursor:pointer}
+
+        /* SECTION */
+        .section{background:#fff;padding:20px;border-radius:4px}
+        .section-header h2{font-size:20px;margin-bottom:15px}
+
+        /* PRODUCTS */
+        .products{display:flex;gap:15px;overflow-x:auto}
+        .product{min-width:200px;border:1px solid #eee;padding:15px;text-align:center}
+        .product img{height:150px;object-fit:contain;margin-bottom:10px}
+        .product h4{font-size:14px;margin-bottom:5px}
+        .price{color:green;font-weight:700;font-size:14px}
+        .sub{font-size:12px;color:#777}
+
+        /* FOOTER */
+        footer{background:#111;color:#aaa;margin-top:40px}
+        .footer-bottom{border-top:1px solid #333;padding:20px;text-align:center;font-size:12px}
+
+        /* FAB */
+        .fab{position:fixed;bottom:20px;right:20px;width:56px;height:56px;border-radius:50%;background:#135bec;color:#fff;display:flex;align-items:center;justify-content:center}
+      `}</style>
+
+      <main>
+        {/* HERO */}
+        <section className="hero">
+          <div className="hero-text">
+            <h1>Grand Summer Sale</h1>
+            <p>Up to 80% Off on Top Global Brands</p>
+            <button>SHOP NOW</button>
+          </div>
+        </section>
+
+        {/* BEST DEALS */}
+        <section className="section">
+          <div className="section-header">
+            <h2>Best Deals of the Day</h2>
+          </div>
+
+          <div className="products">
+            {products
+              .filter(p => p.discount < 15)
+              .map((p, i) => (
+                <div className="product" key={i}>
+                  <img src={p.images[0]} alt={p.name} />
+                  <h4>{p.name}</h4>
+                  <div className="price">₹{p.price}</div>
+                  <div className="sub">{p.brand}</div>
+                </div>
+              ))}
+          </div>
+        </section>
+
+        {/* CATEGORY SECTIONS */}
+        <CategorySections products={products} />
+
+        {/* RECOMMENDED */}
+        <section className="section">
+          <div className="section-header">
+            <h2>Recommended</h2>
+          </div>
+
+          <div className="products">
+            {products.map((p, i) => (
+              <div className="product" key={i}>
+                <img src={p.images[0]} alt={p.name} />
+                <h4>{p.name}</h4>
+                <div className="price">₹{p.price}</div>
+                <div className="sub">{p.brand}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div className="footer-bottom">© 2024 FlipMart.com</div>
+      </footer>
+    </>
+  );
 }
 /* =======================
    PRODUCTS
@@ -1658,369 +1620,7 @@ function Products() {
 /* =======================
    CART
 ======================= */
-// function Cart() {
-//   const { items, orderConfirmed } = useSelector((state) => state.cart);
-//   const user = useSelector((state) => state.user.currentUser);
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
 
-//   const [showCheckout, setShowCheckout] = useState(false);
-//   const [step, setStep] = useState(1);
-//   const [address, setAddress] = useState("");
-//   const [paymentMethod, setPaymentMethod] = useState("cod");
-
-//   const total = items.reduce(
-//     (sum, item) => sum + item.price * item.quantity,
-//     0
-//   );
-
-//   return (
-//     <div className="cart-page">
-//       <h2>Your Cart</h2>
-
-//       {items.length === 0 && <p>Your cart is empty 🛒</p>}
-
-//       {items.map((item) => (
-//         <div key={item.id} className="cart-item">
-//           <img src={item.images?.[0]} alt={item.name} />
-//           <div>
-//             <h4>{item.name}</h4>
-//             <p>₹{item.price.toLocaleString()}</p>
-//           </div>
-//         </div>
-//       ))}
-
-//       {items.length > 0 && (
-//         <div className="cart-footer">
-//           <h3>Total: ₹{total.toLocaleString()}</h3>
-//           <button
-//             className="btn primary"
-//             onClick={() => {
-//               if (!user) navigate("/login");
-//               else setShowCheckout(true);
-//             }}
-//           >
-//             Place Order
-//           </button>
-//         </div>
-//       )}
-
-//       {/* ✅ ORDER SUCCESS POPUP */}
-//       {orderConfirmed && (
-//         <div className="modal-overlay">
-//           <div className="order-success modal">
-//             <h2>🎉 Order Placed Successfully</h2>
-//             <p>Thank you for shopping with us.</p>
-//             <button
-//               className="btn primary"
-              
-//               onClick={() => navigate("/")}
-//             >
-//               Continue Shopping
-//             </button>
-//           </div>
-//         </div>
-//       )}
-
-//       {/* 🚀 CHECKOUT MODAL */}
-//       {showCheckout && (
-//         <div className="checkout-overlay">
-//           <div className="checkout-modal">
-//             <div className="checkout-header">
-//               <h3>Checkout</h3>
-//               <button onClick={() => setShowCheckout(false)}>✕</button>
-//             </div>
-
-//             <div className="steps">
-//               <span className={step === 1 ? "active" : ""}>Address</span>
-//               <span className={step === 2 ? "active" : ""}>Payment</span>
-//               <span className={step === 3 ? "active" : ""}>Confirm</span>
-//             </div>
-
-//             {step === 1 && (
-//               <div className="step-content">
-//                 <textarea
-//                   placeholder="House no, Street, City, Pincode"
-//                   value={address}
-//                   onChange={(e) => setAddress(e.target.value)}
-//                 />
-//                 <button
-//                   className="btn primary"
-//                   disabled={!address}
-//                   onClick={() => setStep(2)}
-//                 >
-//                   Continue
-//                 </button>
-//               </div>
-//             )}
-
-//             {step === 2 && (
-//               <div className="step-content">
-//                 {["cod", "upi", "card"].map((method) => (
-//                   <div
-//                     key={method}
-//                     className={`payment-card ${
-//                       paymentMethod === method ? "selected" : ""
-//                     }`}
-//                     onClick={() => setPaymentMethod(method)}
-//                   >
-//                     {method.toUpperCase()}
-//                   </div>
-//                 ))}
-//                 <div className="actions">
-//                   <button onClick={() => setStep(1)}>Back</button>
-//                   <button className="btn primary" onClick={() => setStep(3)}>
-//                     Continue
-//                   </button>
-//                 </div>
-//               </div>
-//             )}
-
-//             {step === 3 && (
-//               <div className="step-content">
-//                 <p><strong>Address:</strong> {address}</p>
-//                 <p><strong>Payment:</strong> {paymentMethod}</p>
-//                 <p className="total">₹{total.toLocaleString()}</p>
-//                 <div className="actions">
-//                   <button onClick={() => setStep(2)}>Back</button>
-//                   <button
-//                     className="btn primary"
-//                     onClick={() => {
-//                       dispatch(cartSlice.actions.confirmOrder());
-//                       setShowCheckout(false);
-//                     }}
-//                   >
-//                     Pay Now
-//                   </button>
-//                 </div>
-//               </div>
-//             )}
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-// function Cart() {
-//   const { items, orderConfirmed } = useSelector((state) => state.cart);
-//   const user = useSelector((state) => state.user.currentUser);
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
-
-//   const [showCheckout, setShowCheckout] = useState(false);
-//   const [step, setStep] = useState(1);
-//   const [address, setAddress] = useState("");
-//   const [paymentMethod, setPaymentMethod] = useState("cod");
-
-//   const total = items.reduce(
-//     (sum, item) => sum + item.price * item.quantity,
-//     0
-//   );
-
-//   // ---------- INLINE CSS ----------
-//   const styles = {
-//     page: {
-//       padding: "20px",
-//       maxWidth: "900px",
-//       margin: "0 auto",
-//       fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-//     },
-//     h2: { textAlign: "center", marginBottom: "20px", color: "#333" },
-//     cartItem: {
-//       display: "flex",
-//       alignItems: "center",
-//       gap: "15px",
-//       padding: "10px",
-//       border: "1px solid #ddd",
-//       borderRadius: "8px",
-//       marginBottom: "10px",
-//       background: "#fafafa",
-//     },
-//     cartItemImg: { width: "80px", height: "80px", objectFit: "cover", borderRadius: "6px" },
-//     cartFooter: { marginTop: "20px", textAlign: "right" },
-//     btn: {
-//       padding: "10px 20px",
-//       background: "#007bff",
-//       color: "#fff",
-//       border: "none",
-//       borderRadius: "5px",
-//       cursor: "pointer",
-//       marginLeft: "10px",
-//     },
-//     modalOverlay: {
-//       position: "fixed",
-//       top: 0,
-//       left: 0,
-//       width: "100%",
-//       height: "100%",
-//       background: "rgba(0,0,0,0.5)",
-//       display: "flex",
-//       justifyContent: "center",
-//       alignItems: "center",
-//       zIndex: 1000,
-//     },
-//     modal: {
-//       background: "#fff",
-//       padding: "30px",
-//       borderRadius: "10px",
-//       maxWidth: "500px",
-//       width: "100%",
-//       textAlign: "center",
-//       position: "relative",
-//     },
-//     checkoutModal: {
-//       background: "#fff",
-//       padding: "30px",
-//       borderRadius: "10px",
-//       maxWidth: "500px",
-//       width: "100%",
-//       position: "relative",
-//       display: "flex",
-//       flexDirection: "column",
-//       gap: "20px",
-//     },
-//     checkoutHeader: { display: "flex", justifyContent: "space-between", alignItems: "center" },
-//     steps: { display: "flex", justifyContent: "space-between", marginBottom: "15px" },
-//     step: { flex: 1, textAlign: "center", padding: "5px 0", borderBottom: "2px solid #ccc" },
-//     activeStep: { borderBottom: "2px solid #007bff", fontWeight: "600", color: "#007bff" },
-//     paymentCard: {
-//       padding: "10px",
-//       border: "1px solid #ddd",
-//       borderRadius: "6px",
-//       cursor: "pointer",
-//       marginBottom: "10px",
-//     },
-//     selectedPayment: { borderColor: "#007bff", background: "#e6f0ff" },
-//     actions: { display: "flex", justifyContent: "space-between", marginTop: "10px" },
-//     textarea: { width: "100%", minHeight: "80px", padding: "8px", borderRadius: "6px", border: "1px solid #ccc" },
-//   };
-
-//   return (
-//     <div style={styles.page}>
-//       <h2 style={styles.h2}>Your Cart</h2>
-
-//       {items.length === 0 && <p style={{ textAlign: "center" }}>Your cart is empty 🛒</p>}
-
-//       {items.map((item) => (
-//         <div key={item.id} style={styles.cartItem}>
-//           <img src={item.images?.[0]} alt={item.name} style={styles.cartItemImg} />
-//           <div>
-//             <h4>{item.name}</h4>
-//             <p>₹{item.price.toLocaleString()}</p>
-//           </div>
-//         </div>
-//       ))}
-
-//       {items.length > 0 && (
-//         <div style={styles.cartFooter}>
-//           <h3>Total: ₹{total.toLocaleString()}</h3>
-//           <button
-//             style={styles.btn}
-//             onClick={() => {
-//               if (!user) navigate("/login");
-//               else setShowCheckout(true);
-//             }}
-//           >
-//             Place Order
-//           </button>
-//         </div>
-//       )}
-
-//       {/* ✅ ORDER SUCCESS */}
-//       {orderConfirmed && (
-//         <div style={styles.modalOverlay}>
-//           <div style={styles.modal}>
-//             <h2>🎉 Order Placed Successfully</h2>
-//             <p>Thank you for shopping with us.</p>
-//             <button
-//               style={styles.btn}
-//               onClick={() => navigate("/")}
-//             >
-//               Continue Shopping
-//             </button>
-//           </div>
-//         </div>
-//       )}
-
-//       {/* 🚀 CHECKOUT MODAL */}
-//       {showCheckout && (
-//         <div style={styles.modalOverlay}>
-//           <div style={styles.checkoutModal}>
-//             <div style={styles.checkoutHeader}>
-//               <h3>Checkout</h3>
-//               <button onClick={() => setShowCheckout(false)}>✕</button>
-//             </div>
-
-//             <div style={styles.steps}>
-//               <span style={{ ...styles.step, ...(step === 1 ? styles.activeStep : {}) }}>Address</span>
-//               <span style={{ ...styles.step, ...(step === 2 ? styles.activeStep : {}) }}>Payment</span>
-//               <span style={{ ...styles.step, ...(step === 3 ? styles.activeStep : {}) }}>Confirm</span>
-//             </div>
-
-//             {step === 1 && (
-//               <div>
-//                 <textarea
-//                   style={styles.textarea}
-//                   placeholder="House no, Street, City, Pincode"
-//                   value={address}
-//                   onChange={(e) => setAddress(e.target.value)}
-//                 />
-//                 <button
-//                   style={styles.btn}
-//                   disabled={!address}
-//                   onClick={() => setStep(2)}
-//                 >
-//                   Continue
-//                 </button>
-//               </div>
-//             )}
-
-//             {step === 2 && (
-//               <div>
-//                 {["cod", "upi", "card"].map((method) => (
-//                   <div
-//                     key={method}
-//                     style={{
-//                       ...styles.paymentCard,
-//                       ...(paymentMethod === method ? styles.selectedPayment : {}),
-//                     }}
-//                     onClick={() => setPaymentMethod(method)}
-//                   >
-//                     {method.toUpperCase()}
-//                   </div>
-//                 ))}
-//                 <div style={styles.actions}>
-//                   <button onClick={() => setStep(1)}>Back</button>
-//                   <button style={styles.btn} onClick={() => setStep(3)}>Continue</button>
-//                 </div>
-//               </div>
-//             )}
-
-//             {step === 3 && (
-//               <div>
-//                 <p><strong>Address:</strong> {address}</p>
-//                 <p><strong>Payment:</strong> {paymentMethod}</p>
-//                 <p className="total">₹{total.toLocaleString()}</p>
-//                 <div style={styles.actions}>
-//                   <button onClick={() => setStep(2)}>Back</button>
-//                   <button
-//                     style={styles.btn}
-//                     onClick={() => {
-//                       dispatch(cartSlice.actions.confirmOrder());
-//                       setShowCheckout(false);
-//                     }}
-//                   >
-//                     Pay Now
-//                   </button>
-//                 </div>
-//               </div>
-//             )}
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
 function Cart() {
   const { items, orderConfirmed } = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user.currentUser);
@@ -2248,7 +1848,28 @@ function Cart() {
           <div style={styles.checkoutModal}>
             <div style={styles.checkoutHeader}>
               <h3>Checkout</h3>
-              <button onClick={() => setShowCheckout(false)}>✕</button>
+              {/* <button onClick={() => setShowCheckout(false)}>✕</button> */}
+              <button
+  onClick={() => setShowCheckout(false)}
+  style={{
+    border: "1px solid #ccc",
+    borderRadius: "4px",
+    background: "#0e0c0c",
+    color: "#f8f2f2",
+    width: "28px",
+    height: "28px",
+    fontWeight: "bold",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 0,
+    lineHeight: 1,
+  }}
+>
+  ✕
+</button>
+
             </div>
 
             <div style={styles.steps}>
@@ -2317,9 +1938,6 @@ function Cart() {
     </div>
   );
 }
-
-
-
 /* =======================
    orders
 ======================= */
