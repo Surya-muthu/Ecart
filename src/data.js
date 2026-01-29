@@ -1,19 +1,26 @@
-import {
-  hpLaptop,
-  iphone13,
-  boatHeadphones,
-  samsungWatch,
-  dellInspiron,
-  lenovoSlim,
-  s21fe,
-  oneplusNord,
-  sonyHeadphones,
-  jblSpeaker,
-  airpodsPro,
-  canonCamera,
-  miBand,
-  asusTuf,
-} from "./Images/images";
+// import {
+//   atta, rice, brownRice, cornflakes, bananas, spinach, maggi, tea, coffee, toorDal,
+
+//   fireTablet, lgTv, ledTv, earbuds, headphones, noiseHeadphones,
+//   bluetoothSpeaker, dslr, powerBank, smartWatch, fitnessBand, miBand,
+
+//   airFryer, electricKettle, vacuumCleaner, sofa, bed, diningTable,
+//   lamp, wallArt, shelf, carpet, cookware, bakeware, storage,
+
+//   mensShirt, mensShorts, mensHoodie, mensShoes, wallet, watch, jacket, sunglasses,
+
+//   lehenga, blouse, heels, handbag, womensBag,
+
+//   kidsJeans, kidsTshirt, kidsSet, infantsSet, romper,
+//   wipes, diapers, feedingBottle, toyTrain, slide,
+
+//   faceCream, faceWash, shampoo, hairOil, kajal, lipstick,
+//   foundation, multivitamin, immunity, bpMonitor, fitnessTracker,
+
+//   yogaMat, dumbbell, kettlebell, football, cricketBat, cricketKit, gloves, cycle,
+
+//   heroBanner, banner2,
+// } from './Images/images'
 
 
 // {
@@ -134,16 +141,87 @@ import {
 //   createdAt: "2026-01-25T10:00:00Z",
 //   updatedAt: "2026-01-28T08:00:00Z",
 // };
-
+import Images from "./Images/images";
 const PRODUCTS = [
 
 
   // ELECTRONICS & TECHNOLOGY
 
+//  atta,
+//   rice,
+//   brownRice,
+//   bananas,
+//   spinach,
+//   maggi,
+//   tea,
+//   coffee,
+//   toorDal,
 
+//   fireTablet,
+//   lgTv,
+//   ledTv,
+//   earbuds,
+//   headphones,
+//   noiseHeadphones,
+//   bluetoothSpeaker,
+//   dslr,
+//   powerBank,
+//   smartWatch,
+//   fitnessBand,
+//   miBand,
 
-  { id: 101, name: "Anker PowerPort III 20W Wall Charger", brand: "Anker", price: 1299, originalPrice: 1499, discount: 13, rating: 4.7, reviewsCount: 856, images: [airpodsPro], description: "Compact 20W USB-C wall charger for fast charging smartphones and tablets.", highlights: ["20W Fast Charging","USB-C Port","Compact Design","Overheat Protection"], category: {level1:"electronics",level2:"mobiles-tablets",level3:"mobile-accessories",level4:"charging-power",level5:"wall-chargers"}, stock:true, variants:[{color:"White",power:"20W",price:1299,stock:true,sku:"ANK-WC-20W-WH"}], offers:[{type:"Bank Discount",description:"5% off with HDFC Bank cards"}], reviews:[{user:"Alice M.",rating:5,comment:"Charges my phone super fast!",date:"2026-01-15"}], specs:{port:"USB-C",output:"20W",input:"100-240V",weight:"45g",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Anker Official Store",rating:4.8,totalProducts:120,contact:"support@anker.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Charger"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/mobile-accessories/charging-power/wall-chargers/anker-powerport-iii", createdAt:"2026-01-26T09:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
-  { id: 102, name: "Sony WF-1000XM5 True Wireless Earbuds", brand: "Sony", price: 15999, originalPrice: 19999, discount: 20, rating: 4.8, reviewsCount: 420, images: ["sony_tws_front.jpg", "sony_tws_case.jpg"], description: "Premium TWS earbuds with noise cancellation and 8-hour battery life.", highlights:["Noise Cancelling","IPX4 Water Resistant","8-Hour Playback","Quick Charge"], category:{level1:"electronics",level2:"mobiles-tablets",level3:"mobile-accessories",level4:"audio",level5:"tws-earbuds"}, stock:true, variants:[{color:"Black",price:15999,stock:true,sku:"SON-TWS-BK"}], offers:[{type:"Festive Sale",description:"₹2000 off during New Year Sale"}], reviews:[{user:"Ravi K.",rating:5,comment:"Best sound quality I've ever had!",date:"2026-01-20"}], specs:{battery:"8h+24h case",connectivity:"Bluetooth 5.2",weight:"7g each",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Sony Official Store",rating:4.9,totalProducts:250,contact:"support@sony.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Charging Case","Ear Tips"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/mobile-accessories/audio/tws-earbuds/sony-wf-1000xm5", createdAt:"2026-01-26T10:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+//   airFryer,
+//   electricKettle,
+//   vacuumCleaner,
+//   sofa,
+//   bed,
+//   diningTable,
+//   lamp,
+//   wallArt,
+//   shelf,
+//   carpet,
+//   cookware,
+//   bakeware,
+//   storage,
+
+//   mensShorts,
+//   mensHoodie,
+//   watch,
+
+//   blouse,
+//   heels,
+
+//   romper,
+//   wipes,
+//   diapers,
+//   feedingBottle,
+//   toyTrain,
+//   slide,
+
+//   faceCream,
+//   faceWash,
+//   hairOil,
+//   kajal,
+//   foundation,
+//   multivitamin,
+//   immunity,
+//   bpMonitor,
+//   fitnessTracker,
+
+//   yogaMat,
+//   dumbbell,
+//   kettlebell,
+//   football,
+//   cricketBat,
+//   cricketKit,
+//   gloves,
+//   cycle,
+
+//   heroBanner,
+//   banner2,
+
+  { id: 101, name: "Anker PowerPort III 20W Wall Charger", brand: "Anker", price: 1299, originalPrice: 1499, discount: 13, rating: 4.7, reviewsCount: 856, images: [Images.atta], description: "Compact 20W USB-C wall charger for fast charging smartphones and tablets.", highlights: ["20W Fast Charging","USB-C Port","Compact Design","Overheat Protection"], category: {level1:"electronics",level2:"mobiles-tablets",level3:"mobile-accessories",level4:"charging-power",level5:"wall-chargers"}, stock:true, variants:[{color:"White",power:"20W",price:1299,stock:true,sku:"ANK-WC-20W-WH"}], offers:[{type:"Bank Discount",description:"5% off with HDFC Bank cards"}], reviews:[{user:"Alice M.",rating:5,comment:"Charges my phone super fast!",date:"2026-01-15"}], specs:{port:"USB-C",output:"20W",input:"100-240V",weight:"45g",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Anker Official Store",rating:4.8,totalProducts:120,contact:"support@anker.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Charger"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/mobile-accessories/charging-power/wall-chargers/anker-powerport-iii", createdAt:"2026-01-26T09:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
+  { id: 102, name: "Sony WF-1000XM5 True Wireless Earbuds", brand: "Sony", price: 15999, originalPrice: 19999, discount: 20, rating: 4.8, reviewsCount: 420, images: [""], description: "Premium TWS earbuds with noise cancellation and 8-hour battery life.", highlights:["Noise Cancelling","IPX4 Water Resistant","8-Hour Playback","Quick Charge"], category:{level1:"electronics",level2:"mobiles-tablets",level3:"mobile-accessories",level4:"audio",level5:"tws-earbuds"}, stock:true, variants:[{color:"Black",price:15999,stock:true,sku:"SON-TWS-BK"}], offers:[{type:"Festive Sale",description:"₹2000 off during New Year Sale"}], reviews:[{user:"Ravi K.",rating:5,comment:"Best sound quality I've ever had!",date:"2026-01-20"}], specs:{battery:"8h+24h case",connectivity:"Bluetooth 5.2",weight:"7g each",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Sony Official Store",rating:4.9,totalProducts:250,contact:"support@sony.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Charging Case","Ear Tips"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/mobile-accessories/audio/tws-earbuds/sony-wf-1000xm5", createdAt:"2026-01-26T10:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
   { id: 103, name: "Spigen Ultra Hybrid Back Cover for iPhone 14", brand: "Spigen", price: 999, originalPrice: 1299, discount: 23, rating: 4.6, reviewsCount: 320, images: ["spigen_backcover_front.jpg", "spigen_backcover_side.jpg"], description: "Transparent shock-absorbent back cover for iPhone.", highlights:["Shock Absorption","Slim Design","Anti-Yellowing","Easy Grip"], category:{level1:"electronics",level2:"mobiles-tablets",level3:"mobile-accessories",level4:"protection",level5:"back-covers"}, stock:true, variants:[{color:"Clear",price:999,stock:true,sku:"SPG-BC-IP14-CL"}], offers:[{type:"Exchange Offer",description:"Up to ₹300 off on old case exchange"}], reviews:[{user:"Sneha P.",rating:5,comment:"Fits perfectly and protects well.",date:"2026-01-18"}], specs:{material:"TPU+PC",compatibility:"iPhone 14",weight:"25g",warranty:"6 months"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Spigen Official",rating:4.7,totalProducts:80,contact:"support@spigen.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Cover"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/mobile-accessories/protection/back-covers/spigen-ultra-hybrid-iphone14", createdAt:"2026-01-26T11:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
   { id: 104, name: "iOttie Easy One Touch 5 Car Mount", brand: "iOttie", price: 2499, originalPrice: 2999, discount: 17, rating: 4.5, reviewsCount: 210, images: ["iottie_mount_front.jpg", "iottie_mount_side.jpg"], description: "Universal car mount with one-touch locking mechanism for easy and secure phone mounting.", highlights:["One-Touch Lock","Adjustable Arm","360° Rotation","Dashboard & Windshield Compatible"], category:{level1:"electronics",level2:"mobiles-tablets",level3:"mobile-accessories",level4:"mounts-stands",level5:"car-mounts"}, stock:true, variants:[{color:"Black",price:2499,stock:true,sku:"IOT-CM-EOT5-BK"}], offers:[{type:"Bank Discount",description:"10% off with SBI Cards"}], reviews:[{user:"Vikram S.",rating:5,comment:"Stays stable on bumpy roads.",date:"2026-01-22"}], specs:{material:"ABS+PC",weight:"180g",maxPhoneWidth:"90mm",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"iOttie Official Store",rating:4.8,totalProducts:60,contact:"support@iottie.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Mount"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/mobile-accessories/mounts-stands/car-mounts/iottie-easy-one-touch-5", createdAt:"2026-01-26T12:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
   { id: 105, name: "Samsung Galaxy M13 Android Phone", brand: "Samsung", price: 9999, originalPrice: 10999, discount: 9, rating: 4.3, reviewsCount: 550, images:["samsung_m13_front.jpg","samsung_m13_back.jpg"], description:"Budget-friendly Android smartphone with large battery.", highlights:["6000mAh Battery","6.6 inch Display","4GB RAM","64GB Storage"], category:{level1:"electronics",level2:"mobiles-tablets",level3:"smartphones",level4:"android-phones",level5:"budget-phones"}, stock:true, variants:[{color:"Blue",storage:"64GB",ram:"4GB",price:9999,stock:true,sku:"SAM-M13-64-4-BL"}], offers:[{type:"Bank Discount",description:"5% off with ICICI Cards"}], reviews:[{user:"Kiran T.",rating:4,comment:"Good value for money.",date:"2026-01-21"}], specs:{processor:"Exynos 850",ram:"4GB",storage:"64GB",display:"6.6 inch FHD+",battery:"6000mAh",os:"Android 13",weight:"201g",warranty:"1 Year"}, shipping:{free:true,estimatedDelivery:"3-5 days",returnPolicy:"10 days return"}, seller:{name:"Samsung Official Store",rating:4.7,totalProducts:300,contact:"support@samsung.com"}, packaging:{boxIncluded:true,accessoriesIncluded:["Charger","Earphones"],ecoFriendly:true}, slug:"electronics/mobiles-tablets/smartphones/android-phones/budget-phones/samsung-galaxy-m13", createdAt:"2026-01-26T13:00:00Z", updatedAt:"2026-01-28T08:00:00Z"},
@@ -219,7 +297,7 @@ const PRODUCTS = [
 
   { id:303, name:"Toor Dal (Arhar) 1kg", brand:"Tata Sampann", price:179, originalPrice:219, discount:18, rating:4.5, reviewsCount:200, images:["tata_sampann_toor_dal_1kg.jpg"], description:"High-quality toor dal for daily cooking, rich in protein.", highlights:["High Protein","Premium Quality","No Preservatives"], category:{level1:"grocery-daily-needs",level2:"foodgrains-staples",level3:"pulses",level4:"toor-dal",level5:null}, stock:true, variants:[{weight:"1kg",price:179,stock:true,sku:"TATA-TOOR-1KG"}], offers:[{type:"Festive Sale",description:"₹20 off"}], reviews:[{user:"Vikram K.",rating:5,comment:"Good quality and cooks well.",date:"2026-01-28"}], specs:{type:"Toor Dal",origin:"India"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Tata Sampann Official Store",rating:4.8,totalProducts:60,contact:"support@tatasampann.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"grocery-daily-needs/foodgrains-staples/pulses/toor-dal/tata-sampann-toor-dal-1kg", createdAt:"2026-01-28T12:20:00Z", updatedAt:"2026-01-28T12:20:00Z"},
 
-  { id:304, name:"Aashirvaad Whole Wheat Atta 5kg", brand:"Aashirvaad", price:299, originalPrice:349, discount:14, rating:4.7, reviewsCount:180, images:["aashirvaad_atta_5kg.jpg"], description:"Fresh and finely ground whole wheat flour for daily rotis.", highlights:["100% Whole Wheat","Fortified","Soft Texture"], category:{level1:"grocery-daily-needs",level2:"foodgrains-staples",level3:"atta-flour",level4:null,level5:null}, stock:true, variants:[{weight:"5kg",price:299,stock:true,sku:"AASHI-ATTA-5KG"}], offers:[{type:"Festive Sale",description:"₹50 off"}], reviews:[{user:"Sunita R.",rating:5,comment:"Makes soft and tasty rotis.",date:"2026-01-28"}], specs:{type:"Whole Wheat",origin:"India"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Aashirvaad Official Store",rating:4.8,totalProducts:30,contact:"support@aashirvaad.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"grocery-daily-needs/foodgrains-staples/atta-flour/aashirvaad-whole-wheat-atta-5kg", createdAt:"2026-01-28T12:30:00Z", updatedAt:"2026-01-28T12:30:00Z"},
+  { id:304, name:"Aashirvaad Whole Wheat Atta 5kg", brand:"Aashirvaad", price:299, originalPrice:349, discount:14, rating:4.7, reviewsCount:180, images:[Images.atta], description:"Fresh and finely ground whole wheat flour for daily rotis.", highlights:["100% Whole Wheat","Fortified","Soft Texture"], category:{level1:"grocery-daily-needs",level2:"foodgrains-staples",level3:"atta-flour",level4:null,level5:null}, stock:true, variants:[{weight:"5kg",price:299,stock:true,sku:"AASHI-ATTA-5KG"}], offers:[{type:"Festive Sale",description:"₹50 off"}], reviews:[{user:"Sunita R.",rating:5,comment:"Makes soft and tasty rotis.",date:"2026-01-28"}], specs:{type:"Whole Wheat",origin:"India"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Aashirvaad Official Store",rating:4.8,totalProducts:30,contact:"support@aashirvaad.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"grocery-daily-needs/foodgrains-staples/atta-flour/aashirvaad-whole-wheat-atta-5kg", createdAt:"2026-01-28T12:30:00Z", updatedAt:"2026-01-28T12:30:00Z"},
 
   { id:305, name:"Maggi 2-Minute Noodles Masala 5-Pack", brand:"Maggi", price:150, originalPrice:199, discount:25, rating:4.6, reviewsCount:250, images:["maggi_noodles_5pack.jpg"], description:"Classic masala instant noodles, easy and tasty meal option.", highlights:["Instant","Masala Flavor","5-Pack"], category:{level1:"grocery-daily-needs",level2:"packaged-food",level3:"ready-to-eat",level4:"instant-noodles",level5:null}, stock:true, variants:[{pack:"5 Pack",price:150,stock:true,sku:"MAGGI-MASALA-5PK"}], offers:[{type:"Festive Sale",description:"₹20 off"}], reviews:[{user:"Rahul M.",rating:5,comment:"Kids love it!",date:"2026-01-28"}], specs:{type:"Instant Noodles",flavor:"Masala"}, shipping:{free:true,estimatedDelivery:"2-4 days",returnPolicy:"7 days return"}, seller:{name:"Maggi Official Store",rating:4.7,totalProducts:40,contact:"support@maggi.com"}, packaging:{boxIncluded:true,ecoFriendly:true}, slug:"grocery-daily-needs/packaged-food/ready-to-eat/instant-noodles/maggi-2-minute-noodles-masala-5-pack", createdAt:"2026-01-28T12:40:00Z", updatedAt:"2026-01-28T12:40:00Z"},
 

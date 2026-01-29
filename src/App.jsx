@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -11,6 +11,7 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import { configureStore, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import PRODUCTS from "./data"
+import ProductCategoryDisplay from "./ProductCategoryDisplay";
 
 
 
@@ -84,7 +85,77 @@ const initialState = {
   allProducts: PRODUCTS,
   filteredProducts: PRODUCTS,
 };
+// ======= Redux Slices =======
 
+// ======= Cart Slice =======
+const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+const cartSlice = createSlice({
+  name: "cart",
+  initialState: { items: savedCart, orderConfirmed: false },
+  reducers: {
+    addToCart(state, action) {
+      state.orderConfirmed = false;
+      const existing = state.items.find(i => i.id === action.payload.id);
+      if (existing) existing.quantity += 1;
+      else state.items.push({ ...action.payload, quantity: 1 });
+      localStorage.setItem("cart", JSON.stringify(state.items));
+    },
+    removeFromCart(state, action) {
+      state.items = state.items.filter(i => i.id !== action.payload);
+      localStorage.setItem("cart", JSON.stringify(state.items));
+    },
+    changeQuantity(state, action) {
+      const item = state.items.find(i => i.id === action.payload.id);
+      if (item) {
+        if (action.payload.type === "inc") item.quantity += 1;
+        if (action.payload.type === "dec" && item.quantity > 1) item.quantity -= 1;
+      }
+      localStorage.setItem("cart", JSON.stringify(state.items));
+    },
+    clearCart(state) {
+      state.items = [];
+      localStorage.removeItem("cart");
+    },
+    confirmOrder(state) {
+      state.items = [];
+      state.orderConfirmed = true;
+      localStorage.removeItem("cart");
+    },
+    resetOrder(state) {
+      state.orderConfirmed = false;
+    },
+  },
+});
+
+// ======= Orders Slice =======
+const initialOrders = [];
+const statusSteps = ["Booked", "Processing", "Shipped", "Delivered"];
+const orderSlice = createSlice({
+  name: "orders",
+  initialState: initialOrders,
+  reducers: {
+    addOrder: (state, action) => {
+      const { items, paymentMethod } = action.payload;
+      state.push({
+        id: "ORD" + Math.floor(Math.random() * 10000),
+        date: new Date().toISOString().split("T")[0],
+        status: "Booked",
+        items,
+        paymentMethod,
+      });
+    },
+    updateStatus: (state, action) => {
+      const order = state.find(o => o.id === action.payload.id);
+      if (order) {
+        const currentIndex = statusSteps.indexOf(order.status);
+        const nextIndex = Math.min(currentIndex + 1, statusSteps.length - 1);
+        order.status = statusSteps[nextIndex];
+      }
+    },
+  },
+});
+
+// ======= product Slice =======
 const productSlice = createSlice({
   name: "products",
   initialState,
@@ -103,62 +174,6 @@ const productSlice = createSlice({
   },
 });
 
-
-// ✅ Load cart from localStorage if available
-const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
-
-const cartSlice = createSlice({
-  name: "cart",
-  initialState: {
-    items: savedCart,      // load saved items
-    orderConfirmed: false, // reset on page load
-  },
-  reducers: {
-    addToCart(state, action) {
-      // reset order confirmation when adding new item
-      state.orderConfirmed = false;
-
-      const existing = state.items.find(
-        (i) => i.id === action.payload.id
-      );
-
-      if (existing) {
-        existing.quantity += 1;
-      } else {
-        state.items.push({ ...action.payload, quantity: 1 });
-      }
-
-      // ✅ save updated cart to localStorage
-      localStorage.setItem("cart", JSON.stringify(state.items));
-    },
-
-    removeFromCart(state, action) {
-      state.items = state.items.filter((i) => i.id !== action.payload);
-      localStorage.setItem("cart", JSON.stringify(state.items));
-    },
-
-    changeQuantity(state, action) {
-      const item = state.items.find((i) => i.id === action.payload.id);
-      if (item) {
-        if (action.payload.type === "inc") item.quantity += 1;
-        if (action.payload.type === "dec" && item.quantity > 1) item.quantity -= 1;
-      }
-      localStorage.setItem("cart", JSON.stringify(state.items));
-    },
-
-    clearCart(state) {
-      state.items = [];
-      localStorage.removeItem("cart");
-    },
-
-    confirmOrder(state) {
-      state.items = [];
-      state.orderConfirmed = true;
-      localStorage.removeItem("cart");
-    },
-  },
-});
-
 /* =======================
    STORE
 ======================= */
@@ -167,16 +182,24 @@ const store = configureStore({
     user: userSlice.reducer,
     cart: cartSlice.reducer,
     products: productSlice.reducer,
+    orders: orderSlice.reducer,
   },
 });
 /* =======================
    NAVBAR
 ======================= */
+
 function Navbar() {
+  const orders = useSelector((state) => state.orders); // select all orders
+  const ordersCount = orders.length || 0;
   const user = useSelector((state) => state.user.currentUser);
   const cartCount = useSelector((state) => state.cart.items.length || 0);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [showPopup, setShowPopup] = React.useState(false);
+  const [showName, setShowName] = React.useState(false);
 
   const handleLogout = () => {
     dispatch(userSlice.actions.logout());
@@ -196,136 +219,183 @@ function Navbar() {
     justifyContent: "space-between",
     alignItems: "center",
     padding: "12px 30px",
-    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
   };
 
-  const navLeftRightStyles = {
+  const navLeft = {
     display: "flex",
     alignItems: "center",
   };
 
-  const linkStyles = {
-    marginRight: "20px",
+  const navRight = {
+    display: "flex",
+    alignItems: "center",
+    position: "relative",
+  };
+
+  const linkStyle = {
+    color: "#fff",
     textDecoration: "none",
-    color: "#fff",
+    marginLeft: "20px",
     fontWeight: 500,
-    transition: "color 0.2s ease",
   };
 
-  const linkHover = (e) => (e.target.style.color = "#ffd700"); // gold on hover
-  const linkLeave = (e) => (e.target.style.color = "#fff");
-
-  const btnBase = {
-    padding: "8px 16px",
-    borderRadius: "20px",
-    border: "none",
+  const avatarStyle = {
+    width: "40px",
+    height: "40px",
+    borderRadius: "50%",
+    // backgroundColor: "#ffd700",
+    background: "linear-gradient(145deg, #3611a6, #f7e86f)",
+    color: "#d3d9f2",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: "700",
+    fontSize: "18px",
     cursor: "pointer",
-    fontWeight: 600,
-    transition: "all 0.3s ease",
-    marginLeft: "10px",
   };
 
-  const logoutBtn = {
-    ...btnBase,
-    background: "linear-gradient(90deg, #ff4d4f, #ff7875)",
+  const tooltipStyle = {
+    position: "absolute",
+    top: "50px",
+    right: "0",
+    backgroundColor: "#000",
     color: "#fff",
+    padding: "6px 10px",
+    borderRadius: "6px",
+    fontSize: "12px",
+    whiteSpace: "nowrap",
   };
 
-  const loginBtn = {
-    ...btnBase,
-    background: "linear-gradient(90deg, #1890ff, #40a9ff)",
-    color: "#fff",
+  const popupStyle = {
+    position: "absolute",
+    top: "55px",
+    right: "0",
+    backgroundColor: "#fff",
+    color: "#000",
+    borderRadius: "8px",
+    width: "180px",
+    boxShadow: "0 8px 20px rgba(0,0,0,0.2)",
+    padding: "10px",
+    zIndex: 2000,
   };
 
-  const signupBtn = {
-    ...btnBase,
-    background: "linear-gradient(90deg, #52c41a, #73d13d)",
-    color: "#fff",
+  const popupItem = {
+    padding: "8px 10px",
+    cursor: "pointer",
+    borderRadius: "6px",
   };
 
-  // Add space below navbar so content is not hidden
   React.useEffect(() => {
-    document.body.style.paddingTop = "70px"; // navbar height + padding
-    return () => {
-      document.body.style.paddingTop = "0px";
-    };
+    document.body.style.paddingTop = "70px";
+    return () => (document.body.style.paddingTop = "0px");
   }, []);
+
+  React.useEffect(() => {
+    const close = () => setShowPopup(false);
+    if (showPopup) document.addEventListener("click", close);
+    return () => document.removeEventListener("click", close);
+  }, [showPopup]);
 
   return (
     <nav style={navbarStyles}>
-      <div style={navLeftRightStyles}>
-        <Link
-          to="/"
-          style={{ ...linkStyles, fontWeight: "700", fontSize: "20px" }}
-          onMouseEnter={linkHover}
-          onMouseLeave={linkLeave}
-        >
+      {/* LEFT SIDE */}
+      <div style={navLeft}>
+        <Link to="/" style={{ ...linkStyle, fontSize: "20px", fontWeight: "700" }}>
           FlipMart
         </Link>
 
         {user && (
           <>
-            <Link
-              to="/products"
-              style={linkStyles}
-              onMouseEnter={linkHover}
-              onMouseLeave={linkLeave}
-            >
+            <Link to="/products" style={linkStyle}>
               Products
             </Link>
+            <Link to="/product" style={linkStyle}>
+              Catogaries
+            </Link>
             {cartCount > 0 && (
-              <Link
-                to="/cart"
-                style={linkStyles}
-                onMouseEnter={linkHover}
-                onMouseLeave={linkLeave}
-              >
-                Cart ({cartCount})
-              </Link>
+            <Link to="/cart" style={linkStyle}>
+                  Cart ({cartCount})
+            </Link>
             )}
+               {ordersCount > 0 && (
+            <Link to="/myorder" style={linkStyle}>
+                  myOrders ({ordersCount})
+            </Link>
+            )}
+
+        
+
           </>
         )}
       </div>
 
-      <div style={navLeftRightStyles}>
-        {user ? (
+      {/* RIGHT SIDE */}
+      <div style={navRight} onClick={(e) => e.stopPropagation()}>
+        {user && (
           <>
-            <span style={{ marginRight: "10px", fontWeight: 500 }}>
-              Hello, {user.username}
-            </span>
-            <button
-              style={logoutBtn}
-              onMouseEnter={(e) => (e.target.style.opacity = 0.85)}
-              onMouseLeave={(e) => (e.target.style.opacity = 1)}
-              onClick={handleLogout}
+            {/* AVATAR */}
+            <div
+              style={{ position: "relative" }}
+              onMouseEnter={() => setShowName(true)}
+              onMouseLeave={() => setShowName(false)}
+              onClick={() => setShowPopup(!showPopup)}
             >
-              Logout
-            </button>
-          </>
-        ) : (
-          <>
-            <Link
-              to="/login"
-              style={loginBtn}
-              onMouseEnter={(e) => (e.target.style.opacity = 0.85)}
-              onMouseLeave={(e) => (e.target.style.opacity = 1)}
-            >
-              Login
-            </Link>
-            <Link
-              to="/register"
-              style={signupBtn}
-              onMouseEnter={(e) => (e.target.style.opacity = 0.85)}
-              onMouseLeave={(e) => (e.target.style.opacity = 1)}
-            >
-              Sign Up
-            </Link>
+              <div style={avatarStyle}>
+                {user.profilePic ? (
+                  <img
+                    src={user.profilePic}
+                    alt="avatar"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      background: "linear-gradient(145deg, #3611a6, #f7e86f)",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                    }}
+                  />
+                ) : (
+                  user.username.charAt(0).toUpperCase()
+                )}
+              </div>
+
+              {showName && <div style={tooltipStyle}>{user.username}</div>}
+            </div>
+
+            {/* POPUP */}
+            {showPopup && (
+              <div style={popupStyle}>
+                <div style={popupItem} onClick={() => navigate("/products")}>
+                  🛍 Products
+                </div>
+                <div style={popupItem} onClick={() => navigate("/cart")}>
+                  🛒 Cart {cartCount > 0 ? `(${cartCount})` : ""}
+                </div>
+                <div style={popupItem} onClick={() => navigate("/profile")}>
+                  👤 Profile
+                </div>
+               <div style={popupItem} onClick={() => navigate("/myorder")}>
+                🛒 My Orders {ordersCount > 0 ? `(${ordersCount})` : ""}
+              </div>
+
+                <hr />
+                <div
+                  style={{ ...popupItem, color: "red" }}
+                  onClick={handleLogout}
+                >
+                  🚪 Logout
+                </div>
+              </div>
+            )}
           </>
         )}
       </div>
     </nav>
   );
 }
+
+/* =======================
+   Login
+======================= */
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -412,6 +482,9 @@ function Login() {
     </div>
   );
 }
+/* =======================
+   Register
+======================= */
  function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -990,290 +1063,412 @@ function Products() {
    CART
 ======================= */
 
-function CheckoutModal({
-  step,
-  setStep,
-  address,
-  setAddress,
-  paymentMethod,
-  setPaymentMethod,
-  total,
-  onClose,
-  onConfirm,
-}) {
-  const [useOldAddress, setUseOldAddress] = React.useState(true);
+// ======= Checkout Modal =======
+
+function AddressStep({ address, setAddress, useOldAddress, setUseOldAddress, setStep }) {
   const oldAddress = "123, Main Street, Demo City, 110011";
 
+  const handleAddressChange = (val) => {
+    setAddress(val);
+  };
+
   const styles = {
-    modalOverlay: {
-      position: "fixed",
-      inset: 0,
-      background: "rgba(0,0,0,0.6)",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      zIndex: 1000,
-      padding: "15px",
-      overflowY: "auto",
-    },
-    modal: {
-      background: "#fff",
-      borderRadius: "16px",
-      maxWidth: "500px",
-      width: "100%",
-      padding: "30px 25px",
+    container: { display: "flex", flexDirection: "column", gap: "20px" },
+    addressCards: { display: "flex", gap: "15px" },
+    card: (active) => ({
+      flex: 1,
+      padding: "20px",
+      borderRadius: "12px",
+      border: `2px solid ${active ? "#007bff" : "#ddd"}`,
+      background: active ? "#e6f0ff" : "#f9f9f9",
+      cursor: "pointer",
+      boxShadow: active ? "0 6px 18px rgba(0,123,255,0.2)" : "0 3px 10px rgba(0,0,0,0.05)",
+      transition: "all 0.3s ease",
       display: "flex",
       flexDirection: "column",
-      gap: "25px",
-      boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
-      position: "relative",
-    },
-    closeBtn: {
-      position: "absolute",
-      top: "20px",
-      right: "20px",
-      border: "none",
-      borderRadius: "50%",
-      width: "36px",
-      height: "36px",
-      background: "rgba(0,0,0,0.6)",
-      color: "#fff",
-      fontWeight: "bold",
-      cursor: "pointer",
-      display: "flex",
-      alignItems: "center",
       justifyContent: "center",
-    },
-    steps: {
-      display: "flex",
-      justifyContent: "space-between",
-      marginBottom: "20px",
-    },
-    step: {
-      flex: 1,
-      textAlign: "center",
-      padding: "6px 0",
-      borderBottom: "3px solid #ddd",
-      color: "#777",
-      fontWeight: 500,
-    },
-    activeStep: {
-      borderBottom: "3px solid #007bff",
-      color: "#007bff",
-      fontWeight: 600,
-    },
-    btn: {
-      padding: "10px 18px",
-      background: "linear-gradient(90deg, #007bff, #0056d2)",
-      color: "#fff",
-      border: "none",
-      borderRadius: "8px",
-      cursor: "pointer",
-      fontWeight: 600,
-    },
-    backBtn: {
-      padding: "10px 18px",
-      border: "1px solid #ccc",
-      borderRadius: "8px",
-      cursor: "pointer",
-      background: "#f8f8f8",
-      color: "#333",
-    },
-    textarea: {
-      width: "100%",
-      minHeight: "80px",
-      padding: "12px",
-      borderRadius: "8px",
-      border: "1px solid #ccc",
-      fontSize: "15px",
-      resize: "none",
-    },
-    paymentCard: {
-      padding: "14px",
-      border: "1px solid #ddd",
-      borderRadius: "12px",
-      cursor: "pointer",
-      marginBottom: "12px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      fontWeight: 500,
-      transition: "all 0.2s ease",
-    },
-    selectedPayment: {
-      borderColor: "#007bff",
-      background: "#e6f0ff",
-      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-    },
-    addressToggle: {
-      display: "flex",
-      justifyContent: "space-between",
-      marginBottom: "12px",
-    },
-    addressOption: (active) => ({
-      flex: 1,
-      padding: "10px",
-      marginRight: "8px",
-      borderRadius: "8px",
-      border: `1px solid ${active ? "#007bff" : "#ccc"}`,
-      background: active ? "#e6f0ff" : "#f8f8f8",
-      cursor: "pointer",
-      textAlign: "center",
-      fontWeight: 500,
+      minHeight: "100px",
     }),
+    cardTitle: { fontWeight: 600, marginBottom: "8px", fontSize: "15px" },
+    cardText: { fontSize: "14px", color: "#555" },
+    textarea: { width: "100%", minHeight: "100px", padding: "15px", borderRadius: "12px", border: "1px solid #ccc", fontSize: "15px", resize: "none", boxShadow: "0 2px 6px rgba(0,0,0,0.05)" },
+    btn: { padding: "12px 20px", background: "linear-gradient(90deg, #007bff, #0056d2)", color: "#fff", border: "none", borderRadius: "12px", cursor: "pointer", fontWeight: 600, fontSize: "15px", transition: "all 0.2s ease" },
+    btnDisabled: { opacity: 0.6, cursor: "not-allowed" },
+  };
+
+  return (
+    <div style={styles.container}>
+      <div style={styles.addressCards}>
+        {/* OLD ADDRESS CARD */}
+        <div
+          style={styles.card(useOldAddress)}
+          onClick={() => { setUseOldAddress(true); handleAddressChange(oldAddress); }}
+        >
+          <div style={styles.cardTitle}>Use Old Address</div>
+          <div style={styles.cardText}>{oldAddress}</div>
+        </div>
+
+        {/* NEW ADDRESS CARD */}
+        <div
+          style={styles.card(!useOldAddress)}
+          onClick={() => { setUseOldAddress(false); handleAddressChange(""); }}
+        >
+          <div style={styles.cardTitle}>Add New Address</div>
+          <div style={styles.cardText}>Enter a new shipping address</div>
+        </div>
+      </div>
+
+      {/* NEW ADDRESS TEXTAREA */}
+      {!useOldAddress && (
+        <textarea
+          style={styles.textarea}
+          placeholder="House no, Street, City, Pincode"
+          value={address}
+          onChange={(e) => handleAddressChange(e.target.value)}
+        />
+      )}
+
+      {/* CONTINUE BUTTON */}
+      <button
+        style={{ ...styles.btn, ...( (!address || address.length < 5) && styles.btnDisabled ) }}
+        disabled={!address || address.length < 5}
+        onClick={() => setStep(2)}
+      >
+        Continue
+      </button>
+    </div>
+  );
+}
+
+function PaymentStep({ paymentMethod, setPaymentMethod, onBack, onContinue }) {
+  const [cardDetails, setCardDetails] = React.useState({ number: "", name: "", expiry: "", cvv: "" });
+  const [upiId, setUpiId] = React.useState("");
+  const [errors, setErrors] = React.useState({});
+
+  const styles = {
+    container: { display: "flex", flexDirection: "column", gap: "20px" },
+    paymentCard: (active) => ({
+      padding: "18px 20px",
+      borderRadius: "12px",
+      border: `2px solid ${active ? "#007bff" : "#ddd"}`,
+      background: active ? "#e6f0ff" : "#f9f9f9",
+      cursor: "pointer",
+      boxShadow: active ? "0 6px 18px rgba(0,123,255,0.2)" : "0 3px 10px rgba(0,0,0,0.05)",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      transition: "all 0.3s ease",
+      fontWeight: 500,
+      fontSize: "15px",
+    }),
+    inputContainer: { display: "flex", flexDirection: "column", gap: "12px", marginTop: "10px", transition: "all 0.3s ease" },
+    input: { padding: "12px", borderRadius: "10px", border: "1px solid #ccc", fontSize: "15px", width: "100%" },
+    errorText: { color: "red", fontSize: "12px" },
+    btn: { padding: "12px 20px", background: "linear-gradient(90deg, #007bff, #0056d2)", color: "#fff", border: "none", borderRadius: "12px", cursor: "pointer", fontWeight: 600, fontSize: "15px", transition: "all 0.2s ease" },
+    btnDisabled: { opacity: 0.6, cursor: "not-allowed" },
+    backBtn: { padding: "12px 20px", border: "1px solid #ccc", borderRadius: "12px", cursor: "pointer", background: "#f8f8f8", color: "#333", fontWeight: 500, fontSize: "15px" },
+  };
+
+  const validateCard = () => {
+    const errs = {};
+    if (!/^\d{16}$/.test(cardDetails.number.replace(/\s/g, ""))) errs.number = "Card number must be 16 digits";
+    if (!cardDetails.name) errs.name = "Cardholder name required";
+    if (!/^\d{2}\/\d{2}$/.test(cardDetails.expiry)) errs.expiry = "Expiry must be MM/YY";
+    if (!/^\d{3,4}$/.test(cardDetails.cvv)) errs.cvv = "CVV must be 3 or 4 digits";
+    setErrors(errs);
+    return Object.keys(errs).length === 0;
+  };
+
+  const validateUpi = () => {
+    if (!upiId.includes("@")) {
+      setErrors({ upi: "Invalid UPI ID" });
+      return false;
+    }
+    setErrors({});
+    return true;
+  };
+
+  const handleContinue = () => {
+    if (paymentMethod === "card" && !validateCard()) return;
+    if (paymentMethod === "upi" && !validateUpi()) return;
+
+    if (paymentMethod === "card") console.log("Card details saved:", cardDetails);
+    if (paymentMethod === "upi") console.log("UPI ID saved:", upiId);
+
+    onContinue();
+  };
+
+  return (
+    <div style={styles.container}>
+      {["cod", "upi", "card"].map((method) => (
+        <div key={method} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+          <div
+            style={styles.paymentCard(paymentMethod === method)}
+            onClick={() => setPaymentMethod(method)}
+          >
+            {method.toUpperCase()} {paymentMethod === method && "✓"}
+          </div>
+
+          {/* Show UPI input directly below UPI card */}
+          {method === "upi" && paymentMethod === "upi" && (
+            <div style={styles.inputContainer}>
+              <input
+                style={styles.input}
+                placeholder="Enter UPI ID (e.g., user@bank)"
+                value={upiId}
+                onChange={(e) => setUpiId(e.target.value)}
+              />
+              {errors.upi && <span style={styles.errorText}>{errors.upi}</span>}
+            </div>
+          )}
+
+          {/* Show Card form directly below Card option */}
+          {method === "card" && paymentMethod === "card" && (
+            <div style={styles.inputContainer}>
+              <input
+                style={styles.input}
+                placeholder="Card Number"
+                value={cardDetails.number}
+                onChange={(e) => setCardDetails({ ...cardDetails, number: e.target.value })}
+              />
+              {errors.number && <span style={styles.errorText}>{errors.number}</span>}
+
+              <input
+                style={styles.input}
+                placeholder="Cardholder Name"
+                value={cardDetails.name}
+                onChange={(e) => setCardDetails({ ...cardDetails, name: e.target.value })}
+              />
+              {errors.name && <span style={styles.errorText}>{errors.name}</span>}
+
+              <div style={{ display: "flex", gap: "10px" }}>
+                <input
+                  style={{ ...styles.input, flex: 1 }}
+                  placeholder="MM/YY"
+                  value={cardDetails.expiry}
+                  onChange={(e) => setCardDetails({ ...cardDetails, expiry: e.target.value })}
+                />
+                <input
+                  style={{ ...styles.input, flex: 1 }}
+                  placeholder="CVV"
+                  value={cardDetails.cvv}
+                  onChange={(e) => setCardDetails({ ...cardDetails, cvv: e.target.value })}
+                />
+              </div>
+              {(errors.expiry || errors.cvv) && (
+                <span style={styles.errorText}>{errors.expiry || errors.cvv}</span>
+              )}
+            </div>
+          )}
+        </div>
+      ))}
+
+      {/* Navigation buttons */}
+      <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
+        <button style={styles.backBtn} onClick={onBack}>Back</button>
+        <button
+          style={{ ...styles.btn, ...(!paymentMethod && styles.btnDisabled) }}
+          onClick={handleContinue}
+        >
+          Continue
+        </button>
+      </div>
+    </div>
+  );
+}
+
+
+
+function ConfirmStep({ address, paymentMethod, total, onBack, onContinue }) {
+  const styles = {
+    container: { display: "flex", flexDirection: "column", gap: "25px", fontFamily: "Arial, sans-serif" },
+    card: { padding: "20px", borderRadius: "16px", background: "#fff", boxShadow: "0 8px 20px rgba(0,0,0,0.1)", display: "flex", flexDirection: "column", gap: "12px", transition: "all 0.3s ease" },
+    header: { fontSize: "18px", fontWeight: 600, marginBottom: "10px", color: "#007bff" },
+    row: { display: "flex", justifyContent: "space-between", fontSize: "15px", color: "#333" },
+    totalRow: { display: "flex", justifyContent: "space-between", fontSize: "18px", fontWeight: 600, marginTop: "10px", borderTop: "1px solid #eee", paddingTop: "10px" },
+    btnContainer: { display: "flex", justifyContent: "space-between", marginTop: "20px" },
+    btn: { padding: "12px 22px", background: "linear-gradient(90deg, #007bff, #0056d2)", color: "#fff", border: "none", borderRadius: "12px", cursor: "pointer", fontWeight: 600, fontSize: "15px", transition: "all 0.2s ease" },
+    backBtn: { padding: "12px 22px", border: "1px solid #ccc", borderRadius: "12px", cursor: "pointer", background: "#f8f8f8", color: "#333", fontWeight: 500, fontSize: "15px" },
+  };
+
+  // For nicer payment display
+  const paymentLabel = {
+    cod: "Cash on Delivery",
+    upi: "UPI Payment",
+    card: "Credit/Debit Card",
+  }[paymentMethod] || paymentMethod.toUpperCase();
+
+  return (
+    <div style={styles.container}>
+      {/* Address Card */}
+      <div style={styles.card}>
+        <div style={styles.header}>Delivery Address</div>
+        <div style={{ fontSize: "14px", color: "#555" }}>{address}</div>
+      </div>
+
+      {/* Payment Card */}
+      <div style={styles.card}>
+        <div style={styles.header}>Payment Method</div>
+        <div style={{ fontSize: "14px", color: "#555" }}>{paymentLabel}</div>
+      </div>
+
+      {/* Total Summary */}
+      <div style={styles.card}>
+        <div style={styles.row}>
+          <span>Subtotal:</span>
+          <span>₹{total.toLocaleString()}</span>
+        </div>
+        <div style={styles.totalRow}>
+          <span>Total:</span>
+          <span>₹{total.toLocaleString()}</span>
+        </div>
+      </div>
+
+      {/* Buttons */}
+      <div style={styles.btnContainer}>
+        <button style={styles.backBtn} onClick={onBack}>Back</button>
+        <button style={styles.btn} onClick={onContinue}>Pay Now</button>
+      </div>
+    </div>
+  );
+}
+
+
+// CHECKOUT MODAL
+function CheckoutModal({ step, setStep, address, setAddress, paymentMethod, setPaymentMethod, total, onClose, onContinue }) {
+  const [useOldAddress, setUseOldAddress] = React.useState(true);
+
+  const styles = {
+    modalOverlay: { position: "fixed", inset: 0, background: "rgba(0,0,0,0.6)", display: "flex", justifyContent: "center", alignItems: "center", zIndex: 1000, padding: "15px", overflowY: "auto" },
+    modal: { background: "#fff", borderRadius: "16px", maxWidth: "500px", width: "100%", padding: "30px 25px", display: "flex", flexDirection: "column", gap: "25px", boxShadow: "0 10px 30px rgba(0,0,0,0.2)", position: "relative" },
+    closeBtn: { position: "absolute", top: "20px", right: "20px", border: "none", borderRadius: "50%", width: "36px", height: "36px", background: "rgba(0,0,0,0.6)", color: "#fff", fontWeight: "bold", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" },
+    steps: { display: "flex", justifyContent: "space-between", marginBottom: "20px" },
+    step: { flex: 1, textAlign: "center", padding: "6px 0", borderBottom: "3px solid #ddd", color: "#777", fontWeight: 500 },
+    activeStep: { borderBottom: "3px solid #007bff", color: "#007bff", fontWeight: 600 },
   };
 
   return (
     <div style={styles.modalOverlay}>
       <div style={styles.modal}>
-        {/* CLOSE BUTTON */}
-        <button style={styles.closeBtn} onClick={onClose}>
-          ✕
-        </button>
-
-        {/* STEPS */}
+        <button style={styles.closeBtn} onClick={onClose}>✕</button>
         <div style={styles.steps}>
           <span style={{ ...styles.step, ...(step === 1 ? styles.activeStep : {}) }}>Address</span>
           <span style={{ ...styles.step, ...(step === 2 ? styles.activeStep : {}) }}>Payment</span>
           <span style={{ ...styles.step, ...(step === 3 ? styles.activeStep : {}) }}>Confirm</span>
         </div>
 
-        {/* STEP 1: ADDRESS */}
         {step === 1 && (
-          <div>
-            <div style={styles.addressToggle}>
-              <div
-                style={styles.addressOption(useOldAddress)}
-                onClick={() => {
-                  setUseOldAddress(true);
-                  setAddress(oldAddress);
-                }}
-              >
-                Use Old Address
-              </div>
-              <div
-                style={styles.addressOption(!useOldAddress)}
-                onClick={() => {
-                  setUseOldAddress(false);
-                  setAddress(""); // clear value when adding new address
-                }}
-              >
-                Add New Address
-              </div>
-            </div>
-
-            {!useOldAddress && (
-              <textarea
-                style={styles.textarea}
-                placeholder="House no, Street, City, Pincode"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-              />
-            )}
-
-            <button
-              style={styles.btn}
-              disabled={!address || address.length < 5}
-              onClick={() => setStep(2)}
-            >
-              Continue
-            </button>
-          </div>
+          <AddressStep
+            address={address}
+            setAddress={setAddress}
+            useOldAddress={useOldAddress}
+            setUseOldAddress={setUseOldAddress}
+            setStep={setStep}  // ✅ Pass setStep
+          />
         )}
 
-        {/* STEP 2: PAYMENT */}
         {step === 2 && (
-          <div>
-            {["cod", "upi", "card"].map((method) => (
-              <div
-                key={method}
-                style={{
-                  ...styles.paymentCard,
-                  ...(paymentMethod === method ? styles.selectedPayment : {}),
-                }}
-                onClick={() => setPaymentMethod(method)}
-              >
-                {method.toUpperCase()}
-                {paymentMethod === method && " ✓"}
-              </div>
-            ))}
-
-            <div style={{ display: "flex", justifyContent: "space-between", marginTop: "15px" }}>
-              <button style={styles.backBtn} onClick={() => setStep(1)}>Back</button>
-              <button style={styles.btn} disabled={!paymentMethod} onClick={() => setStep(3)}>Continue</button>
-            </div>
-          </div>
+          <PaymentStep
+            paymentMethod={paymentMethod}
+            setPaymentMethod={setPaymentMethod}
+            onBack={() => setStep(1)}
+            onContinue={() => setStep(3)}
+          />
         )}
 
-        {/* STEP 3: CONFIRM */}
         {step === 3 && (
-          <div>
-            <p><strong>Address:</strong> {address}</p>
-            <p><strong>Payment:</strong> {paymentMethod?.toUpperCase()}</p>
-            <p><strong>Total:</strong> ₹{total?.toLocaleString()}</p>
-
-            <div style={{ display: "flex", justifyContent: "space-between", marginTop: "15px" }}>
-              <button style={styles.backBtn} onClick={() => setStep(2)}>Back</button>
-              <button style={styles.btn} onClick={onConfirm}>Pay Now</button>
-            </div>
-          </div>
+          <ConfirmStep
+            address={address}
+            paymentMethod={paymentMethod}
+            total={total}
+            onBack={() => setStep(2)}
+            onContinue={onContinue}
+          />
         )}
       </div>
     </div>
   );
 }
+
+// ======= Cart Component =======
 function Cart() {
   const { items, orderConfirmed } = useSelector((state) => state.cart);
-  const user = useSelector((state) => state.user.currentUser);
+  const user = useSelector((state) => state.user?.currentUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [showCheckout, setShowCheckout] = useState(false);
-  const [step, setStep] = useState(1);
-  const [address, setAddress] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("cod");
-  const [hoveredItem, setHoveredItem] = useState(null);
+  const [showCheckout, setShowCheckout] = React.useState(false);
+  const [step, setStep] = React.useState(1);
+  const [address, setAddress] = React.useState("123, Main Street, Demo City, 110011");
+  const [paymentMethod, setPaymentMethod] = React.useState("cod");
+  const [hoveredItem, setHoveredItem] = React.useState(null);
 
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
+  const handleCheckout = () => {
+    if (!address || !paymentMethod || items.length === 0) return alert("Please complete checkout properly!");
+    dispatch(orderSlice.actions.addOrder({ items, paymentMethod }));
+    dispatch(cartSlice.actions.confirmOrder());
+    setShowCheckout(false);
+    setStep(1);
+    setAddress("123, Main Street, Demo City, 110011");
+    setPaymentMethod("cod");
+    
+  };
+
   const styles = {
-    page: { padding: "30px 20px", maxWidth: "900px", margin: "0 auto", fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", color: "#333" },
-    h2: { textAlign: "center", marginBottom: "25px", color: "#222", fontSize: "28px" },
-    cartItem: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: "20px", padding: "15px", borderRadius: "12px", marginBottom: "12px", background: "#fff", boxShadow: "0 4px 12px rgba(0,0,0,0.08)", transition: "transform 0.2s, box-shadow 0.2s" },
-    cartItemHover: { transform: "translateY(-2px)", boxShadow: "0 6px 16px rgba(0,0,0,0.12)" },
-    cartItemLeft: { display: "flex", alignItems: "center", gap: "15px" },
-    cartItemImg: { width: "90px", height: "90px", objectFit: "cover", borderRadius: "10px", border: "1px solid #eee" },
+    container: { padding: "30px 20px", maxWidth: "900px", margin: "0 auto" },
+    heading: { textAlign: "center", marginBottom: "25px", fontSize: "28px", fontWeight: "600" },
+    emptyText: { textAlign: "center", fontSize: "18px", color: "#777" },
+    itemCard: (hover) => ({
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: "15px",
+      marginBottom: "15px",
+      borderRadius: "12px",
+      background: "#fff",
+      boxShadow: hover ? "0 8px 20px rgba(0,0,0,0.12)" : "0 4px 12px rgba(0,0,0,0.08)",
+      transition: "all 0.2s ease",
+    }),
+    itemInfo: { display: "flex", gap: "15px", alignItems: "center" },
+    itemImg: { width: "90px", height: "90px", objectFit: "cover", borderRadius: "10px", border: "1px solid #eee" },
+    itemName: { margin: 0, fontWeight: 500, fontSize: "18px" },
+    itemPrice: { margin: "5px 0", color: "#555" },
     quantityControls: { display: "flex", alignItems: "center", gap: "10px", marginTop: "8px" },
-    btn: { padding: "8px 18px", background: "linear-gradient(90deg, #007bff, #0056d2)", color: "#fff", border: "none", borderRadius: "6px", cursor: "pointer", transition: "all 0.2s ease" },
-    removeBtn: { padding: "6px 12px", width: "250px", background: "#ff4d4f", color: "#fff", border: "none", borderRadius: "6px", cursor: "pointer", transition: "all 0.2s ease" },
-    clearBtn: { padding: "8px 18px", background: "#6c757d", color: "#fff", border: "none", borderRadius: "6px", cursor: "pointer", marginRight: "10px", transition: "all 0.2s ease" },
-    cartFooter: { marginTop: "25px", textAlign: "right", display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "15px" },
-    modalOverlay: { position: "fixed", top: 0, left: 0, width: "100%", height: "100%", background: "rgba(0,0,0,0.5)", display: "flex", justifyContent: "center", alignItems: "center", zIndex: 1000, animation: "fadeIn 0.3s ease" },
-    modal: { background: "#fff", padding: "35px 25px", borderRadius: "12px", maxWidth: "500px", width: "100%", textAlign: "center", boxShadow: "0 8px 20px rgba(0,0,0,0.2)", transform: "translateY(0)", animation: "slideIn 0.3s ease" },
+    qtyBtn: { padding: "6px 12px", borderRadius: "6px", border: "none", background: "#007bff", color: "#fff", cursor: "pointer", fontWeight: 500 },
+    removeBtn: { padding: "6px 12px", background: "#ff4d4f", color: "#fff", borderRadius: "6px", border: "none", cursor: "pointer" },
+    bottomBar: { display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "15px", marginTop: "25px" },
+    clearBtn: { padding: "8px 18px", background: "#6c757d", color: "#fff", borderRadius: "6px", border: "none", cursor: "pointer" },
+    placeBtn: { padding: "10px 20px", background: "#007bff", color: "#fff", borderRadius: "8px", border: "none", cursor: "pointer", fontWeight: 600 },
+    orderModal: { position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", display: "flex", justifyContent: "center", alignItems: "center" },
+    orderBox: { background: "#fff", padding: "35px 25px", borderRadius: "12px", textAlign: "center", width: "400px" },
+    orderHeading: { fontSize: "24px", marginBottom: "20px" },
+    continueBtn: { padding: "10px 18px", background: "#007bff", color: "#fff", borderRadius: "8px", border: "none", cursor: "pointer" },
   };
 
   return (
-    <div style={styles.page}>
-      <h2 style={styles.h2}>Your Cart</h2>
+    <div style={styles.container}>
+      <h2 style={styles.heading}>Your Cart</h2>
 
-      {items.length === 0 && <p style={{ textAlign: "center", fontSize: "18px" }}>Your cart is empty 🛒</p>}
+      {items.length === 0 && <p style={styles.emptyText}>Your cart is empty 🛒</p>}
 
       {items.map((item) => (
         <div
           key={item.id}
-          style={{ ...styles.cartItem, ...(hoveredItem === item.id ? styles.cartItemHover : {}) }}
+          style={styles.itemCard(hoveredItem === item.id)}
           onMouseEnter={() => setHoveredItem(item.id)}
           onMouseLeave={() => setHoveredItem(null)}
         >
-          <div style={styles.cartItemLeft}>
-            <img src={item.images?.[0]} alt={item.name} style={styles.cartItemImg} />
+          <div style={styles.itemInfo}>
+            {item.images?.[0] && <img src={item.images[0]} alt={item.name} style={styles.itemImg} />}
             <div>
-              <h4 style={{ margin: 0 }}>{item.name}</h4>
-              <p style={{ margin: "5px 0" }}>₹{item.price.toLocaleString()}</p>
+              <h4 style={styles.itemName}>{item.name}</h4>
+              <p style={styles.itemPrice}>₹{item.price.toLocaleString()}</p>
               <div style={styles.quantityControls}>
-                <button style={styles.btn} onClick={() => dispatch(cartSlice.actions.changeQuantity({ id: item.id, type: "dec" }))}>-</button>
-                <span style={{ fontWeight: "600", minWidth: "25px", textAlign: "center" }}>{item.quantity}</span>
-                <button style={styles.btn} onClick={() => dispatch(cartSlice.actions.changeQuantity({ id: item.id, type: "inc" }))}>+</button>
+                <button style={styles.qtyBtn} onClick={() => dispatch(cartSlice.actions.changeQuantity({ id: item.id, type: "dec" }))}>-</button>
+                <span>{item.quantity}</span>
+                <button style={styles.qtyBtn} onClick={() => dispatch(cartSlice.actions.changeQuantity({ id: item.id, type: "inc" }))}>+</button>
               </div>
             </div>
           </div>
@@ -1282,22 +1477,32 @@ function Cart() {
       ))}
 
       {items.length > 0 && (
-        <div style={styles.cartFooter}>
+        <div style={styles.bottomBar}>
           <button style={styles.clearBtn} onClick={() => dispatch(cartSlice.actions.clearCart())}>Clear Cart</button>
-          <h3 style={{ margin: 0 }}>Total: ₹{total.toLocaleString()}</h3>
-          <button style={styles.btn} onClick={() => (!user ? navigate("/login") : setShowCheckout(true))}>Place Order</button>
+          <h3>Total: ₹{total.toLocaleString()}</h3>
+          <button style={styles.placeBtn} onClick={() => (!user ? navigate("/login") : setShowCheckout(true))}>Place Order</button>
         </div>
       )}
 
-      {orderConfirmed && (
-        <div style={styles.modalOverlay}>
-          <div style={styles.modal}>
-            <h2>🎉 Order Placed Successfully</h2>
-            <p>Thank you for shopping with us.</p>
-            <button style={styles.btn} onClick={() => navigate("/")}>Continue Shopping</button>
-          </div>
-        </div>
-      )}
+ 
+
+{orderConfirmed && (
+  <div style={styles.orderModal}>
+    <div style={styles.orderBox}>
+      <h2 style={styles.orderHeading}>🎉 Order Placed Successfully</h2>
+      <button
+        style={styles.continueBtn}
+        onClick={() => {
+          dispatch(cartSlice.actions.resetOrder()); // reset cart
+          navigate("/"); // redirect to orders page
+        }}
+      >
+        Continue Shopping
+      </button>
+    </div>
+  </div>
+)}
+
 
       {showCheckout && (
         <CheckoutModal
@@ -1308,198 +1513,389 @@ function Cart() {
           paymentMethod={paymentMethod}
           setPaymentMethod={setPaymentMethod}
           total={total}
-          onClose={() => setShowCheckout(false)}
-          onConfirm={() => {
-            dispatch(cartSlice.actions.confirmOrder());
-            setShowCheckout(false);
-          }}
+          onClose={() => { setShowCheckout(false); setStep(1); }}
+          onContinue={handleCheckout}
         />
       )}
     </div>
   );
 }
+
+function Profile() {
+  const user = useSelector((state) => state.user.currentUser);
+
+  // Hooks at top level
+  const [editMode, setEditMode] = useState(false);
+  const [fields, setFields] = useState(
+    user
+      ? [
+          { label: "Full Name", name: "fullName", value: user.username || "John Doe" },
+          { label: "Email", name: "email", value: user.email || "john@example.com" },
+          { label: "Phone", name: "phone", value: "+1 987 654 3210" },
+          {
+            label: "Address",
+            name: "address",
+            value: {
+              line1: "221B Baker Street",
+              line2: "Near Central Mall",
+              city: "London",
+              state: "London",
+              zip: "NW1 6XE",
+              country: "UK",
+            },
+          },
+          { label: "Payment Method", name: "paymentMethod", value: "Visa •••• 4242" },
+        ]
+      : []
+  );
+
+  if (!user) return null;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFields((prev) =>
+      prev.map((field) => {
+        if (field.name === "address" && name.startsWith("address.")) {
+          const key = name.split(".")[1];
+          return { ...field, value: { ...field.value, [key]: value } };
+        }
+        if (field.name === name) return { ...field, value };
+        return field;
+      })
+    );
+  };
+
+  const handleSave = () => {
+    console.log("Saved data:", fields);
+    setEditMode(false);
+  };
+
+  const getField = (name) => fields.find((f) => f.name === name)?.value;
+
+  const inputStyle = {
+    width: "100%",
+    padding: "10px",
+    margin: "5px 0",
+    borderRadius: "12px",
+    border: "1px solid #ddd",
+    fontSize: "14px",
+    boxShadow: "inset 0 2px 5px rgba(0,0,0,0.05)",
+    transition: "all 0.2s ease",
+  };
+
+  const actionBtn = (bg) => ({
+    width: "100%",
+    padding: "12px",
+    marginTop: "15px",
+    borderRadius: "25px",
+    border: "none",
+    background: bg,
+    color: "#fff",
+    fontWeight: 600,
+    cursor: "pointer",
+    boxShadow: "0 5px 15px rgba(0,0,0,0.2)",
+    transition: "all 0.2s ease",
+  });
+
+  return (
+    <div
+      style={{
+        minHeight: "90vh",
+        background: "linear-gradient(to right, #f5f7fa, #c3cfe2)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "40px 20px",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          width: "80%",
+          maxWidth: "1000px",
+          backgroundColor: "#fff",
+          borderRadius: "20px",
+          boxShadow: "0 15px 40px rgba(0,0,0,0.2)",
+          overflow: "hidden",
+        }}
+      >
+        {/* LEFT PANEL */}
+        <div
+          style={{
+            flex: "0 0 300px",
+            background: "linear-gradient(145deg, #3611a6, #f7e86f)",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "40px 20px",
+            color: "#ccd3f6",
+          }}
+        >
+          <div
+            style={{
+              width: "160px",
+              height: "160px",
+              borderRadius: "50%",
+              overflow: "hidden",
+              marginBottom: "20px",
+              border: "4px solid #fff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "60px",
+              fontWeight: 700,
+            }}
+          >
+            {user.profilePic ? (
+              <img
+                src={user.profilePic}
+                alt="profile"
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            ) : (
+              getField("fullName").charAt(0).toUpperCase()
+            )}
+          </div>
+          <h2 style={{ margin: "0 0 10px 0" }}>{getField("fullName")}</h2>
+          <p style={{ color: "green", fontWeight: 600, marginBottom: "20px" }}>● Active</p>
+          <button style={actionBtn("#1890ff")} onClick={() => setEditMode(true)}>
+            Edit Profile
+          </button>
+        </div>
+
+        {/* RIGHT PANEL */}
+        <div style={{ flex: 1, padding: "40px 30px" }}>
+          <h2 style={{ marginBottom: "30px", fontSize: "28px", color: "#333" }}>
+            {editMode ? "Edit Profile" : "Account Details"}
+          </h2>
+
+          {fields.map((field) => (
+            <div key={field.name} style={{ marginBottom: "25px" }}>
+              <p style={{ color: "#777", fontSize: "14px", marginBottom: "8px" }}>{field.label}</p>
+
+              {field.name === "address" ? (
+                editMode ? (
+                  Object.keys(field.value).map((key) => (
+                    <input
+                      key={key}
+                      type="text"
+                      name={`address.${key}`}
+                      value={field.value[key]}
+                      onChange={handleChange}
+                      placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
+                      style={inputStyle}
+                    />
+                  ))
+                ) : (
+                  <p style={{ fontWeight: 600, color: "#333", lineHeight: "1.6" }}>
+                    {field.value.line1}, {field.value.line2}
+                    <br />
+                    {field.value.city}, {field.value.state}
+                    <br />
+                    {field.value.zip}, {field.value.country}
+                  </p>
+                )
+              ) : editMode ? (
+                <input
+                  type={field.name === "email" ? "email" : "text"}
+                  name={field.name}
+                  value={field.value}
+                  onChange={handleChange}
+                  style={inputStyle}
+                />
+              ) : (
+                <p style={{ fontWeight: 600, color: "#333" }}>{field.value}</p>
+              )}
+            </div>
+          ))}
+
+          {editMode && (
+            <button style={actionBtn("#28a745")} onClick={handleSave}>
+              Save Changes
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* =======================
    orders
 ======================= */
-function Orders() {
-  const orders = useSelector((state) => state.orders.list);
-  const navigate = useNavigate();
 
-  const [selectedOrder, setSelectedOrder] = useState(null);
+function Order() {
+  const orders = useSelector((state) => state.orders);
+  const dispatch = useDispatch();
+
+  const statusSteps = ["Booked", "Processing", "Shipped", "Delivered"];
+  const { updateStatus } = orderSlice.actions; // action to update order status
+
+  const styles = {
+    page: {
+      padding: "30px 20px",
+      maxWidth: "900px",
+      margin: "0 auto",
+      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+      color: "#333",
+    },
+    heading: {
+      textAlign: "center",
+      fontSize: "28px",
+      fontWeight: "700",
+      marginBottom: "30px",
+      color: "#222",
+    },
+    orderCard: {
+      borderRadius: "16px",
+      padding: "25px",
+      marginBottom: "25px",
+      background: "#fff",
+      boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+      transition: "transform 0.2s, box-shadow 0.2s",
+    },
+    orderHeader: {
+      display: "flex",
+      justifyContent: "space-between",
+      flexWrap: "wrap",
+      marginBottom: "20px",
+    },
+    orderInfo: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "4px",
+    },
+    progressBarContainer: {
+      display: "flex",
+      justifyContent: "space-between",
+      position: "relative",
+      marginBottom: "20px",
+    },
+    stepCircle: (active) => ({
+      width: "28px",
+      height: "28px",
+      borderRadius: "50%",
+      background: active ? "#007bff" : "#eee",
+      color: active ? "#fff" : "#888",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      margin: "0 auto",
+      fontSize: "14px",
+      fontWeight: "600",
+      cursor: "pointer",
+      position: "relative",
+      zIndex: 1,
+    }),
+    stepLine: (active) => ({
+      position: "absolute",
+      top: "14px",
+      left: "0",
+      width: "100%",
+      height: "4px",
+      background: active ? "#007bff" : "#eee",
+      zIndex: 0,
+    }),
+    stepLabel: { textAlign: "center", fontSize: "12px", marginTop: "6px", color: "#555" },
+    orderItems: { borderTop: "1px solid #eee", paddingTop: "15px" },
+    itemRow: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      marginBottom: "12px",
+    },
+    itemInfo: { display: "flex", alignItems: "center", gap: "15px" },
+    itemImg: { width: "60px", height: "60px", borderRadius: "12px", objectFit: "cover", border: "1px solid #eee" },
+    itemText: { display: "flex", flexDirection: "column" },
+    payment: { fontSize: "14px", color: "#555", marginTop: "10px" },
+    total: { fontWeight: "700", textAlign: "right", marginTop: "10px", fontSize: "16px" },
+    noOrders: { textAlign: "center", fontSize: "18px", marginTop: "40px", color: "#777" },
+  };
+
+  const getStepIndex = (status) => statusSteps.indexOf(status);
+
+  if (!orders || orders.length === 0) {
+    return (
+      <div style={styles.page}>
+        <h2 style={styles.heading}>My Orders</h2>
+        <p style={styles.noOrders}>You have no orders yet 🛒</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="orders-page">
-      <h2>My Orders</h2>
+    <div style={styles.page}>
+      <h2 style={styles.heading}>My Orders</h2>
 
-      {orders.length === 0 && (
-        <p>No orders yet 📦</p>
-      )}
+      {orders.map((order) => {
+        const orderTotal = order.items.reduce((sum, item) => sum + item.price * item.qty, 0);
+        const currentStep = getStepIndex(order.status);
 
-      {orders.map((order) => (
-        <div
-          key={order.id}
-          className="order-card"
-          onClick={() => setSelectedOrder(order)}
-        >
-          <div className="order-left">
-            <img src={order.items[0].images?.[0]} alt="" />
-          </div>
-
-          <div className="order-middle">
-            <h4>Order #{order.id}</h4>
-            <p>{order.items.length} item(s)</p>
-            <span className={`status ${order.status}`}>
-              {order.status}
-            </span>
-          </div>
-
-          <div className="order-right">
-            <p className="price">₹{order.total.toLocaleString()}</p>
-            <span className="date">{order.date}</span>
-          </div>
-        </div>
-      ))}
-
-      {/* 🔍 ORDER DETAILS MODAL */}
-      {selectedOrder && (
-        <div className="modal-overlay">
-          <div className="modal order-details">
-            <h3>Order #{selectedOrder.id}</h3>
-
-            {selectedOrder.items.map((item) => (
-              <div key={item.id} className="order-item">
-                <img src={item.images?.[0]} alt={item.name} />
-                <div>
-                  <p>{item.name}</p>
-                  <small>Qty: {item.quantity}</small>
-                </div>
-                <span>₹{item.price}</span>
+        return (
+          <div
+            key={order.id}
+            style={styles.orderCard}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-4px)")}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+          >
+            {/* Order Header */}
+            <div style={styles.orderHeader}>
+              <div style={styles.orderInfo}>
+                <p style={{ margin: 0, fontWeight: "600" }}>Order ID: {order.id}</p>
+                <p style={{ margin: 0, color: "#555" }}>Date: {order.date}</p>
+                <p style={{ margin: 0, color: "#555" }}>Status: {order.status}</p>
               </div>
-            ))}
+            </div>
 
-            <hr />
+            {/* Progress Steps */}
+            <div style={styles.progressBarContainer}>
+              {statusSteps.map((step, index) => {
+                const active = index <= currentStep;
+                return (
+                  <div key={step} style={{ flex: 1, position: "relative" }}>
+                    {index < statusSteps.length - 1 && <div style={styles.stepLine(index < currentStep)} />}
+                    <div
+                      style={styles.stepCircle(active)}
+                      onClick={() => dispatch(updateStatus({ id: order.id }))}
+                      title="Click to move to next status"
+                    >
+                      {index + 1}
+                    </div>
+                    <div style={styles.stepLabel}>{step}</div>
+                  </div>
+                );
+              })}
+            </div>
 
-            <p><strong>Address:</strong> {selectedOrder.address}</p>
-            <p><strong>Payment:</strong> {selectedOrder.payment}</p>
-            <p className="total">
-              ₹{selectedOrder.total.toLocaleString()}
-            </p>
-
-            <button
-              className="btn primary"
-              onClick={() => setSelectedOrder(null)}
-            >
-              Close
-            </button>
+            {/* Order Items */}
+            <div style={styles.orderItems}>
+              {order.items.map((item) => (
+                <div key={item.id} style={styles.itemRow}>
+                  <div style={styles.itemInfo}>
+                    <img src={item.img} alt={item.name} style={styles.itemImg} />
+                    <div style={styles.itemText}>
+                      <p style={{ margin: 0 }}>{item.name}</p>
+                      <p style={{ margin: 0, fontSize: "13px", color: "#555" }}>Qty: {item.qty}</p>
+                    </div>
+                  </div>
+                  <p style={{ fontWeight: "600" }}>₹{(item.price * item.qty).toLocaleString()}</p>
+                </div>
+              ))}
+              <p style={styles.payment}>Payment: {order.paymentMethod}</p>
+              <p style={styles.total}>Total: ₹{orderTotal.toLocaleString()}</p>
+            </div>
           </div>
-        </div>
-      )}
-
-      {/* 🎨 STYLES */}
-      <style>{`
-        .orders-page {
-          max-width: 900px;
-          margin: auto;
-          padding: 20px;
-        }
-
-        .order-card {
-          display: flex;
-          gap: 16px;
-          background: #fff;
-          padding: 16px;
-          border-radius: 14px;
-          margin-bottom: 14px;
-          cursor: pointer;
-          box-shadow: 0 6px 18px rgba(0,0,0,.06);
-          transition: transform .2s;
-        }
-
-        .order-card:hover {
-          transform: translateY(-3px);
-        }
-
-        .order-left img {
-          width: 80px;
-          height: 80px;
-          object-fit: cover;
-          border-radius: 10px;
-        }
-
-        .order-middle {
-          flex: 1;
-        }
-
-        .order-middle h4 {
-          margin: 0;
-        }
-
-        .status {
-          display: inline-block;
-          padding: 4px 10px;
-          border-radius: 20px;
-          font-size: 12px;
-          margin-top: 6px;
-        }
-
-        .status.placed { background: #e0f2ff; color: #0369a1; }
-        .status.delivered { background: #dcfce7; color: #166534; }
-        .status.cancelled { background: #fee2e2; color: #991b1b; }
-
-        .order-right {
-          text-align: right;
-        }
-
-        .price {
-          font-weight: 700;
-        }
-
-        .date {
-          font-size: 12px;
-          color: #777;
-        }
-
-        .order-details {
-          width: 420px;
-        }
-
-        .order-item {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          margin: 10px 0;
-        }
-
-        .order-item img {
-          width: 50px;
-          height: 50px;
-          border-radius: 8px;
-        }
-
-        .modal-overlay {
-          position: fixed;
-          inset: 0;
-          background: rgba(0,0,0,.6);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 1200;
-        }
-
-        .modal {
-          background: #fff;
-          padding: 20px;
-          border-radius: 16px;
-          animation: pop .3s ease;
-        }
-
-        @keyframes pop {
-          from { transform: scale(.85); opacity: 0 }
-          to { transform: scale(1); opacity: 1 }
-        }
-      `}</style>
+        );
+      })}
     </div>
   );
+}
+/* =======================
+   EachProductsCatogarie
+======================= */
+function EachProductsCatogarie(){
+  return <><ProductCategoryDisplay/></>
 }
 /* =======================
    APP
@@ -1513,11 +1909,18 @@ function App() {
       <Routes>
         <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
         <Route path="/products" element={user ? <Products /> : <Navigate to="/login" />} />
+        <Route path="/profile" element={user ? <Profile /> : <Navigate to="/login" />} />
         <Route path="/cart" element={user ? <Cart /> : <Navigate to="/login" />} />
           <Route
           path="/myorder"
           element={
-            user ? <Orders /> : <Navigate to="/" replace />
+            user ? <Order /> : <Navigate to="/" replace />
+          }
+        />
+         <Route
+          path="/product"
+          element={
+            user ? <EachProductsCatogarie /> : <Navigate to="/" replace />
           }
         />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />

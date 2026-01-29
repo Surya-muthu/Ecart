@@ -4,15 +4,14 @@ import './index.css';
 import './App.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { CartProvider } from './CartContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     
-       <CartProvider>
+       
       <App />  {/* All components now have access to CartContext */}
-    </CartProvider>
+
   </React.StrictMode>
 );
 
